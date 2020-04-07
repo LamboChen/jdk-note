@@ -135,6 +135,7 @@ public final class String
      * unnecessary since Strings are immutable.
      */
     public String() {
+        // 创建 char 数组，长度为 0。 new char[0] 返回 char 数组指针
         this.value = new char[0];
     }
 
@@ -149,6 +150,7 @@ public final class String
      *         A {@code String}
      */
     public String(String original) {
+        // 拷贝构造
         this.value = original.value;
         this.hash = original.hash;
     }
@@ -163,6 +165,7 @@ public final class String
      *         The initial value of the string
      */
     public String(char value[]) {
+        // 仅仅拷贝 value 值，hash 仍为默认值 0
         this.value = Arrays.copyOf(value, value.length);
     }
 
@@ -188,6 +191,11 @@ public final class String
      *          characters outside the bounds of the {@code value} array
      */
     public String(char value[], int offset, int count) {
+        /**
+         * 截取 value 的部分数据创建 String
+         * 需要确保 offset, count 均合法
+         * 并且，创建后的 String 对象 hash 值为默认值 0
+         */
         if (offset < 0) {
             throw new StringIndexOutOfBoundsException(offset);
         }
@@ -564,6 +572,8 @@ public final class String
      *         A {@code StringBuffer}
      */
     public String(StringBuffer buffer) {
+        // 确保 buffer 数据一致，即防止在 new String 的时候，原 StringBuffer 被修改
+        // 在 new String 过程中，其他线程对 buffer 对象无法进行操作
         synchronized(buffer) {
             this.value = Arrays.copyOf(buffer.getValue(), buffer.length());
         }
@@ -620,6 +630,7 @@ public final class String
      * @since 1.6
      */
     public boolean isEmpty() {
+        // 直接判断 value.length 并非判断 value 值
         return value.length == 0;
     }
 
@@ -642,6 +653,7 @@ public final class String
      *             string.
      */
     public char charAt(int index) {
+        // 下标校验
         if ((index < 0) || (index >= value.length)) {
             throw new StringIndexOutOfBoundsException(index);
         }
@@ -671,6 +683,7 @@ public final class String
      * @since      1.5
      */
     public int codePointAt(int index) {
+        // 返回指定索引处的字符(Unicode代码点)。索引是指从0 char值(Unicode代码单元)到length()- 1范围
         if ((index < 0) || (index >= value.length)) {
             throw new StringIndexOutOfBoundsException(index);
         }
@@ -2435,6 +2448,7 @@ public final class String
      * @see java.util.StringJoiner
      * @since 1.8
      */
+    // split 反操作
     public static String join(CharSequence delimiter, CharSequence... elements) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(elements);
@@ -2979,6 +2993,7 @@ public final class String
      * @see     java.lang.Object#toString()
      */
     public static String valueOf(Object obj) {
+        // 返回 "null" ？ 这是骚操作
         return (obj == null) ? "null" : obj.toString();
     }
 
@@ -3152,5 +3167,6 @@ public final class String
      * @return  a string that has the same contents as this string, but is
      *          guaranteed to be from a pool of unique strings.
      */
+    // 返回的字符串对象的规范化表示
     public native String intern();
 }
