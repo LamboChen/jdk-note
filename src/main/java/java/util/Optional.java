@@ -93,6 +93,12 @@ public final class Optional<T> {
      * @throws NullPointerException if value is null
      */
     private Optional(T value) {
+        /**
+         * value != null，直接赋值
+         * value == null, 报 NPE。
+         *
+         * 使用场景：value 一定不为空或者为空情况下程序无法继续执行
+         */
         this.value = Objects.requireNonNull(value);
     }
 
@@ -118,6 +124,9 @@ public final class Optional<T> {
      * is non-null, otherwise an empty {@code Optional}
      */
     public static <T> Optional<T> ofNullable(T value) {
+        /**
+         * value 无限制，可为 null。 常用于 value 不确定情况
+         */
         return value == null ? empty() : of(value);
     }
 
@@ -131,6 +140,9 @@ public final class Optional<T> {
      * @see Optional#isPresent()
      */
     public T get() {
+        /**
+         * 限制 value 必须存在值。 使用时，建议先用 {@link #isPresent()} 校验
+         */
         if (value == null) {
             throw new NoSuchElementException("No value present");
         }
@@ -171,6 +183,11 @@ public final class Optional<T> {
      * @throws NullPointerException if the predicate is null
      */
     public Optional<T> filter(Predicate<? super T> predicate) {
+        /**
+         * 限制 predicate 参数不能为 null，否则报 NPE
+         * 如果 value==null， 则直接返回当前 Optional。
+         * 否则，执行 predicate，满足 test 规则返回当前 Optional，否则返回空 Optional
+         */
         Objects.requireNonNull(predicate);
         if (!isPresent())
             return this;
@@ -212,6 +229,7 @@ public final class Optional<T> {
         if (!isPresent())
             return empty();
         else {
+            // 采用 mapper.apply 进行获取，需要注意，apply 返回 null 时，该方法返回 empty
             return Optional.ofNullable(mapper.apply(value));
         }
     }
@@ -310,10 +328,12 @@ public final class Optional<T> {
             return true;
         }
 
+        // 类型不一致，直接 return false
         if (!(obj instanceof Optional)) {
             return false;
         }
 
+        // 统一类型，并进行 equals
         Optional<?> other = (Optional<?>) obj;
         return Objects.equals(value, other.value);
     }
