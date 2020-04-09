@@ -361,6 +361,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      *             {@code dst.length}
      *             </ul>
      */
+    // 复制当前序列到dst
     public void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)
     {
         if (srcBegin < 0)
@@ -404,6 +405,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * @return  a reference to this object.
      */
     public AbstractStringBuilder append(Object obj) {
+        // 注意，如果是 Object，则直接将其 toString() 结果返回
         return append(String.valueOf(obj));
     }
 
@@ -426,6 +428,15 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * @return  a reference to this object.
      */
     public AbstractStringBuilder append(String str) {
+        /**
+         * String nullStr = null;
+         * String nullStrData = "null";
+         * String blankStr = "";
+         *
+         * 注意区分： data.append(null), data.append("null"), data.append("") 的区别
+         *
+         * 前两者返回结果相同
+         */
         if (str == null)
             return appendNull();
         int len = str.length();
@@ -472,6 +483,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
         return this.append(s, 0, s.length());
     }
 
+    // 等价于 append "null"
     private AbstractStringBuilder appendNull() {
         int c = count;
         ensureCapacityInternal(c + 4);
@@ -917,6 +929,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
             throw new StringIndexOutOfBoundsException(end);
         if (start > end)
             throw new StringIndexOutOfBoundsException(end - start);
+        // 重新创建 String 对象
         return new String(value, start, end - start);
     }
 
@@ -1402,6 +1415,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
             char ck = value[k];
             value[j] = ck;
             value[k] = cj;
+            // 没看懂，这个 hasSurrogates 的处理。 有人说，是处理特殊字符
             if (Character.isSurrogate(cj) ||
                 Character.isSurrogate(ck)) {
                 hasSurrogates = true;
