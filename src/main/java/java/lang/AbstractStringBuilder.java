@@ -53,6 +53,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     /**
      * The count is the number of characters used.
      */
+    // 内部存储 length
     int count;
 
     /**
@@ -87,6 +88,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * @return  the current capacity
      */
     public int capacity() {
+        // 此处获取的是 value 的容量， 并非 count（真实字符数）
         return value.length;
     }
 
@@ -117,6 +119,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      */
     private void ensureCapacityInternal(int minimumCapacity) {
         // overflow-conscious code
+        // 容量不足，进行扩容。 容量充足，不做任何处理
         if (minimumCapacity - value.length > 0)
             expandCapacity(minimumCapacity);
     }
@@ -126,9 +129,12 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * size check or synchronization.
      */
     void expandCapacity(int minimumCapacity) {
+        // 默认扩容为原容量的 2 倍 + 2
         int newCapacity = value.length * 2 + 2;
+        // 如果 2n+2 还不满足，则直接设定为 minimumCapacity
         if (newCapacity - minimumCapacity < 0)
             newCapacity = minimumCapacity;
+        // < 0 表示超出 int 范围，则直接赋值为 Integer.MAX_VALUE
         if (newCapacity < 0) {
             if (minimumCapacity < 0) // overflow
                 throw new OutOfMemoryError();
@@ -145,6 +151,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * returned by a subsequent call to the {@link #capacity()} method.
      */
     public void trimToSize() {
+        // 判断是否有空闲，如果有空闲空间，则进行缩容
         if (count < value.length) {
             value = Arrays.copyOf(value, count);
         }
@@ -178,8 +185,10 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
     public void setLength(int newLength) {
         if (newLength < 0)
             throw new StringIndexOutOfBoundsException(newLength);
+        // 确保容量，不足则扩容
         ensureCapacityInternal(newLength);
 
+        // 实际字符数不足 newLength 时，则填充 '\0'
         if (count < newLength) {
             Arrays.fill(value, count, newLength, '\0');
         }
@@ -206,6 +215,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      */
     @Override
     public char charAt(int index) {
+        // 校验下标，注意这里是 count，不是 value.length。 错误下标则直接抛异常
         if ((index < 0) || (index >= count))
             throw new StringIndexOutOfBoundsException(index);
         return value[index];
@@ -232,6 +242,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      *             argument is negative or not less than the length of this
      *             sequence.
      */
+    // 传入字符的index，返回字符串中对应字符的代码点
     public int codePointAt(int index) {
         if ((index < 0) || (index >= count)) {
             throw new StringIndexOutOfBoundsException(index);
