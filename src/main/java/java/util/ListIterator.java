@@ -69,6 +69,7 @@ public interface ListIterator<E> extends Iterator<E> {
      * @return {@code true} if the list iterator has more elements when
      *         traversing the list in the forward direction
      */
+    // 是否有下一个元素
     boolean hasNext();
 
     /**
@@ -81,6 +82,7 @@ public interface ListIterator<E> extends Iterator<E> {
      * @return the next element in the list
      * @throws NoSuchElementException if the iteration has no next element
      */
+    // 获取下一个元素
     E next();
 
     /**
@@ -92,6 +94,7 @@ public interface ListIterator<E> extends Iterator<E> {
      * @return {@code true} if the list iterator has more elements when
      *         traversing the list in the reverse direction
      */
+    // 是否有上一个元素
     boolean hasPrevious();
 
     /**
@@ -106,6 +109,7 @@ public interface ListIterator<E> extends Iterator<E> {
      * @throws NoSuchElementException if the iteration has no previous
      *         element
      */
+    // 获取上一个元素
     E previous();
 
     /**
@@ -117,6 +121,7 @@ public interface ListIterator<E> extends Iterator<E> {
      *         subsequent call to {@code next}, or list size if the list
      *         iterator is at the end of the list
      */
+    // 下一个元素的 index
     int nextIndex();
 
     /**
@@ -128,6 +133,7 @@ public interface ListIterator<E> extends Iterator<E> {
      *         subsequent call to {@code previous}, or -1 if the list
      *         iterator is at the beginning of the list
      */
+    // 上一个元素的 index
     int previousIndex();
 
 
@@ -147,6 +153,7 @@ public interface ListIterator<E> extends Iterator<E> {
      *         {@code add} have been called after the last call to
      *         {@code next} or {@code previous}
      */
+    // 移除当前元素
     void remove();
 
     /**
@@ -169,6 +176,7 @@ public interface ListIterator<E> extends Iterator<E> {
      *         {@code add} have been called after the last call to
      *         {@code next} or {@code previous}
      */
+    // 设置当前元素为传入的参数值
     void set(E e);
 
     /**
@@ -191,5 +199,6 @@ public interface ListIterator<E> extends Iterator<E> {
      * @throws IllegalArgumentException if some aspect of this element
      *         prevents it from being added to this list
      */
+    // 在当前位置新增一个元素
     void add(E e);
 }
