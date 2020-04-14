@@ -102,7 +102,7 @@ import java.util.function.UnaryOperator;
  * @see     Vector
  * @since   1.2
  */
-
+//
 public class ArrayList<E> extends AbstractList<E>
         implements List<E>, RandomAccess, Cloneable, java.io.Serializable
 {
