@@ -46,12 +46,14 @@ import sun.misc.DoubleConsts;
  * @author  Joseph D. Darcy
  * @since JDK1.0
  */
+// double 包装类型
 public final class Double extends Number implements Comparable<Double> {
     /**
      * A constant holding the positive infinity of type
      * {@code double}. It is equal to the value returned by
      * {@code Double.longBitsToDouble(0x7ff0000000000000L)}.
      */
+    // 无穷大，无效值
     public static final double POSITIVE_INFINITY = 1.0 / 0.0;
 
     /**
@@ -59,6 +61,7 @@ public final class Double extends Number implements Comparable<Double> {
      * {@code double}. It is equal to the value returned by
      * {@code Double.longBitsToDouble(0xfff0000000000000L)}.
      */
+    // 无穷小，无效值
     public static final double NEGATIVE_INFINITY = -1.0 / 0.0;
 
     /**
@@ -66,6 +69,7 @@ public final class Double extends Number implements Comparable<Double> {
      * {@code double}. It is equivalent to the value returned by
      * {@code Double.longBitsToDouble(0x7ff8000000000000L)}.
      */
+    // not a number
     public static final double NaN = 0.0d / 0.0;
 
     /**
@@ -76,6 +80,7 @@ public final class Double extends Number implements Comparable<Double> {
      * {@code 0x1.fffffffffffffP+1023} and also equal to
      * {@code Double.longBitsToDouble(0x7fefffffffffffffL)}.
      */
+    // 最大值
     public static final double MAX_VALUE = 0x1.fffffffffffffP+1023; // 1.7976931348623157e+308
 
     /**
@@ -95,6 +100,7 @@ public final class Double extends Number implements Comparable<Double> {
      * {@code 0x0.0000000000001P-1022} and also equal to
      * {@code Double.longBitsToDouble(0x1L)}.
      */
+    // 最小值
     public static final double MIN_VALUE = 0x0.0000000000001P-1022; // 4.9e-324
 
     /**
@@ -104,6 +110,7 @@ public final class Double extends Number implements Comparable<Double> {
      *
      * @since 1.6
      */
+    // 最大的指数，即 2^1023 为最大值
     public static final int MAX_EXPONENT = 1023;
 
     /**
@@ -113,6 +120,7 @@ public final class Double extends Number implements Comparable<Double> {
      *
      * @since 1.6
      */
+    // 最小指数
     public static final int MIN_EXPONENT = -1022;
 
     /**
@@ -120,6 +128,7 @@ public final class Double extends Number implements Comparable<Double> {
      *
      * @since 1.5
      */
+    // 长度
     public static final int SIZE = 64;
 
     /**
@@ -127,6 +136,7 @@ public final class Double extends Number implements Comparable<Double> {
      *
      * @since 1.8
      */
+    // 多少 bytes
     public static final int BYTES = SIZE / Byte.SIZE;
 
     /**
@@ -278,6 +288,7 @@ public final class Double extends Number implements Comparable<Double> {
      * @since 1.5
      * @author Joseph D. Darcy
      */
+    // 转化为 hex 编码的字符串
     public static String toHexString(double d) {
         /*
          * Modeled after the "a" conversion specifier in C99, section
@@ -547,6 +558,7 @@ public final class Double extends Number implements Comparable<Double> {
      *          {@code false} otherwise.
      */
     public static boolean isNaN(double v) {
+        // what ？
         return (v != v);
     }
 
@@ -572,6 +584,7 @@ public final class Double extends Number implements Comparable<Double> {
      * floating-point value, {@code false} otherwise.
      * @since 1.8
      */
+    // 是否有限，对于 double 能够正常解析
     public static boolean isFinite(double d) {
         return Math.abs(d) <= DoubleConsts.MAX_VALUE;
     }
