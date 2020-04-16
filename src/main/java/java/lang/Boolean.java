@@ -47,6 +47,7 @@ public final class Boolean implements java.io.Serializable,
      * The {@code Boolean} object corresponding to the primitive
      * value {@code true}.
      */
+    // 公用实例
     public static final Boolean TRUE = new Boolean(true);
 
     /**
@@ -119,6 +120,7 @@ public final class Boolean implements java.io.Serializable,
      * @since 1.5
      */
     public static boolean parseBoolean(String s) {
+        // 是否为 "true" 字符串
         return ((s != null) && s.equalsIgnoreCase("true"));
     }
 
@@ -174,6 +176,7 @@ public final class Boolean implements java.io.Serializable,
      * @since 1.4
      */
     public static String toString(boolean b) {
+        // 骚操作 ？
         return b ? "true" : "false";
     }
 
@@ -210,6 +213,8 @@ public final class Boolean implements java.io.Serializable,
      * @since 1.8
      */
     public static int hashCode(boolean value) {
+        // true:1231 false:1237 ?
+        // what ？
         return value ? 1231 : 1237;
     }
 
@@ -251,6 +256,7 @@ public final class Boolean implements java.io.Serializable,
     public static boolean getBoolean(String name) {
         boolean result = false;
         try {
+            // 从系统变量中获取？
             result = parseBoolean(System.getProperty(name));
         } catch (IllegalArgumentException | NullPointerException e) {
         }
@@ -301,6 +307,7 @@ public final class Boolean implements java.io.Serializable,
      * @see java.util.function.BinaryOperator
      * @since 1.8
      */
+    // 逻辑与
     public static boolean logicalAnd(boolean a, boolean b) {
         return a && b;
     }
@@ -315,6 +322,7 @@ public final class Boolean implements java.io.Serializable,
      * @see java.util.function.BinaryOperator
      * @since 1.8
      */
+    // 逻辑或
     public static boolean logicalOr(boolean a, boolean b) {
         return a || b;
     }
@@ -329,6 +337,7 @@ public final class Boolean implements java.io.Serializable,
      * @see java.util.function.BinaryOperator
      * @since 1.8
      */
+    // 异或
     public static boolean logicalXor(boolean a, boolean b) {
         return a ^ b;
     }
