@@ -101,6 +101,7 @@ public abstract class Number implements java.io.Serializable {
      * @since   JDK1.1
      */
     public byte byteValue() {
+        // 直接调用 intValue()， 意味着，可能会有强转错误
         return (byte)intValue();
     }
 
