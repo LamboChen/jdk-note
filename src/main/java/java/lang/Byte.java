@@ -41,12 +41,14 @@ package java.lang;
  * @see     java.lang.Number
  * @since   JDK1.1
  */
+// byte 包装类型
 public final class Byte extends Number implements Comparable<Byte> {
 
     /**
      * A constant holding the minimum value a {@code byte} can
      * have, -2<sup>7</sup>.
      */
+    // 最小 -128 -2^8
     public static final byte   MIN_VALUE = -128;
 
     /**
@@ -71,9 +73,11 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @see java.lang.Integer#toString(int)
      */
     public static String toString(byte b) {
+        // 直接将 byte 转换为 10 进制
         return Integer.toString((int)b, 10);
     }
 
+    // 内部缓存池，值都是从缓存值中获取
     private static class ByteCache {
         private ByteCache(){}
 
@@ -100,6 +104,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public static Byte valueOf(byte b) {
         final int offset = 128;
+        // 从缓存中获取
         return ByteCache.cache[(int)b + offset];
     }
 
@@ -146,8 +151,10 @@ public final class Byte extends Number implements Comparable<Byte> {
      */
     public static byte parseByte(String s, int radix)
         throws NumberFormatException {
+        // 采用 Integer 做解析
         int i = Integer.parseInt(s, radix);
         if (i < MIN_VALUE || i > MAX_VALUE)
+            // 校验是否为 byte 范围内
             throw new NumberFormatException(
                 "Value out of range. Value:\"" + s + "\" Radix:" + radix);
         return (byte)i;
@@ -172,6 +179,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *                  contain a parsable {@code byte}.
      */
     public static byte parseByte(String s) throws NumberFormatException {
+        // 默认采用十进制进行解析
         return parseByte(s, 10);
     }
 
@@ -274,6 +282,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @see java.lang.Byte#parseByte(java.lang.String, int)
      */
     public static Byte decode(String nm) throws NumberFormatException {
+        // 采用 Integer 进行解析
         int i = Integer.decode(nm);
         if (i < MIN_VALUE || i > MAX_VALUE)
             throw new NumberFormatException(
@@ -403,6 +412,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      * @since 1.8
      */
     public static int hashCode(byte value) {
+        // hash 即为对应的 ascii 值
         return (int)value;
     }
 
@@ -474,6 +484,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *         conversion
      * @since 1.8
      */
+    // 返回无符号整型
     public static int toUnsignedInt(byte x) {
         return ((int) x) & 0xff;
     }
@@ -505,6 +516,7 @@ public final class Byte extends Number implements Comparable<Byte> {
      *
      * @since 1.5
      */
+    // 长度为 8
     public static final int SIZE = 8;
 
     /**
