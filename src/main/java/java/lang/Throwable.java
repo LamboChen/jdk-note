@@ -111,6 +111,7 @@ import  java.util.*;
  * @jls 11.2 Compile-Time Checking of Exceptions
  * @since JDK1.0
  */
+// Throwable 可抛出的
 public class Throwable implements Serializable {
     /** use serialVersionUID from JDK 1.0.2 for interoperability */
     private static final long serialVersionUID = -3042686055658047285L;
@@ -118,6 +119,7 @@ public class Throwable implements Serializable {
     /**
      * Native code saves some indication of the stack backtrace in this slot.
      */
+    // native 代码在此槽中保存堆栈回溯的一些指示
     private transient Object backtrace;
 
     /**
@@ -134,6 +136,7 @@ public class Throwable implements Serializable {
      * Holder class to defer initializing sentinel objects only used
      * for serialization.
      */
+    // 哨兵 Holder， 仅用于序列化
     private static class SentinelHolder {
         /**
          * {@linkplain #setStackTrace(StackTraceElement[]) Setting the
@@ -142,6 +145,7 @@ public class Throwable implements Serializable {
          * ignored.  The sentinal is equal to the result of calling:<br>
          * {@code new StackTraceElement("", "", null, Integer.MIN_VALUE)}
          */
+        // 堆栈信息
         public static final StackTraceElement STACK_TRACE_ELEMENT_SENTINEL =
             new StackTraceElement("", "", null, Integer.MIN_VALUE);
 
@@ -194,6 +198,7 @@ public class Throwable implements Serializable {
      * @serial
      * @since 1.4
      */
+    // 原因
     private Throwable cause = this;
 
     /**
@@ -207,6 +212,7 @@ public class Throwable implements Serializable {
      * @serial
      * @since 1.4
      */
+    // 堆栈
     private StackTraceElement[] stackTrace = UNASSIGNED_STACK;
 
     // Setting this static field introduces an acceptable
@@ -227,9 +233,11 @@ public class Throwable implements Serializable {
     private List<Throwable> suppressedExceptions = SUPPRESSED_SENTINEL;
 
     /** Message for trying to suppress a null exception. */
+    // null 信息
     private static final String NULL_CAUSE_MESSAGE = "Cannot suppress a null exception.";
 
     /** Message for trying to suppress oneself. */
+    // 自我控制？
     private static final String SELF_SUPPRESSION_MESSAGE = "Self-suppression not permitted";
 
     /** Caption  for labeling causative exception stack traces */
@@ -777,6 +785,7 @@ public class Throwable implements Serializable {
      * @return  a reference to this {@code Throwable} instance.
      * @see     java.lang.Throwable#printStackTrace()
      */
+    // 填充堆栈信息
     public synchronized Throwable fillInStackTrace() {
         if (stackTrace != null ||
             backtrace != null /* Out of protocol state */ ) {
