@@ -32,6 +32,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 非法参数异常
 public
 class IllegalArgumentException extends RuntimeException {
     /**
