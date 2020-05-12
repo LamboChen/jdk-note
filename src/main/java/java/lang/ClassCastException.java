@@ -37,6 +37,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 类转换异常
 public
 class ClassCastException extends RuntimeException {
     private static final long serialVersionUID = -9223365651070458532L;
