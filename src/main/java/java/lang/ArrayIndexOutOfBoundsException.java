@@ -53,6 +53,7 @@ class ArrayIndexOutOfBoundsException extends IndexOutOfBoundsException {
      * @param   index   the illegal index.
      */
     public ArrayIndexOutOfBoundsException(int index) {
+        // 自定义 message
         super("Array index out of range: " + index);
     }
 
