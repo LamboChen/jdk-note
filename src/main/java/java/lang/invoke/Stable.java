@@ -69,5 +69,6 @@ import java.lang.annotation.*;
 /* package-private */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+// 稳定的
 @interface Stable {
 }
