@@ -48,6 +48,7 @@ import java.io.IOException;
  *
  * @since 1.5
  */
+// 可追加的
 public interface Appendable {
 
     /**
@@ -68,6 +69,7 @@ public interface Appendable {
      * @throws  IOException
      *          If an I/O error occurs
      */
+    // 最佳字符序列
     Appendable append(CharSequence csq) throws IOException;
 
     /**
@@ -104,6 +106,7 @@ public interface Appendable {
      * @throws  IOException
      *          If an I/O error occurs
      */
+    // 追加字符序列，从给定的字符序列中选择 start to end
     Appendable append(CharSequence csq, int start, int end) throws IOException;
 
     /**
@@ -117,5 +120,6 @@ public interface Appendable {
      * @throws  IOException
      *          If an I/O error occurs
      */
+    // 追加一个字节
     Appendable append(char c) throws IOException;
 }
