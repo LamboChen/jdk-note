@@ -37,6 +37,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 数组存储异常. 向数组中存储一个错误的类型
 public
 class ArrayStoreException extends RuntimeException {
     private static final long serialVersionUID = -4522193890499838241L;
