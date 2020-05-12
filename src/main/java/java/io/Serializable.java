@@ -166,5 +166,6 @@ package java.io;
  * @see java.io.Externalizable
  * @since   JDK1.1
  */
+// 可序列化的
 public interface Serializable {
 }

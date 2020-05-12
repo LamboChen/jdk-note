@@ -50,5 +50,6 @@ package java.lang;
  * @see     java.lang.Object#clone()
  * @since   JDK1.0
  */
+// 可被克隆的
 public interface Cloneable {
 }

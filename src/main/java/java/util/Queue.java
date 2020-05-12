@@ -141,7 +141,25 @@ package java.util;
  * @author Doug Lea
  * @param <E> the type of elements held in this collection
  */
+// 队列
 public interface Queue<E> extends Collection<E> {
+
+
+    /**
+     * add         增加一个元索                      如果队列已满，则抛出一个IIIegaISlabEepeplian异常
+     * remove   移除并返回队列头部的元素     如果队列为空，则抛出一个NoSuchElementException异常
+     * element  返回队列头部的元素              如果队列为空，则抛出一个NoSuchElementException异常
+     * offer       添加一个元素并返回true        如果队列已满，则返回false
+     * poll         移除并返问队列头部的元素     如果队列为空，则返回null
+     * peek       返回队列头部的元素              如果队列为空，则返回null
+     * put         添加一个元素                       如果队列满，则阻塞
+     * take        移除并返回队列头部的元素 
+     * ————————————————
+     * 版权声明：本文为CSDN博主「行者小朱」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+     * 原文链接：https://blog.csdn.net/u012050154/article/details/60572567
+     */
+
+
     /**
      * Inserts the specified element into this queue if it is possible to do so
      * immediately without violating capacity restrictions, returning
@@ -159,6 +177,7 @@ public interface Queue<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
+    // 新增
     boolean add(E e);
 
     /**
@@ -178,6 +197,7 @@ public interface Queue<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of this element
      *         prevents it from being added to this queue
      */
+    // 新增元素
     boolean offer(E e);
 
     /**
@@ -188,6 +208,7 @@ public interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+    // 删除元素
     E remove();
 
     /**
@@ -196,6 +217,7 @@ public interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
+    // 删除头部
     E poll();
 
     /**
@@ -206,6 +228,7 @@ public interface Queue<E> extends Collection<E> {
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+    // 获取元素值，但不弹出
     E element();
 
     /**
@@ -214,5 +237,6 @@ public interface Queue<E> extends Collection<E> {
      *
      * @return the head of this queue, or {@code null} if this queue is empty
      */
+    // 获取元素值，但不弹出
     E peek();
 }
