@@ -42,6 +42,7 @@ package java.lang;
  * @jls 11.2 Compile-Time Checking of Exceptions
  * @since   JDK1.0
  */
+// 异常类，无自有方法。 仅提供几个构造，并且均调用 Throwable
 public class Exception extends Throwable {
     static final long serialVersionUID = -3387516993124229948L;
 
