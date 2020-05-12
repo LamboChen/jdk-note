@@ -41,6 +41,7 @@ package java.lang;
  * @author  Frank Yellin
  * @since   JDK1.1
  */
+// 异常初始化 错误
 public class ExceptionInInitializerError extends LinkageError {
     /**
      * Use serialVersionUID from JDK 1.1.X for interoperability

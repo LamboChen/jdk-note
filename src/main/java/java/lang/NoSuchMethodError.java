@@ -37,6 +37,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 方法不存在 错误
 public
 class NoSuchMethodError extends IncompatibleClassChangeError {
     private static final long serialVersionUID = -3765521442372831335L;

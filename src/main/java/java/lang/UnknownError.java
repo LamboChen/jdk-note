@@ -32,6 +32,7 @@ package java.lang;
  * @author unascribed
  * @since   JDK1.0
  */
+// 未知错误
 public
 class UnknownError extends VirtualMachineError {
     private static final long serialVersionUID = 2524784860676771849L;

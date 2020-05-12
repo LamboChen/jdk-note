@@ -33,6 +33,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 不匹配类改变 错误
 public
 class IncompatibleClassChangeError extends LinkageError {
     private static final long serialVersionUID = -4914975503642802119L;

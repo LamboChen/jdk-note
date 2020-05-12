@@ -33,6 +33,7 @@ package java.lang;
  * @see     java.lang.Runtime
  * @since   JDK1.0
  */
+// 未处理的 连环 错误
 public
 class UnsatisfiedLinkError extends LinkageError {
     private static final long serialVersionUID = -4019343241616879428L;

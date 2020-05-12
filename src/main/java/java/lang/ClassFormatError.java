@@ -33,6 +33,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 类格式化 错误
 public
 class ClassFormatError extends LinkageError {
     private static final long serialVersionUID = -8420114879011949195L;

@@ -38,6 +38,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 类未定义 错误
 public
 class NoClassDefFoundError extends LinkageError {
     private static final long serialVersionUID = 9095859863287012458L;

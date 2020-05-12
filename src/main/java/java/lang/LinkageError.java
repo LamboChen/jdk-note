@@ -34,6 +34,7 @@ package java.lang;
  * @author  Frank Yellin
  * @since   JDK1.0
  */
+// 连锁、连环错误
 public
 class LinkageError extends Error {
     private static final long serialVersionUID = 3579600108157160122L;

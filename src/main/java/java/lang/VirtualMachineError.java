@@ -33,6 +33,7 @@ package java.lang;
  * @author  Frank Yellin
  * @since   JDK1.0
  */
+// 虚拟机 错误
 abstract public class VirtualMachineError extends Error {
     private static final long serialVersionUID = 4161983926571568670L;
 

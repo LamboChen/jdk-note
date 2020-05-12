@@ -32,6 +32,7 @@ package java.lang;
  * @author unascribed
  * @since   JDK1.0
  */
+// 栈溢出 错误
 public
 class StackOverflowError extends VirtualMachineError {
     private static final long serialVersionUID = 8609175038441759607L;

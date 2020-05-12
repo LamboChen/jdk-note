@@ -46,6 +46,7 @@ package java.lang;
  * @jls 11.2 Compile-Time Checking of Exceptions
  * @since   JDK1.0
  */
+// 错误
 public class Error extends Throwable {
     static final long serialVersionUID = 4980196508277280342L;
 
