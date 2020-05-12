@@ -38,12 +38,14 @@ import java.lang.reflect.Method;
  * @see     java.lang.reflect.AnnotatedElement
  * @since 1.5
  */
+// 注解类型不匹配 异常
 public class AnnotationTypeMismatchException extends RuntimeException {
     private static final long serialVersionUID = 8125925355765570191L;
 
     /**
      * The <tt>Method</tt> object for the annotation element.
      */
+    // 被注解的方法
     private final Method element;
 
     /**
@@ -51,6 +53,7 @@ public class AnnotationTypeMismatchException extends RuntimeException {
      * may, but is not required to, contain the value as well.  The exact
      * format of the string is unspecified.
      */
+    // 注解被发现的类型
     private final String foundType;
 
     /**

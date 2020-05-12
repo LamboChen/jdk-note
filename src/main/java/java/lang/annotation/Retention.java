@@ -43,6 +43,7 @@ package java.lang.annotation;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
+// 注解保留时间 设定
 public @interface Retention {
     /**
      * Returns the retention policy.

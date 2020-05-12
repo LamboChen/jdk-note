@@ -41,6 +41,8 @@ package java.lang.annotation;
  * @author  Josh Bloch
  * @since   1.5
  */
+
+// 注解接口
 public interface Annotation {
     /**
      * Returns true if the specified object represents an annotation
@@ -132,5 +134,6 @@ public interface Annotation {
      * Returns the annotation type of this annotation.
      * @return the annotation type of this annotation
      */
+    // 注解类型
     Class<? extends Annotation> annotationType();
 }

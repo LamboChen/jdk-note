@@ -38,10 +38,14 @@ package java.lang.annotation;
  * @see     java.lang.reflect.AnnotatedElement
  * @since 1.5
  */
+// 畸形？不正确 的注解异常
 public class IncompleteAnnotationException extends RuntimeException {
     private static final long serialVersionUID = 8445097402741811912L;
 
+    // 注解类型
     private Class<? extends Annotation> annotationType;
+
+    // 元素名称
     private String elementName;
 
     /**
