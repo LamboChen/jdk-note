@@ -129,6 +129,7 @@ public class Throwable implements Serializable {
      *
      * @serial
      */
+    // 详细信息
     private String detailMessage;
 
 
@@ -244,6 +245,7 @@ public class Throwable implements Serializable {
     private static final String CAUSE_CAPTION = "Caused by: ";
 
     /** Caption for labeling suppressed exception stack traces */
+    // 用于标记受抑制异常堆栈跟踪的标题
     private static final String SUPPRESSED_CAPTION = "Suppressed: ";
 
     /**
@@ -361,6 +363,7 @@ public class Throwable implements Serializable {
      * @see ArithmeticException
      * @since 1.7
      */
+    // 受保护的构造方法
     protected Throwable(String message, Throwable cause,
                         boolean enableSuppression,
                         boolean writableStackTrace) {
@@ -419,6 +422,7 @@ public class Throwable implements Serializable {
      *          cause is nonexistent or unknown.
      * @since 1.4
      */
+    // 同步方法，线程安全
     public synchronized Throwable getCause() {
         return (cause==this ? null : cause);
     }
@@ -460,6 +464,7 @@ public class Throwable implements Serializable {
      * @since  1.4
      */
     public synchronized Throwable initCause(Throwable cause) {
+        // 不能多次赋值
         if (this.cause != this)
             throw new IllegalStateException("Can't overwrite cause with " +
                                             Objects.toString(cause, "a null"), this);
@@ -638,7 +643,9 @@ public class Throwable implements Serializable {
      *          ... 2 more
      * </pre>
      */
+    // 打印堆栈信息
     public void printStackTrace() {
+        // 默认采用 System.err
         printStackTrace(System.err);
     }
 
