@@ -37,17 +37,20 @@ package java.lang;
  * @since   1.5
  */
 @SuppressWarnings("rawtypes") /* rawtypes are part of the public api */
+// 枚举常量不存在 异常
 public class EnumConstantNotPresentException extends RuntimeException {
     private static final long serialVersionUID = -6046998521960521108L;
 
     /**
      * The type of the missing enum constant.
      */
+    // 缺失的枚举类型
     private Class<? extends Enum> enumType;
 
     /**
      * The name of the missing enum constant.
      */
+    // 常量名称
     private String constantName;
 
     /**

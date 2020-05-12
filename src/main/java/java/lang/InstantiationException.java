@@ -42,6 +42,7 @@ package java.lang;
  * @see     java.lang.Class#newInstance()
  * @since   JDK1.0
  */
+// 实例化异常
 public
 class InstantiationException extends ReflectiveOperationException {
     private static final long serialVersionUID = -8441929162975509110L;

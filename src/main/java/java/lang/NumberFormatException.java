@@ -34,6 +34,7 @@ package java.lang;
  * @see     java.lang.Integer#parseInt(String)
  * @since   JDK1.0
  */
+// 数据格式化异常
 public
 class NumberFormatException extends IllegalArgumentException {
     static final long serialVersionUID = -2848938806368998894L;

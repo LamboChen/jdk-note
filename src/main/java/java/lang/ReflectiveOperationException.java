@@ -32,6 +32,7 @@ package java.lang;
  * @see LinkageError
  * @since 1.7
  */
+// 反射操作异常
 public class ReflectiveOperationException extends Exception {
     static final long serialVersionUID = 123456789L;
 
