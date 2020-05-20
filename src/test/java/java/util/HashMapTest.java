@@ -9,7 +9,7 @@ public class HashMapTest {
         hashMap.put("k2", 0.2);
 
         for (Map.Entry<String, Double> entry : hashMap.entrySet()) {
-            java.lang.System.out.println(entry.getKey() + ":" + entry.getValue());
+            System.out.println(entry.getKey() + ":" + entry.getValue());
         }
     }
 
