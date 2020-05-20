@@ -38,6 +38,7 @@ public enum RetentionPolicy {
     /**
      * Annotations are to be discarded by the compiler.
      */
+    // 源代码阶段
     SOURCE,
 
     /**
@@ -45,6 +46,7 @@ public enum RetentionPolicy {
      * but need not be retained by the VM at run time.  This is the default
      * behavior.
      */
+    // 字节码
     CLASS,
 
     /**
@@ -53,5 +55,6 @@ public enum RetentionPolicy {
      *
      * @see java.lang.reflect.AnnotatedElement
      */
+    // 运行时
     RUNTIME
 }

@@ -38,6 +38,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 算术异常
 public class ArithmeticException extends RuntimeException {
     private static final long serialVersionUID = 2256477558314496007L;
 

@@ -65,7 +65,7 @@ package java.util;
  * @see AbstractCollection
  * @since 1.2
  */
-
+// Sequential: 有序的
 public abstract class AbstractSequentialList<E> extends AbstractList<E> {
     /**
      * Sole constructor.  (For invocation by subclass constructors, typically

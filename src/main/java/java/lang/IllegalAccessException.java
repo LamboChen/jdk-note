@@ -56,6 +56,7 @@ package java.lang;
  * @see     java.lang.reflect.Constructor#newInstance(Object[])
  * @since   JDK1.0
  */
+// 非法访问异常
 public class IllegalAccessException extends ReflectiveOperationException {
     private static final long serialVersionUID = 6616958222490762034L;
 

@@ -33,6 +33,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 校验 错误
 public
 class VerifyError extends LinkageError {
     private static final long serialVersionUID = 7001962396098498785L;

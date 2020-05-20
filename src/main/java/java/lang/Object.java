@@ -38,6 +38,7 @@ public class Object {
 
     private static native void registerNatives();
     static {
+        // 注册 native 方法，采用 C 实现
         registerNatives();
     }
 
@@ -60,6 +61,7 @@ public class Object {
      *         class of this object.
      * @jls 15.8.2 Class Literals
      */
+    // 获取类信息
     public final native Class<?> getClass();
 
     /**
@@ -146,6 +148,7 @@ public class Object {
      * @see     java.util.HashMap
      */
     public boolean equals(Object obj) {
+        // 直接比对两个对象的地址，子类在使用的时候，尽量重写 equals
         return (this == obj);
     }
 
@@ -209,6 +212,9 @@ public class Object {
      *               be cloned.
      * @see java.lang.Cloneable
      */
+    /**
+     * 需要实现 {@link Cloneable}, 否则会抛 异常
+     */
     protected native Object clone() throws CloneNotSupportedException;
 
     /**
@@ -233,6 +239,7 @@ public class Object {
      * @return  a string representation of the object.
      */
     public String toString() {
+        // 默认实现，"类的权限定名@「十六进制的hashCode」， 子类尽量重写 toString，方便记录数据
         return getClass().getName() + "@" + Integer.toHexString(hashCode());
     }
 
@@ -268,6 +275,9 @@ public class Object {
      * @see        java.lang.Object#notifyAll()
      * @see        java.lang.Object#wait()
      */
+    /**
+     * 用于通知其他线程（对同一资源进行 wait 的线程），只能随机 notify 一个线程
+     */
     public final native void notify();
 
     /**
@@ -291,6 +301,9 @@ public class Object {
      *               the owner of this object's monitor.
      * @see        java.lang.Object#notify()
      * @see        java.lang.Object#wait()
+     */
+    /**
+     * 用于通知所有线程（对同一资源进行 wait 的线程）
      */
     public final native void notifyAll();
 
@@ -378,6 +391,12 @@ public class Object {
      *             this exception is thrown.
      * @see        java.lang.Object#notify()
      * @see        java.lang.Object#notifyAll()
+     */
+    /**
+     * 对某一资源放弃持有锁，其他线程可获取该资源。
+     * 同时，当前线程将会被挂起，要么被其他资源 notify 或 notifyAll，要么超时退出
+     *
+     * 如果当前线程处于 wait 状态，被其他线程执行了 interrupt ，则会抛出 中断异常
      */
     public final native void wait(long timeout) throws InterruptedException;
 
@@ -551,6 +570,9 @@ public class Object {
      * @see java.lang.ref.WeakReference
      * @see java.lang.ref.PhantomReference
      * @jls 12.6 Finalization of Class Instances
+     */
+    /**
+     * 垃圾回收器准备释放内存的时候，会先调用finalize()
      */
     protected void finalize() throws Throwable { }
 }

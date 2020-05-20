@@ -40,7 +40,7 @@ package java.lang;
  * @see     java.lang.Object#clone()
  * @since   JDK1.0
  */
-
+// 不支持克隆异常。 待处理类未实现 Cloneable
 public
 class CloneNotSupportedException extends Exception {
     private static final long serialVersionUID = 5195511250079656443L;

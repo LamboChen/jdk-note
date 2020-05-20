@@ -31,6 +31,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 错误数组容量
 public
 class NegativeArraySizeException extends RuntimeException {
     private static final long serialVersionUID = -8960118058596991861L;

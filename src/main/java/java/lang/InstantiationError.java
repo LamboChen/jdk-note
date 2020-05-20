@@ -37,7 +37,7 @@ package java.lang;
  * @since   JDK1.0
  */
 
-
+// 实例化 错误
 public
 class InstantiationError extends IncompatibleClassChangeError {
     private static final long serialVersionUID = -4885810657349421204L;

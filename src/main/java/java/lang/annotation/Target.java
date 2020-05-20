@@ -76,6 +76,7 @@ package java.lang.annotation;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
+// 注解目标
 public @interface Target {
     /**
      * Returns an array of the kinds of elements an annotation type

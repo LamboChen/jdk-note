@@ -33,6 +33,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 数组下标越界异常
 public
 class ArrayIndexOutOfBoundsException extends IndexOutOfBoundsException {
     private static final long serialVersionUID = -5116101128118950844L;
@@ -52,6 +53,7 @@ class ArrayIndexOutOfBoundsException extends IndexOutOfBoundsException {
      * @param   index   the illegal index.
      */
     public ArrayIndexOutOfBoundsException(int index) {
+        // 自定义 message
         super("Array index out of range: " + index);
     }
 

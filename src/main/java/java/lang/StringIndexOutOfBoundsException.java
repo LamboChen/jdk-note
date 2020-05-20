@@ -35,6 +35,7 @@ package java.lang;
  * @see     java.lang.String#charAt(int)
  * @since   JDK1.0
  */
+// 字符串下标越界异常
 public
 class StringIndexOutOfBoundsException extends IndexOutOfBoundsException {
     private static final long serialVersionUID = -6762910422159637258L;
@@ -66,6 +67,7 @@ class StringIndexOutOfBoundsException extends IndexOutOfBoundsException {
      * @param   index   the illegal index.
      */
     public StringIndexOutOfBoundsException(int index) {
+        // 自定义异常 message
         super("String index out of range: " + index);
     }
 }

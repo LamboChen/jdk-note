@@ -39,5 +39,6 @@ package java.lang.annotation;
 @Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.SOURCE)
+// 本地的，native
 public @interface Native {
 }

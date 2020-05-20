@@ -35,6 +35,7 @@ package java.lang;
  * @author John Rose, JSR 292 EG
  * @since 1.7
  */
+// 启动、引导方法 错误
 public class BootstrapMethodError extends LinkageError {
     private static final long serialVersionUID = 292L;
 

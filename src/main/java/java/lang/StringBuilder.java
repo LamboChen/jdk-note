@@ -73,6 +73,7 @@ package java.lang;
  * @see         java.lang.String
  * @since       1.5
  */
+// 方法，均，直接调用，parent
 public final class StringBuilder
     extends AbstractStringBuilder
     implements java.io.Serializable, CharSequence
@@ -86,6 +87,7 @@ public final class StringBuilder
      * initial capacity of 16 characters.
      */
     public StringBuilder() {
+        // 默认分配 16 个字符空间
         super(16);
     }
 

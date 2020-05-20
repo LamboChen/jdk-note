@@ -50,6 +50,7 @@ package java.lang;
  * @see     java.lang.ClassLoader#loadClass(java.lang.String, boolean)
  * @since   JDK1.0
  */
+// 类找不到
 public class ClassNotFoundException extends ReflectiveOperationException {
     /**
      * use serialVersionUID from JDK 1.1.X for interoperability
@@ -63,6 +64,7 @@ public class ClassNotFoundException extends ReflectiveOperationException {
      * @serial
      * @since 1.2
      */
+    // 自有存储一份？
     private Throwable ex;
 
     /**
@@ -107,7 +109,9 @@ public class ClassNotFoundException extends ReflectiveOperationException {
      * @return the <code>Exception</code> that was raised while loading a class
      * @since 1.2
      */
+    // 此处返回 Exception ?
     public Throwable getException() {
+        // 获取的是自有的 ex
         return ex;
     }
 

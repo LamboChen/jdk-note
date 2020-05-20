@@ -190,6 +190,7 @@ package java.util;
  * @since  1.6
  * @param <E> the type of elements held in this collection
  */
+// 双端队列
 public interface Deque<E> extends Queue<E> {
     /**
      * Inserts the specified element at the front of this deque if it is
@@ -208,6 +209,7 @@ public interface Deque<E> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    // 头部添加元素
     void addFirst(E e);
 
     /**
@@ -229,6 +231,7 @@ public interface Deque<E> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    // 尾部添加
     void addLast(E e);
 
     /**
@@ -247,6 +250,7 @@ public interface Deque<E> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    // 头部添加元素，不抛异常
     boolean offerFirst(E e);
 
     /**
@@ -265,6 +269,7 @@ public interface Deque<E> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    // 尾部添加元素，不抛异常
     boolean offerLast(E e);
 
     /**
@@ -275,6 +280,7 @@ public interface Deque<E> extends Queue<E> {
      * @return the head of this deque
      * @throws NoSuchElementException if this deque is empty
      */
+    // 移除头部元素
     E removeFirst();
 
     /**
@@ -285,6 +291,7 @@ public interface Deque<E> extends Queue<E> {
      * @return the tail of this deque
      * @throws NoSuchElementException if this deque is empty
      */
+    // 移除尾部元素
     E removeLast();
 
     /**
@@ -293,6 +300,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
+    // 移除头部元素。不抛异常
     E pollFirst();
 
     /**
@@ -301,6 +309,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @return the tail of this deque, or {@code null} if this deque is empty
      */
+    // 移除尾部元素，不抛异常
     E pollLast();
 
     /**
@@ -312,6 +321,7 @@ public interface Deque<E> extends Queue<E> {
      * @return the head of this deque
      * @throws NoSuchElementException if this deque is empty
      */
+    // 获取头部元素，不会 remove
     E getFirst();
 
     /**
@@ -322,6 +332,7 @@ public interface Deque<E> extends Queue<E> {
      * @return the tail of this deque
      * @throws NoSuchElementException if this deque is empty
      */
+    // 获取尾部元素，不会 remove
     E getLast();
 
     /**
@@ -330,6 +341,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @return the head of this deque, or {@code null} if this deque is empty
      */
+    // 获取头部元素
     E peekFirst();
 
     /**
@@ -338,6 +350,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @return the tail of this deque, or {@code null} if this deque is empty
      */
+    // 获取尾部元素
     E peekLast();
 
     /**
@@ -358,6 +371,7 @@ public interface Deque<E> extends Queue<E> {
      *         deque does not permit null elements
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
+    // 移除第一个出现（匹配上）的元素
     boolean removeFirstOccurrence(Object o);
 
     /**
@@ -378,6 +392,7 @@ public interface Deque<E> extends Queue<E> {
      *         deque does not permit null elements
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
+    // 移除最后一个匹配上的元素
     boolean removeLastOccurrence(Object o);
 
     // *** Queue methods ***
@@ -404,6 +419,7 @@ public interface Deque<E> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    // 新增元素
     boolean add(E e);
 
     /**
@@ -427,6 +443,7 @@ public interface Deque<E> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    // 新增元素，不会抛异常
     boolean offer(E e);
 
     /**
@@ -440,6 +457,7 @@ public interface Deque<E> extends Queue<E> {
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
+    // 删除元素
     E remove();
 
     /**
@@ -452,6 +470,7 @@ public interface Deque<E> extends Queue<E> {
      * @return the first element of this deque, or {@code null} if
      *         this deque is empty
      */
+    // 删除元素，不抛异常
     E poll();
 
     /**
@@ -465,6 +484,7 @@ public interface Deque<E> extends Queue<E> {
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
+    // 获取元素值
     E element();
 
     /**
@@ -477,6 +497,7 @@ public interface Deque<E> extends Queue<E> {
      * @return the head of the queue represented by this deque, or
      *         {@code null} if this deque is empty
      */
+    // 获取元素值，不抛异常
     E peek();
 
 
@@ -500,6 +521,7 @@ public interface Deque<E> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this deque
      */
+    // push 压栈
     void push(E e);
 
     /**
@@ -512,6 +534,7 @@ public interface Deque<E> extends Queue<E> {
      *         of the stack represented by this deque)
      * @throws NoSuchElementException if this deque is empty
      */
+    // 弹栈
     E pop();
 
 
@@ -537,6 +560,7 @@ public interface Deque<E> extends Queue<E> {
      *         deque does not permit null elements
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
+    // 删除元素
     boolean remove(Object o);
 
     /**
@@ -554,6 +578,7 @@ public interface Deque<E> extends Queue<E> {
      *         deque does not permit null elements
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
+    // 是否包含某元素
     boolean contains(Object o);
 
     /**
@@ -561,6 +586,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @return the number of elements in this deque
      */
+    // 获取尺寸
     public int size();
 
     /**
@@ -569,6 +595,7 @@ public interface Deque<E> extends Queue<E> {
      *
      * @return an iterator over the elements in this deque in proper sequence
      */
+    // 获取迭代器
     Iterator<E> iterator();
 
     /**
@@ -579,6 +606,7 @@ public interface Deque<E> extends Queue<E> {
      * @return an iterator over the elements in this deque in reverse
      * sequence
      */
+    // 反向迭代器
     Iterator<E> descendingIterator();
 
 }

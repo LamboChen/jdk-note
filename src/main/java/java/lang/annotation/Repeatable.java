@@ -39,6 +39,7 @@ package java.lang.annotation;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
+// 可重复的。 元注解，可重复使用注解
 public @interface Repeatable {
     /**
      * Indicates the <em>containing annotation type</em> for the

@@ -35,6 +35,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 抽象方法错误。 当一个程序试图调用抽象方法时
 public
 class AbstractMethodError extends IncompatibleClassChangeError {
     private static final long serialVersionUID = -1654391082989018462L;

@@ -32,6 +32,7 @@ package java.lang;
  * @author     unascribed
  * @since      JDK1.0
  */
+// 类循环加载 错误
 public class ClassCircularityError extends LinkageError {
     private static final long serialVersionUID = 1054362542914539689L;
 

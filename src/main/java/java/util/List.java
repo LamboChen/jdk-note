@@ -118,6 +118,7 @@ public interface List<E> extends Collection<E> {
      *
      * @return the number of elements in this list
      */
+    // 获取 list size
     int size();
 
     /**
@@ -125,6 +126,7 @@ public interface List<E> extends Collection<E> {
      *
      * @return <tt>true</tt> if this list contains no elements
      */
+    // 是否为空
     boolean isEmpty();
 
     /**
@@ -142,6 +144,7 @@ public interface List<E> extends Collection<E> {
      *         list does not permit null elements
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
+    // 是否包含 参数值
     boolean contains(Object o);
 
     /**
@@ -149,6 +152,7 @@ public interface List<E> extends Collection<E> {
      *
      * @return an iterator over the elements in this list in proper sequence
      */
+    // 获取 list 的 迭代器
     Iterator<E> iterator();
 
     /**
@@ -167,6 +171,7 @@ public interface List<E> extends Collection<E> {
      *         sequence
      * @see Arrays#asList(Object[])
      */
+    // 转换为 array，返回值为 Object 数组
     Object[] toArray();
 
     /**
@@ -208,6 +213,7 @@ public interface List<E> extends Collection<E> {
      *         this list
      * @throws NullPointerException if the specified array is null
      */
+    // 转换为参数类型的数组
     <T> T[] toArray(T[] a);
 
 
@@ -375,6 +381,7 @@ public interface List<E> extends Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // 获取两个 list 交集
     boolean retainAll(Collection<?> c);
 
     /**
@@ -475,6 +482,7 @@ public interface List<E> extends Collection<E> {
     @SuppressWarnings({"unchecked", "rawtypes"})
     default void sort(Comparator<? super E> c) {
         Object[] a = this.toArray();
+        // list 内部采用 Array sort
         Arrays.sort(a, (Comparator) c);
         ListIterator<E> i = this.listIterator();
         for (Object e : a) {

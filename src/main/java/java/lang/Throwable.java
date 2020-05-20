@@ -111,6 +111,7 @@ import  java.util.*;
  * @jls 11.2 Compile-Time Checking of Exceptions
  * @since JDK1.0
  */
+// Throwable 可抛出的
 public class Throwable implements Serializable {
     /** use serialVersionUID from JDK 1.0.2 for interoperability */
     private static final long serialVersionUID = -3042686055658047285L;
@@ -118,6 +119,7 @@ public class Throwable implements Serializable {
     /**
      * Native code saves some indication of the stack backtrace in this slot.
      */
+    // native 代码在此槽中保存堆栈回溯的一些指示
     private transient Object backtrace;
 
     /**
@@ -127,6 +129,7 @@ public class Throwable implements Serializable {
      *
      * @serial
      */
+    // 详细信息
     private String detailMessage;
 
 
@@ -134,6 +137,7 @@ public class Throwable implements Serializable {
      * Holder class to defer initializing sentinel objects only used
      * for serialization.
      */
+    // 哨兵 Holder， 仅用于序列化
     private static class SentinelHolder {
         /**
          * {@linkplain #setStackTrace(StackTraceElement[]) Setting the
@@ -142,6 +146,7 @@ public class Throwable implements Serializable {
          * ignored.  The sentinal is equal to the result of calling:<br>
          * {@code new StackTraceElement("", "", null, Integer.MIN_VALUE)}
          */
+        // 堆栈信息
         public static final StackTraceElement STACK_TRACE_ELEMENT_SENTINEL =
             new StackTraceElement("", "", null, Integer.MIN_VALUE);
 
@@ -194,6 +199,7 @@ public class Throwable implements Serializable {
      * @serial
      * @since 1.4
      */
+    // 原因
     private Throwable cause = this;
 
     /**
@@ -207,6 +213,7 @@ public class Throwable implements Serializable {
      * @serial
      * @since 1.4
      */
+    // 堆栈
     private StackTraceElement[] stackTrace = UNASSIGNED_STACK;
 
     // Setting this static field introduces an acceptable
@@ -227,15 +234,18 @@ public class Throwable implements Serializable {
     private List<Throwable> suppressedExceptions = SUPPRESSED_SENTINEL;
 
     /** Message for trying to suppress a null exception. */
+    // null 信息
     private static final String NULL_CAUSE_MESSAGE = "Cannot suppress a null exception.";
 
     /** Message for trying to suppress oneself. */
+    // 自我控制？
     private static final String SELF_SUPPRESSION_MESSAGE = "Self-suppression not permitted";
 
     /** Caption  for labeling causative exception stack traces */
     private static final String CAUSE_CAPTION = "Caused by: ";
 
     /** Caption for labeling suppressed exception stack traces */
+    // 用于标记受抑制异常堆栈跟踪的标题
     private static final String SUPPRESSED_CAPTION = "Suppressed: ";
 
     /**
@@ -353,6 +363,7 @@ public class Throwable implements Serializable {
      * @see ArithmeticException
      * @since 1.7
      */
+    // 受保护的构造方法
     protected Throwable(String message, Throwable cause,
                         boolean enableSuppression,
                         boolean writableStackTrace) {
@@ -411,6 +422,7 @@ public class Throwable implements Serializable {
      *          cause is nonexistent or unknown.
      * @since 1.4
      */
+    // 同步方法，线程安全
     public synchronized Throwable getCause() {
         return (cause==this ? null : cause);
     }
@@ -452,6 +464,7 @@ public class Throwable implements Serializable {
      * @since  1.4
      */
     public synchronized Throwable initCause(Throwable cause) {
+        // 不能多次赋值
         if (this.cause != this)
             throw new IllegalStateException("Can't overwrite cause with " +
                                             Objects.toString(cause, "a null"), this);
@@ -630,7 +643,9 @@ public class Throwable implements Serializable {
      *          ... 2 more
      * </pre>
      */
+    // 打印堆栈信息
     public void printStackTrace() {
+        // 默认采用 System.err
         printStackTrace(System.err);
     }
 
@@ -777,6 +792,7 @@ public class Throwable implements Serializable {
      * @return  a reference to this {@code Throwable} instance.
      * @see     java.lang.Throwable#printStackTrace()
      */
+    // 填充堆栈信息
     public synchronized Throwable fillInStackTrace() {
         if (stackTrace != null ||
             backtrace != null /* Out of protocol state */ ) {

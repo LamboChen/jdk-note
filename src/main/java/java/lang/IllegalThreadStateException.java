@@ -36,6 +36,7 @@ package java.lang;
  * @see     java.lang.Thread#suspend()
  * @since   JDK1.0
  */
+// 非法线程状态异常
 public class IllegalThreadStateException extends IllegalArgumentException {
     private static final long serialVersionUID = -7626246362397460174L;
 

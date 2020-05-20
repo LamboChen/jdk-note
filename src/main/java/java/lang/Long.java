@@ -51,6 +51,7 @@ import java.math.*;
  * @author  Joseph D. Darcy
  * @since   JDK1.0
  */
+// long 包装类
 public final class Long extends Number implements Comparable<Long> {
     /**
      * A constant holding the minimum value a {@code long} can
@@ -803,6 +804,7 @@ public final class Long extends Number implements Comparable<Long> {
         return Long.valueOf(parseLong(s, 10));
     }
 
+    // 缓存 -128 ~ 127
     private static class LongCache {
         private LongCache(){}
 

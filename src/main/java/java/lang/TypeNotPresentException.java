@@ -43,9 +43,11 @@ package java.lang;
  * @see     java.lang.reflect.AnnotatedElement
  * @since 1.5
  */
+// 类型不存在
 public class TypeNotPresentException extends RuntimeException {
     private static final long serialVersionUID = -5101214195716534496L;
 
+    // 类型名称
     private String typeName;
 
     /**

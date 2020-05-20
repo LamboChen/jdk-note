@@ -40,6 +40,7 @@ package java.lang;
  * @see     java.lang.Number
  * @since   JDK1.1
  */
+// short 包装类
 public final class Short extends Number implements Comparable<Short> {
 
     /**
@@ -200,6 +201,7 @@ public final class Short extends Number implements Comparable<Short> {
         return valueOf(s, 10);
     }
 
+    // short 缓存 -128 ~ 127
     private static class ShortCache {
         private ShortCache(){}
 
@@ -408,6 +410,7 @@ public final class Short extends Number implements Comparable<Short> {
      * @since 1.8
      */
     public static int hashCode(short value) {
+        // 直接返回
         return (int)value;
     }
 
@@ -423,6 +426,7 @@ public final class Short extends Number implements Comparable<Short> {
      */
     public boolean equals(Object obj) {
         if (obj instanceof Short) {
+            // 拆装
             return value == ((Short)obj).shortValue();
         }
         return false;

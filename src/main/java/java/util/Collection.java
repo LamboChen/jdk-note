@@ -140,7 +140,7 @@ import java.util.stream.StreamSupport;
  * @see     AbstractCollection
  * @since 1.2
  */
-
+// 集合
 public interface Collection<E> extends Iterable<E> {
     // Query Operations
 
@@ -176,6 +176,7 @@ public interface Collection<E> extends Iterable<E> {
      *         collection does not permit null elements
      *         (<a href="#optional-restrictions">optional</a>)
      */
+    // 是否包含 o
     boolean contains(Object o);
 
     /**
@@ -204,6 +205,7 @@ public interface Collection<E> extends Iterable<E> {
      *
      * @return an array containing all of the elements in this collection
      */
+    // 转换为 array
     Object[] toArray();
 
     /**

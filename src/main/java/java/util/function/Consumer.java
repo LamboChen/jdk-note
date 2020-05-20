@@ -38,6 +38,7 @@ import java.util.Objects;
  *
  * @since 1.8
  */
+// 消费者
 @FunctionalInterface
 public interface Consumer<T> {
 
@@ -46,6 +47,7 @@ public interface Consumer<T> {
      *
      * @param t the input argument
      */
+    // 对给定参数执行此操作
     void accept(T t);
 
     /**

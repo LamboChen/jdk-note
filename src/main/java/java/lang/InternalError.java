@@ -32,6 +32,7 @@ package java.lang;
  * @author  unascribed
  * @since   JDK1.0
  */
+// 核心、内核 错误
 public class InternalError extends VirtualMachineError {
     private static final long serialVersionUID = -9062593416125562365L;
 

@@ -46,6 +46,7 @@ package java.lang;
  * @see     java.lang.Thread#interrupted()
  * @since   JDK1.0
  */
+// 中断异常
 public
 class InterruptedException extends Exception {
     private static final long serialVersionUID = 6700697376100628473L;

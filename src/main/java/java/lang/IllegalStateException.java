@@ -34,6 +34,7 @@ package java.lang;
  * @author  Jonni Kanerva
  * @since   JDK1.1
  */
+// 非法状态异常
 public
 class IllegalStateException extends RuntimeException {
     /**
