@@ -104,7 +104,7 @@ package java.util;
  * @see ClassCastException
  * @since 1.2
  */
-
+// 有序集合
 public interface SortedSet<E> extends Set<E> {
     /**
      * Returns the comparator used to order the elements in this set,
@@ -115,6 +115,8 @@ public interface SortedSet<E> extends Set<E> {
      *         or <tt>null</tt> if this set uses the natural ordering
      *         of its elements
      */
+    // 比较器
+    // 有序的前提是能够进行大小比较
     Comparator<? super E> comparator();
 
     /**
@@ -148,6 +150,7 @@ public interface SortedSet<E> extends Set<E> {
      *         has a restricted range, and <tt>fromElement</tt> or
      *         <tt>toElement</tt> lies outside the bounds of the range
      */
+    // 获取子集
     SortedSet<E> subSet(E fromElement, E toElement);
 
     /**
@@ -175,6 +178,7 @@ public interface SortedSet<E> extends Set<E> {
      *         restricted range, and <tt>toElement</tt> lies outside the
      *         bounds of the range
      */
+    // 获取子集。 从最小元素开始，直到 toElement
     SortedSet<E> headSet(E toElement);
 
     /**
@@ -202,6 +206,7 @@ public interface SortedSet<E> extends Set<E> {
      *         restricted range, and <tt>fromElement</tt> lies outside the
      *         bounds of the range
      */
+    // 获取子集。 从 fromElement 开始直到最后一个元素
     SortedSet<E> tailSet(E fromElement);
 
     /**
@@ -210,6 +215,7 @@ public interface SortedSet<E> extends Set<E> {
      * @return the first (lowest) element currently in this set
      * @throws NoSuchElementException if this set is empty
      */
+    // 获取第一个元素
     E first();
 
     /**
@@ -218,6 +224,7 @@ public interface SortedSet<E> extends Set<E> {
      * @return the last (highest) element currently in this set
      * @throws NoSuchElementException if this set is empty
      */
+    // 获取最后一个元素
     E last();
 
     /**

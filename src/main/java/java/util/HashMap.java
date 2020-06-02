@@ -430,6 +430,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      *
      * @serial
      */
+    // 哈希表的加载因子。
     final float loadFactor;
 
     /* ---------------- Public operations -------------- */

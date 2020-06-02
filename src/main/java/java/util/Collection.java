@@ -333,6 +333,7 @@ public interface Collection<E> extends Iterable<E> {
      *         or if the specified collection is null.
      * @see    #contains(Object)
      */
+    // 是否包含 c 中所有元素
     boolean containsAll(Collection<?> c);
 
     /**
@@ -359,6 +360,7 @@ public interface Collection<E> extends Iterable<E> {
      *         this time due to insertion restrictions
      * @see #add(Object)
      */
+    // 将 c 所有元素添加到当前集合
     boolean addAll(Collection<? extends E> c);
 
     /**
@@ -384,6 +386,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // 将 c 中所欲元素移除
     boolean removeAll(Collection<?> c);
 
     /**
@@ -408,6 +411,7 @@ public interface Collection<E> extends Iterable<E> {
      *         supported.
      * @since 1.8
      */
+    // 给定 Predicate 条件，移除所有满足条件的元素
     default boolean removeIf(Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         boolean removed = false;
@@ -443,6 +447,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // 求交集
     boolean retainAll(Collection<?> c);
 
     /**
@@ -452,6 +457,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the <tt>clear</tt> operation
      *         is not supported by this collection
      */
+    // 清空
     void clear();
 
 

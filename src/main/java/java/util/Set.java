@@ -81,7 +81,7 @@ package java.util;
  * @see Collections#EMPTY_SET
  * @since 1.2
  */
-
+// 集合
 public interface Set<E> extends Collection<E> {
     // Query Operations
 
@@ -92,6 +92,7 @@ public interface Set<E> extends Collection<E> {
      *
      * @return the number of elements in this set (its cardinality)
      */
+    // 集合元素个数
     int size();
 
     /**
@@ -99,6 +100,7 @@ public interface Set<E> extends Collection<E> {
      *
      * @return <tt>true</tt> if this set contains no elements
      */
+    // 是否为空
     boolean isEmpty();
 
     /**
@@ -116,6 +118,7 @@ public interface Set<E> extends Collection<E> {
      *         set does not permit null elements
      * (<a href="Collection.html#optional-restrictions">optional</a>)
      */
+    // 是否包含与 o 相等值的元素
     boolean contains(Object o);
 
     /**
@@ -125,6 +128,7 @@ public interface Set<E> extends Collection<E> {
      *
      * @return an iterator over the elements in this set
      */
+    // 获取迭代器
     Iterator<E> iterator();
 
     /**
@@ -187,6 +191,7 @@ public interface Set<E> extends Collection<E> {
      *         set
      * @throws NullPointerException if the specified array is null
      */
+    // 转换为数组，返回值为 a 的类型
     <T> T[] toArray(T[] a);
 
 
@@ -222,6 +227,7 @@ public interface Set<E> extends Collection<E> {
      * @throws IllegalArgumentException if some property of the specified element
      *         prevents it from being added to this set
      */
+    // 向集合中添加元素
     boolean add(E e);
 
 
@@ -246,6 +252,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the <tt>remove</tt> operation
      *         is not supported by this set
      */
+    // 移除元素
     boolean remove(Object o);
 
 
@@ -317,6 +324,7 @@ public interface Set<E> extends Collection<E> {
      *         or if the specified collection is null
      * @see #remove(Object)
      */
+    // 求交集
     boolean retainAll(Collection<?> c);
 
     /**
@@ -340,6 +348,7 @@ public interface Set<E> extends Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // 差集
     boolean removeAll(Collection<?> c);
 
     /**

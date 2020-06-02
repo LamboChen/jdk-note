@@ -29,32 +29,31 @@ package java.util;
  * This class provides a skeletal implementation of the <tt>Set</tt>
  * interface to minimize the effort required to implement this
  * interface. <p>
- *
+ * <p>
  * The process of implementing a set by extending this class is identical
  * to that of implementing a Collection by extending AbstractCollection,
  * except that all of the methods and constructors in subclasses of this
  * class must obey the additional constraints imposed by the <tt>Set</tt>
  * interface (for instance, the add method must not permit addition of
  * multiple instances of an object to a set).<p>
- *
+ * <p>
  * Note that this class does not override any of the implementations from
  * the <tt>AbstractCollection</tt> class.  It merely adds implementations
  * for <tt>equals</tt> and <tt>hashCode</tt>.<p>
- *
+ * <p>
  * This class is a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">
  * Java Collections Framework</a>.
  *
  * @param <E> the type of elements maintained by this set
- *
- * @author  Josh Bloch
- * @author  Neal Gafter
+ * @author Josh Bloch
+ * @author Neal Gafter
  * @see Collection
  * @see AbstractCollection
  * @see Set
  * @since 1.2
  */
-
+// 集合 抽象类
 public abstract class AbstractSet<E> extends AbstractCollection<E> implements Set<E> {
     /**
      * Sole constructor.  (For invocation by subclass constructors, typically
@@ -72,7 +71,7 @@ public abstract class AbstractSet<E> extends AbstractCollection<E> implements Se
      * this set.  This ensures that the <tt>equals</tt> method works
      * properly across different implementations of the <tt>Set</tt>
      * interface.<p>
-     *
+     * <p>
      * This implementation first checks if the specified object is this
      * set; if so it returns <tt>true</tt>.  Then, it checks if the
      * specified object is a set whose size is identical to the size of
@@ -89,11 +88,13 @@ public abstract class AbstractSet<E> extends AbstractCollection<E> implements Se
         if (!(o instanceof Set))
             return false;
         Collection<?> c = (Collection<?>) o;
+        // 比较元素个数
         if (c.size() != size())
             return false;
         try {
+            // 比较两集合是否包含相同元素
             return containsAll(c);
-        } catch (ClassCastException unused)   {
+        } catch (ClassCastException unused) {
             return false;
         } catch (NullPointerException unused) {
             return false;
@@ -151,20 +152,21 @@ public abstract class AbstractSet<E> extends AbstractCollection<E> implements Se
      * <tt>UnsupportedOperationException</tt> if the iterator returned by the
      * <tt>iterator</tt> method does not implement the <tt>remove</tt> method.
      *
-     * @param  c collection containing elements to be removed from this set
+     * @param c collection containing elements to be removed from this set
      * @return <tt>true</tt> if this set changed as a result of the call
      * @throws UnsupportedOperationException if the <tt>removeAll</tt> operation
-     *         is not supported by this set
-     * @throws ClassCastException if the class of an element of this set
-     *         is incompatible with the specified collection
-     * (<a href="Collection.html#optional-restrictions">optional</a>)
-     * @throws NullPointerException if this set contains a null element and the
-     *         specified collection does not permit null elements
-     * (<a href="Collection.html#optional-restrictions">optional</a>),
-     *         or if the specified collection is null
+     *                                       is not supported by this set
+     * @throws ClassCastException            if the class of an element of this set
+     *                                       is incompatible with the specified collection
+     *                                       (<a href="Collection.html#optional-restrictions">optional</a>)
+     * @throws NullPointerException          if this set contains a null element and the
+     *                                       specified collection does not permit null elements
+     *                                       (<a href="Collection.html#optional-restrictions">optional</a>),
+     *                                       or if the specified collection is null
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // 移除所有 c 中的元素
     public boolean removeAll(Collection<?> c) {
         Objects.requireNonNull(c);
         boolean modified = false;

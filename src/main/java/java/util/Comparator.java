@@ -105,6 +105,7 @@ import java.util.Comparators;
  * @see java.io.Serializable
  * @since 1.2
  */
+// 可比较大小的
 @FunctionalInterface
 public interface Comparator<T> {
     /**
@@ -147,6 +148,10 @@ public interface Comparator<T> {
      * @throws ClassCastException if the arguments' types prevent them from
      *         being compared by this comparator.
      */
+    // 比较逻辑
+    // 0  : o1==o2
+    // <0 : o1<o2
+    // >0 : o1>o2
     int compare(T o1, T o2);
 
     /**
@@ -181,6 +186,7 @@ public interface Comparator<T> {
      *         comparator.
      * @since 1.8
      */
+    // 方向
     default Comparator<T> reversed() {
         return Collections.reverseOrder(this);
     }
@@ -210,6 +216,7 @@ public interface Comparator<T> {
      * @throws NullPointerException if the argument is null.
      * @since 1.8
      */
+    // 返回一个字典顺序比较器
     default Comparator<T> thenComparing(Comparator<? super T> other) {
         Objects.requireNonNull(other);
         return (Comparator<T> & Serializable) (c1, c2) -> {
@@ -235,6 +242,7 @@ public interface Comparator<T> {
      * @see #thenComparing(Comparator)
      * @since 1.8
      */
+    // 返回字典顺序比较器
     default <U> Comparator<T> thenComparing(
             Function<? super T, ? extends U> keyExtractor,
             Comparator<? super U> keyComparator)
@@ -259,6 +267,7 @@ public interface Comparator<T> {
      * @see #thenComparing(Comparator)
      * @since 1.8
      */
+    // 返回字典顺序比较器
     default <U extends Comparable<? super U>> Comparator<T> thenComparing(
             Function<? super T, ? extends U> keyExtractor)
     {
