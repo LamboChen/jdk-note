@@ -54,6 +54,7 @@ package java.util.concurrent;
  * @author Doug Lea
  * @param <V> the result type of method {@code call}
  */
+// 执行 task
 @FunctionalInterface
 public interface Callable<V> {
     /**

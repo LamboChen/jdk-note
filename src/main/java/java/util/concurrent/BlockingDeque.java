@@ -34,6 +34,7 @@
  */
 
 package java.util.concurrent;
+
 import java.util.*;
 
 /**
@@ -49,71 +50,71 @@ import java.util.*;
  * blocks the current thread indefinitely until the operation can succeed,
  * and the fourth blocks for only a given maximum time limit before giving
  * up.  These methods are summarized in the following table:
- *
+ * <p>
  * <table BORDER CELLPADDING=3 CELLSPACING=1>
  * <caption>Summary of BlockingDeque methods</caption>
- *  <tr>
- *    <td ALIGN=CENTER COLSPAN = 5> <b>First Element (Head)</b></td>
- *  </tr>
- *  <tr>
- *    <td></td>
- *    <td ALIGN=CENTER><em>Throws exception</em></td>
- *    <td ALIGN=CENTER><em>Special value</em></td>
- *    <td ALIGN=CENTER><em>Blocks</em></td>
- *    <td ALIGN=CENTER><em>Times out</em></td>
- *  </tr>
- *  <tr>
- *    <td><b>Insert</b></td>
- *    <td>{@link #addFirst addFirst(e)}</td>
- *    <td>{@link #offerFirst(Object) offerFirst(e)}</td>
- *    <td>{@link #putFirst putFirst(e)}</td>
- *    <td>{@link #offerFirst(Object, long, TimeUnit) offerFirst(e, time, unit)}</td>
- *  </tr>
- *  <tr>
- *    <td><b>Remove</b></td>
- *    <td>{@link #removeFirst removeFirst()}</td>
- *    <td>{@link #pollFirst pollFirst()}</td>
- *    <td>{@link #takeFirst takeFirst()}</td>
- *    <td>{@link #pollFirst(long, TimeUnit) pollFirst(time, unit)}</td>
- *  </tr>
- *  <tr>
- *    <td><b>Examine</b></td>
- *    <td>{@link #getFirst getFirst()}</td>
- *    <td>{@link #peekFirst peekFirst()}</td>
- *    <td><em>not applicable</em></td>
- *    <td><em>not applicable</em></td>
- *  </tr>
- *  <tr>
- *    <td ALIGN=CENTER COLSPAN = 5> <b>Last Element (Tail)</b></td>
- *  </tr>
- *  <tr>
- *    <td></td>
- *    <td ALIGN=CENTER><em>Throws exception</em></td>
- *    <td ALIGN=CENTER><em>Special value</em></td>
- *    <td ALIGN=CENTER><em>Blocks</em></td>
- *    <td ALIGN=CENTER><em>Times out</em></td>
- *  </tr>
- *  <tr>
- *    <td><b>Insert</b></td>
- *    <td>{@link #addLast addLast(e)}</td>
- *    <td>{@link #offerLast(Object) offerLast(e)}</td>
- *    <td>{@link #putLast putLast(e)}</td>
- *    <td>{@link #offerLast(Object, long, TimeUnit) offerLast(e, time, unit)}</td>
- *  </tr>
- *  <tr>
- *    <td><b>Remove</b></td>
- *    <td>{@link #removeLast() removeLast()}</td>
- *    <td>{@link #pollLast() pollLast()}</td>
- *    <td>{@link #takeLast takeLast()}</td>
- *    <td>{@link #pollLast(long, TimeUnit) pollLast(time, unit)}</td>
- *  </tr>
- *  <tr>
- *    <td><b>Examine</b></td>
- *    <td>{@link #getLast getLast()}</td>
- *    <td>{@link #peekLast peekLast()}</td>
- *    <td><em>not applicable</em></td>
- *    <td><em>not applicable</em></td>
- *  </tr>
+ * <tr>
+ * <td ALIGN=CENTER COLSPAN = 5> <b>First Element (Head)</b></td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td ALIGN=CENTER><em>Throws exception</em></td>
+ * <td ALIGN=CENTER><em>Special value</em></td>
+ * <td ALIGN=CENTER><em>Blocks</em></td>
+ * <td ALIGN=CENTER><em>Times out</em></td>
+ * </tr>
+ * <tr>
+ * <td><b>Insert</b></td>
+ * <td>{@link #addFirst addFirst(e)}</td>
+ * <td>{@link #offerFirst(Object) offerFirst(e)}</td>
+ * <td>{@link #putFirst putFirst(e)}</td>
+ * <td>{@link #offerFirst(Object, long, TimeUnit) offerFirst(e, time, unit)}</td>
+ * </tr>
+ * <tr>
+ * <td><b>Remove</b></td>
+ * <td>{@link #removeFirst removeFirst()}</td>
+ * <td>{@link #pollFirst pollFirst()}</td>
+ * <td>{@link #takeFirst takeFirst()}</td>
+ * <td>{@link #pollFirst(long, TimeUnit) pollFirst(time, unit)}</td>
+ * </tr>
+ * <tr>
+ * <td><b>Examine</b></td>
+ * <td>{@link #getFirst getFirst()}</td>
+ * <td>{@link #peekFirst peekFirst()}</td>
+ * <td><em>not applicable</em></td>
+ * <td><em>not applicable</em></td>
+ * </tr>
+ * <tr>
+ * <td ALIGN=CENTER COLSPAN = 5> <b>Last Element (Tail)</b></td>
+ * </tr>
+ * <tr>
+ * <td></td>
+ * <td ALIGN=CENTER><em>Throws exception</em></td>
+ * <td ALIGN=CENTER><em>Special value</em></td>
+ * <td ALIGN=CENTER><em>Blocks</em></td>
+ * <td ALIGN=CENTER><em>Times out</em></td>
+ * </tr>
+ * <tr>
+ * <td><b>Insert</b></td>
+ * <td>{@link #addLast addLast(e)}</td>
+ * <td>{@link #offerLast(Object) offerLast(e)}</td>
+ * <td>{@link #putLast putLast(e)}</td>
+ * <td>{@link #offerLast(Object, long, TimeUnit) offerLast(e, time, unit)}</td>
+ * </tr>
+ * <tr>
+ * <td><b>Remove</b></td>
+ * <td>{@link #removeLast() removeLast()}</td>
+ * <td>{@link #pollLast() pollLast()}</td>
+ * <td>{@link #takeLast takeLast()}</td>
+ * <td>{@link #pollLast(long, TimeUnit) pollLast(time, unit)}</td>
+ * </tr>
+ * <tr>
+ * <td><b>Examine</b></td>
+ * <td>{@link #getLast getLast()}</td>
+ * <td>{@link #peekLast peekLast()}</td>
+ * <td><em>not applicable</em></td>
+ * <td><em>not applicable</em></td>
+ * </tr>
  * </table>
  *
  * <p>Like any {@link BlockingQueue}, a {@code BlockingDeque} is thread safe,
@@ -124,62 +125,62 @@ import java.util.*;
  * {@code BlockingQueue}. The methods inherited from the
  * {@code BlockingQueue} interface are precisely equivalent to
  * {@code BlockingDeque} methods as indicated in the following table:
- *
+ * <p>
  * <table BORDER CELLPADDING=3 CELLSPACING=1>
  * <caption>Comparison of BlockingQueue and BlockingDeque methods</caption>
- *  <tr>
- *    <td ALIGN=CENTER> <b>{@code BlockingQueue} Method</b></td>
- *    <td ALIGN=CENTER> <b>Equivalent {@code BlockingDeque} Method</b></td>
- *  </tr>
- *  <tr>
- *    <td ALIGN=CENTER COLSPAN = 2> <b>Insert</b></td>
- *  </tr>
- *  <tr>
- *    <td>{@link #add(Object) add(e)}</td>
- *    <td>{@link #addLast(Object) addLast(e)}</td>
- *  </tr>
- *  <tr>
- *    <td>{@link #offer(Object) offer(e)}</td>
- *    <td>{@link #offerLast(Object) offerLast(e)}</td>
- *  </tr>
- *  <tr>
- *    <td>{@link #put(Object) put(e)}</td>
- *    <td>{@link #putLast(Object) putLast(e)}</td>
- *  </tr>
- *  <tr>
- *    <td>{@link #offer(Object, long, TimeUnit) offer(e, time, unit)}</td>
- *    <td>{@link #offerLast(Object, long, TimeUnit) offerLast(e, time, unit)}</td>
- *  </tr>
- *  <tr>
- *    <td ALIGN=CENTER COLSPAN = 2> <b>Remove</b></td>
- *  </tr>
- *  <tr>
- *    <td>{@link #remove() remove()}</td>
- *    <td>{@link #removeFirst() removeFirst()}</td>
- *  </tr>
- *  <tr>
- *    <td>{@link #poll() poll()}</td>
- *    <td>{@link #pollFirst() pollFirst()}</td>
- *  </tr>
- *  <tr>
- *    <td>{@link #take() take()}</td>
- *    <td>{@link #takeFirst() takeFirst()}</td>
- *  </tr>
- *  <tr>
- *    <td>{@link #poll(long, TimeUnit) poll(time, unit)}</td>
- *    <td>{@link #pollFirst(long, TimeUnit) pollFirst(time, unit)}</td>
- *  </tr>
- *  <tr>
- *    <td ALIGN=CENTER COLSPAN = 2> <b>Examine</b></td>
- *  </tr>
- *  <tr>
- *    <td>{@link #element() element()}</td>
- *    <td>{@link #getFirst() getFirst()}</td>
- *  </tr>
- *  <tr>
- *    <td>{@link #peek() peek()}</td>
- *    <td>{@link #peekFirst() peekFirst()}</td>
- *  </tr>
+ * <tr>
+ * <td ALIGN=CENTER> <b>{@code BlockingQueue} Method</b></td>
+ * <td ALIGN=CENTER> <b>Equivalent {@code BlockingDeque} Method</b></td>
+ * </tr>
+ * <tr>
+ * <td ALIGN=CENTER COLSPAN = 2> <b>Insert</b></td>
+ * </tr>
+ * <tr>
+ * <td>{@link #add(Object) add(e)}</td>
+ * <td>{@link #addLast(Object) addLast(e)}</td>
+ * </tr>
+ * <tr>
+ * <td>{@link #offer(Object) offer(e)}</td>
+ * <td>{@link #offerLast(Object) offerLast(e)}</td>
+ * </tr>
+ * <tr>
+ * <td>{@link #put(Object) put(e)}</td>
+ * <td>{@link #putLast(Object) putLast(e)}</td>
+ * </tr>
+ * <tr>
+ * <td>{@link #offer(Object, long, TimeUnit) offer(e, time, unit)}</td>
+ * <td>{@link #offerLast(Object, long, TimeUnit) offerLast(e, time, unit)}</td>
+ * </tr>
+ * <tr>
+ * <td ALIGN=CENTER COLSPAN = 2> <b>Remove</b></td>
+ * </tr>
+ * <tr>
+ * <td>{@link #remove() remove()}</td>
+ * <td>{@link #removeFirst() removeFirst()}</td>
+ * </tr>
+ * <tr>
+ * <td>{@link #poll() poll()}</td>
+ * <td>{@link #pollFirst() pollFirst()}</td>
+ * </tr>
+ * <tr>
+ * <td>{@link #take() take()}</td>
+ * <td>{@link #takeFirst() takeFirst()}</td>
+ * </tr>
+ * <tr>
+ * <td>{@link #poll(long, TimeUnit) poll(time, unit)}</td>
+ * <td>{@link #pollFirst(long, TimeUnit) pollFirst(time, unit)}</td>
+ * </tr>
+ * <tr>
+ * <td ALIGN=CENTER COLSPAN = 2> <b>Examine</b></td>
+ * </tr>
+ * <tr>
+ * <td>{@link #element() element()}</td>
+ * <td>{@link #getFirst() getFirst()}</td>
+ * </tr>
+ * <tr>
+ * <td>{@link #peek() peek()}</td>
+ * <td>{@link #peekFirst() peekFirst()}</td>
+ * </tr>
  * </table>
  *
  * <p>Memory consistency effects: As with other concurrent
@@ -193,10 +194,11 @@ import java.util.*;
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">
  * Java Collections Framework</a>.
  *
- * @since 1.6
- * @author Doug Lea
  * @param <E> the type of elements held in this collection
+ * @author Doug Lea
+ * @since 1.6
  */
+// 阻塞双端队列
 public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
     /*
      * We have "diamond" multiple interface inheritance here, and that
@@ -213,11 +215,12 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * preferable to use {@link #offerFirst(Object) offerFirst}.
      *
      * @param e the element to add
-     * @throws IllegalStateException {@inheritDoc}
-     * @throws ClassCastException {@inheritDoc}
-     * @throws NullPointerException if the specified element is null
+     * @throws IllegalStateException    {@inheritDoc}
+     * @throws ClassCastException       {@inheritDoc}
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    // 对首添加元素
     void addFirst(E e);
 
     /**
@@ -228,11 +231,12 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * preferable to use {@link #offerLast(Object) offerLast}.
      *
      * @param e the element to add
-     * @throws IllegalStateException {@inheritDoc}
-     * @throws ClassCastException {@inheritDoc}
-     * @throws NullPointerException if the specified element is null
+     * @throws IllegalStateException    {@inheritDoc}
+     * @throws ClassCastException       {@inheritDoc}
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    // 队尾添加元素
     void addLast(E e);
 
     /**
@@ -245,10 +249,11 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * fail to insert an element only by throwing an exception.
      *
      * @param e the element to add
-     * @throws ClassCastException {@inheritDoc}
-     * @throws NullPointerException if the specified element is null
+     * @throws ClassCastException       {@inheritDoc}
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    // 队首添加元素，添加成功返回 true
     boolean offerFirst(E e);
 
     /**
@@ -261,10 +266,11 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * fail to insert an element only by throwing an exception.
      *
      * @param e the element to add
-     * @throws ClassCastException {@inheritDoc}
-     * @throws NullPointerException if the specified element is null
+     * @throws ClassCastException       {@inheritDoc}
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    // 队尾添加元素，添加成功返回 true
     boolean offerLast(E e);
 
     /**
@@ -272,13 +278,14 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * waiting if necessary for space to become available.
      *
      * @param e the element to add
-     * @throws InterruptedException if interrupted while waiting
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this deque
-     * @throws NullPointerException if the specified element is null
+     * @throws InterruptedException     if interrupted while waiting
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this deque
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException if some property of the specified
-     *         element prevents it from being added to this deque
+     *                                  element prevents it from being added to this deque
      */
+    // 队首添加元素，当控件不足时进行等待
     void putFirst(E e) throws InterruptedException;
 
     /**
@@ -286,13 +293,14 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * waiting if necessary for space to become available.
      *
      * @param e the element to add
-     * @throws InterruptedException if interrupted while waiting
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this deque
-     * @throws NullPointerException if the specified element is null
+     * @throws InterruptedException     if interrupted while waiting
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this deque
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException if some property of the specified
-     *         element prevents it from being added to this deque
+     *                                  element prevents it from being added to this deque
      */
+    // 队尾添加元素，当控件不足时进行等待
     void putLast(E e) throws InterruptedException;
 
     /**
@@ -300,44 +308,46 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * waiting up to the specified wait time if necessary for space to
      * become available.
      *
-     * @param e the element to add
+     * @param e       the element to add
      * @param timeout how long to wait before giving up, in units of
-     *        {@code unit}
-     * @param unit a {@code TimeUnit} determining how to interpret the
-     *        {@code timeout} parameter
+     *                {@code unit}
+     * @param unit    a {@code TimeUnit} determining how to interpret the
+     *                {@code timeout} parameter
      * @return {@code true} if successful, or {@code false} if
-     *         the specified waiting time elapses before space is available
-     * @throws InterruptedException if interrupted while waiting
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this deque
-     * @throws NullPointerException if the specified element is null
+     * the specified waiting time elapses before space is available
+     * @throws InterruptedException     if interrupted while waiting
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this deque
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException if some property of the specified
-     *         element prevents it from being added to this deque
+     *                                  element prevents it from being added to this deque
      */
+    // 队首添加元素，等待指定时间
     boolean offerFirst(E e, long timeout, TimeUnit unit)
-        throws InterruptedException;
+            throws InterruptedException;
 
     /**
      * Inserts the specified element at the end of this deque,
      * waiting up to the specified wait time if necessary for space to
      * become available.
      *
-     * @param e the element to add
+     * @param e       the element to add
      * @param timeout how long to wait before giving up, in units of
-     *        {@code unit}
-     * @param unit a {@code TimeUnit} determining how to interpret the
-     *        {@code timeout} parameter
+     *                {@code unit}
+     * @param unit    a {@code TimeUnit} determining how to interpret the
+     *                {@code timeout} parameter
      * @return {@code true} if successful, or {@code false} if
-     *         the specified waiting time elapses before space is available
-     * @throws InterruptedException if interrupted while waiting
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this deque
-     * @throws NullPointerException if the specified element is null
+     * the specified waiting time elapses before space is available
+     * @throws InterruptedException     if interrupted while waiting
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this deque
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException if some property of the specified
-     *         element prevents it from being added to this deque
+     *                                  element prevents it from being added to this deque
      */
+    // 队尾添加元素，等待指定时间
     boolean offerLast(E e, long timeout, TimeUnit unit)
-        throws InterruptedException;
+            throws InterruptedException;
 
     /**
      * Retrieves and removes the first element of this deque, waiting
@@ -346,6 +356,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * @return the head of this deque
      * @throws InterruptedException if interrupted while waiting
      */
+    // 获取队首元素，会进行等待
     E takeFirst() throws InterruptedException;
 
     /**
@@ -355,6 +366,7 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * @return the tail of this deque
      * @throws InterruptedException if interrupted while waiting
      */
+    // 获取队尾元素，会进行等待
     E takeLast() throws InterruptedException;
 
     /**
@@ -363,15 +375,16 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * become available.
      *
      * @param timeout how long to wait before giving up, in units of
-     *        {@code unit}
-     * @param unit a {@code TimeUnit} determining how to interpret the
-     *        {@code timeout} parameter
+     *                {@code unit}
+     * @param unit    a {@code TimeUnit} determining how to interpret the
+     *                {@code timeout} parameter
      * @return the head of this deque, or {@code null} if the specified
-     *         waiting time elapses before an element is available
+     * waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
+    // 弹出队首元素， 等待指定时间
     E pollFirst(long timeout, TimeUnit unit)
-        throws InterruptedException;
+            throws InterruptedException;
 
     /**
      * Retrieves and removes the last element of this deque, waiting
@@ -379,15 +392,16 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * become available.
      *
      * @param timeout how long to wait before giving up, in units of
-     *        {@code unit}
-     * @param unit a {@code TimeUnit} determining how to interpret the
-     *        {@code timeout} parameter
+     *                {@code unit}
+     * @param unit    a {@code TimeUnit} determining how to interpret the
+     *                {@code timeout} parameter
      * @return the tail of this deque, or {@code null} if the specified
-     *         waiting time elapses before an element is available
+     * waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
+    // 弹出队尾元素，会等待指定时间
     E pollLast(long timeout, TimeUnit unit)
-        throws InterruptedException;
+            throws InterruptedException;
 
     /**
      * Removes the first occurrence of the specified element from this deque.
@@ -399,12 +413,13 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      *
      * @param o element to be removed from this deque, if present
      * @return {@code true} if an element was removed as a result of this call
-     * @throws ClassCastException if the class of the specified element
-     *         is incompatible with this deque
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     * @throws ClassCastException   if the class of the specified element
+     *                              is incompatible with this deque
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      * @throws NullPointerException if the specified element is null
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      */
+    // 移除队首元素，如果deque不包含元素，则它将保持不变
     boolean removeFirstOccurrence(Object o);
 
     /**
@@ -417,12 +432,13 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      *
      * @param o element to be removed from this deque, if present
      * @return {@code true} if an element was removed as a result of this call
-     * @throws ClassCastException if the class of the specified element
-     *         is incompatible with this deque
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     * @throws ClassCastException   if the class of the specified element
+     *                              is incompatible with this deque
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      * @throws NullPointerException if the specified element is null
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      */
+    // 移除最后一个元素，如果deque不包含元素，则它将保持不变
     boolean removeLastOccurrence(Object o);
 
     // *** BlockingQueue methods ***
@@ -439,13 +455,14 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * <p>This method is equivalent to {@link #addLast(Object) addLast}.
      *
      * @param e the element to add
-     * @throws IllegalStateException {@inheritDoc}
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this deque
-     * @throws NullPointerException if the specified element is null
+     * @throws IllegalStateException    {@inheritDoc}
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this deque
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException if some property of the specified
-     *         element prevents it from being added to this deque
+     *                                  element prevents it from being added to this deque
      */
+    // 将指定元素插入此deque表示的队列中，在队尾添加
     boolean add(E e);
 
     /**
@@ -460,11 +477,11 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * <p>This method is equivalent to {@link #offerLast(Object) offerLast}.
      *
      * @param e the element to add
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this deque
-     * @throws NullPointerException if the specified element is null
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this deque
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException if some property of the specified
-     *         element prevents it from being added to this deque
+     *                                  element prevents it from being added to this deque
      */
     boolean offer(E e);
 
@@ -476,12 +493,12 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * <p>This method is equivalent to {@link #putLast(Object) putLast}.
      *
      * @param e the element to add
-     * @throws InterruptedException {@inheritDoc}
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this deque
-     * @throws NullPointerException if the specified element is null
+     * @throws InterruptedException     {@inheritDoc}
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this deque
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException if some property of the specified
-     *         element prevents it from being added to this deque
+     *                                  element prevents it from being added to this deque
      */
     void put(E e) throws InterruptedException;
 
@@ -491,20 +508,20 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * specified wait time if necessary for space to become available.
      *
      * <p>This method is equivalent to
-     * {@link #offerLast(Object,long,TimeUnit) offerLast}.
+     * {@link #offerLast(Object, long, TimeUnit) offerLast}.
      *
      * @param e the element to add
      * @return {@code true} if the element was added to this deque, else
-     *         {@code false}
-     * @throws InterruptedException {@inheritDoc}
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this deque
-     * @throws NullPointerException if the specified element is null
+     * {@code false}
+     * @throws InterruptedException     {@inheritDoc}
+     * @throws ClassCastException       if the class of the specified element
+     *                                  prevents it from being added to this deque
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException if some property of the specified
-     *         element prevents it from being added to this deque
+     *                                  element prevents it from being added to this deque
      */
     boolean offer(E e, long timeout, TimeUnit unit)
-        throws InterruptedException;
+            throws InterruptedException;
 
     /**
      * Retrieves and removes the head of the queue represented by this deque
@@ -548,14 +565,14 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      * specified wait time if necessary for an element to become available.
      *
      * <p>This method is equivalent to
-     * {@link #pollFirst(long,TimeUnit) pollFirst}.
+     * {@link #pollFirst(long, TimeUnit) pollFirst}.
      *
      * @return the head of this deque, or {@code null} if the
-     *         specified waiting time elapses before an element is available
+     * specified waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
     E poll(long timeout, TimeUnit unit)
-        throws InterruptedException;
+            throws InterruptedException;
 
     /**
      * Retrieves, but does not remove, the head of the queue represented by
@@ -594,11 +611,11 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      *
      * @param o element to be removed from this deque, if present
      * @return {@code true} if this deque changed as a result of the call
-     * @throws ClassCastException if the class of the specified element
-     *         is incompatible with this deque
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     * @throws ClassCastException   if the class of the specified element
+     *                              is incompatible with this deque
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      * @throws NullPointerException if the specified element is null
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      */
     boolean remove(Object o);
 
@@ -609,11 +626,11 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      *
      * @param o object to be checked for containment in this deque
      * @return {@code true} if this deque contains the specified element
-     * @throws ClassCastException if the class of the specified element
-     *         is incompatible with this deque
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     * @throws ClassCastException   if the class of the specified element
+     *                              is incompatible with this deque
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      * @throws NullPointerException if the specified element is null
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      */
     public boolean contains(Object o);
 
@@ -642,9 +659,9 @@ public interface BlockingDeque<E> extends BlockingQueue<E>, Deque<E> {
      *
      * <p>This method is equivalent to {@link #addFirst(Object) addFirst}.
      *
-     * @throws IllegalStateException {@inheritDoc}
-     * @throws ClassCastException {@inheritDoc}
-     * @throws NullPointerException if the specified element is null
+     * @throws IllegalStateException    {@inheritDoc}
+     * @throws ClassCastException       {@inheritDoc}
+     * @throws NullPointerException     if the specified element is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
     void push(E e);
