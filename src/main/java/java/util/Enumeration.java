@@ -58,6 +58,7 @@ package java.util;
  * @author  Lee Boynton
  * @since   JDK1.0
  */
+// 枚举 接口
 public interface Enumeration<E> {
     /**
      * Tests if this enumeration contains more elements.
@@ -66,6 +67,7 @@ public interface Enumeration<E> {
      *           contains at least one more element to provide;
      *          <code>false</code> otherwise.
      */
+    // 是否有更多元素
     boolean hasMoreElements();
 
     /**
@@ -75,5 +77,6 @@ public interface Enumeration<E> {
      * @return     the next element of this enumeration.
      * @exception  NoSuchElementException  if no more elements exist.
      */
+    // 获取元素
     E nextElement();
 }
