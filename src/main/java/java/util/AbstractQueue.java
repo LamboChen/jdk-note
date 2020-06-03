@@ -110,6 +110,7 @@ public abstract class AbstractQueue<E>
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+    // 移除元素，并返回旧值
     public E remove() {
         E x = poll();
         if (x != null)
@@ -129,6 +130,7 @@ public abstract class AbstractQueue<E>
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+    // 获取一个队首元素，但不弹出
     public E element() {
         E x = peek();
         if (x != null)
