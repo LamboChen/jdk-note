@@ -29,5 +29,6 @@ package java.util;
  * A tagging interface that all event listener interfaces must extend.
  * @since JDK1.1
  */
+// 所有事件侦听器接口都必须扩展的标记接口。
 public interface EventListener {
 }
