@@ -382,6 +382,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @param o element to be removed from this deque, if present
      * @return {@code true} if the deque contained the specified element
      */
+    // 移除第一个与 o 相等的元素
     public boolean removeFirstOccurrence(Object o) {
         if (o == null)
             return false;
@@ -410,6 +411,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @param o element to be removed from this deque, if present
      * @return {@code true} if the deque contained the specified element
      */
+    // 移除最后一个与 o 匹配元素
     public boolean removeLastOccurrence(Object o) {
         if (o == null)
             return false;
@@ -437,6 +439,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @return {@code true} (as specified by {@link Collection#add})
      * @throws NullPointerException if the specified element is null
      */
+    // 入队
     public boolean add(E e) {
         addLast(e);
         return true;
@@ -451,6 +454,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @return {@code true} (as specified by {@link Queue#offer})
      * @throws NullPointerException if the specified element is null
      */
+    // 入队
     public boolean offer(E e) {
         return offerLast(e);
     }
@@ -466,6 +470,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // 出队
     public E remove() {
         return removeFirst();
     }
@@ -480,6 +485,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @return the head of the queue represented by this deque, or
      * {@code null} if this deque is empty
      */
+    // 出队
     public E poll() {
         return pollFirst();
     }
@@ -494,6 +500,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // 后去队首元素, 不出队， 队首为 null 时跑异常
     public E element() {
         return getFirst();
     }
@@ -507,6 +514,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @return the head of the queue represented by this deque, or
      * {@code null} if this deque is empty
      */
+    // 获取队首元素，不出队
     public E peek() {
         return peekFirst();
     }
@@ -522,6 +530,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @param e the element to push
      * @throws NullPointerException if the specified element is null
      */
+    // 入队
     public void push(E e) {
         addFirst(e);
     }
@@ -536,6 +545,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * of the stack represented by this deque)
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // 出队
     public E pop() {
         return removeFirst();
     }
@@ -604,6 +614,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      *
      * @return the number of elements in this deque
      */
+    // 元素数量
     public int size() {
         return (tail - head) & (elements.length - 1);
     }
@@ -613,6 +624,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      *
      * @return {@code true} if this deque contains no elements
      */
+    // 队首 == 队尾，说明无原属
     public boolean isEmpty() {
         return head == tail;
     }
@@ -629,6 +641,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
         return new DeqIterator();
     }
 
+    // 逆向迭代器
     public Iterator<E> descendingIterator() {
         return new DescendingIterator();
     }
@@ -637,24 +650,29 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
         /**
          * Index of element to be returned by subsequent call to next.
          */
+        // 光标、游标
         private int cursor = head;
 
         /**
          * Tail recorded at construction (also in remove), to stop
          * iterator and also to check for comodification.
          */
+        // 栅栏，边界
         private int fence = tail;
 
         /**
          * Index of element returned by most recent call to next.
          * Reset to -1 if element is deleted by a call to remove.
          */
+        // 上一个元素 index
         private int lastRet = -1;
 
+        // 是否还有元素
         public boolean hasNext() {
             return cursor != fence;
         }
 
+        // 获取元素
         public E next() {
             if (cursor == fence)
                 throw new NoSuchElementException();
@@ -669,6 +687,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
             return result;
         }
 
+        // 移除当前元素
         public void remove() {
             if (lastRet < 0)
                 throw new IllegalStateException();
@@ -679,6 +698,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
             lastRet = -1;
         }
 
+        // 遍历
         public void forEachRemaining(Consumer<? super E> action) {
             Objects.requireNonNull(action);
             Object[] a = elements;
@@ -694,6 +714,8 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
         }
     }
 
+    // 逆向迭代器
+    // 底层实现是数组，所以迭代器也是直接采用下标访问
     private class DescendingIterator implements Iterator<E> {
         /*
          * This class is nearly a mirror-image of DeqIterator, using
@@ -739,6 +761,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @param o object to be checked for containment in this deque
      * @return {@code true} if this deque contains the specified element
      */
+    // 是否包含 o 。 直接遍历
     public boolean contains(Object o) {
         if (o == null)
             return false;
@@ -766,6 +789,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * @param o element to be removed from this deque, if present
      * @return {@code true} if this deque contained the specified element
      */
+    // 移除 o, 只移除第一个匹配的元素
     public boolean remove(Object o) {
         return removeFirstOccurrence(o);
     }
@@ -774,6 +798,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      * Removes all of the elements from this deque.
      * The deque will be empty after this call returns.
      */
+    // 清空
     public void clear() {
         int h = head;
         int t = tail;
@@ -782,6 +807,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
             int i = h;
             int mask = elements.length - 1;
             do {
+                // 直接置空，交由 GC 处理
                 elements[i] = null;
                 i = (i + 1) & mask;
             } while (i != t);
@@ -801,6 +827,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      *
      * @return an array containing all of the elements in this deque
      */
+    // 转换为数组，此处是 拷贝了新的一份
     public Object[] toArray() {
         return copyElements(new Object[size()]);
     }
@@ -841,6 +868,7 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      *                              this deque
      * @throws NullPointerException if the specified array is null
      */
+    // 拷贝元素给 a
     @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] a) {
         int size = size();
@@ -860,10 +888,12 @@ public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cl
      *
      * @return a copy of this deque
      */
+    // 拷贝整个队列
     public ArrayDeque<E> clone() {
         try {
             @SuppressWarnings("unchecked")
             ArrayDeque<E> result = (ArrayDeque<E>) super.clone();
+            // 此处拷贝了元素。浅拷贝
             result.elements = Arrays.copyOf(elements, elements.length);
             return result;
         } catch (CloneNotSupportedException e) {
