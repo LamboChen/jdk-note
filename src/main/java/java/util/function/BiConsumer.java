@@ -41,6 +41,7 @@ import java.util.Objects;
  * @see Consumer
  * @since 1.8
  */
+// 执行消费
 @FunctionalInterface
 public interface BiConsumer<T, U> {
 
@@ -50,6 +51,7 @@ public interface BiConsumer<T, U> {
      * @param t the first input argument
      * @param u the second input argument
      */
+    // 消费逻辑
     void accept(T t, U u);
 
     /**
