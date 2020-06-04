@@ -46,6 +46,7 @@ package java.util;
  * @see     java.util.Hashtable
  * @since   JDK1.0
  */
+// 字典
 public abstract
 class Dictionary<K,V> {
     /**
@@ -60,6 +61,7 @@ class Dictionary<K,V> {
      *
      * @return  the number of keys in this dictionary.
      */
+    // 元素个数
     abstract public int size();
 
     /**
@@ -70,6 +72,7 @@ class Dictionary<K,V> {
      * @return  <code>true</code> if this dictionary maps no keys to values;
      *          <code>false</code> otherwise.
      */
+    // 是否为空
     abstract public boolean isEmpty();
 
     /**
@@ -82,6 +85,7 @@ class Dictionary<K,V> {
      * @see     java.util.Dictionary#elements()
      * @see     java.util.Enumeration
      */
+    // 获取所有 key
     abstract public Enumeration<K> keys();
 
     /**
@@ -94,6 +98,7 @@ class Dictionary<K,V> {
      * @see     java.util.Dictionary#keys()
      * @see     java.util.Enumeration
      */
+    // 获取所有 value
     abstract public Enumeration<V> elements();
 
     /**
@@ -109,6 +114,7 @@ class Dictionary<K,V> {
      * @exception NullPointerException if the <tt>key</tt> is <tt>null</tt>.
      * @see     java.util.Dictionary#put(java.lang.Object, java.lang.Object)
      */
+    // 根据 key 获取 value
     abstract public V get(Object key);
 
     /**
@@ -138,6 +144,7 @@ class Dictionary<K,V> {
      * @see        java.lang.Object#equals(java.lang.Object)
      * @see        java.util.Dictionary#get(java.lang.Object)
      */
+    // 新增节点
     abstract public V put(K key, V value);
 
     /**
@@ -151,5 +158,6 @@ class Dictionary<K,V> {
      *          mapping.
      * @exception NullPointerException if <tt>key</tt> is <tt>null</tt>.
      */
+    // 移除节点
     abstract public V remove(Object key);
 }
