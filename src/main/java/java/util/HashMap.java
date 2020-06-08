@@ -257,6 +257,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * tree removal about conversion back to plain bins upon
      * shrinkage.
      */
+    // 链表转树 阈值
     static final int TREEIFY_THRESHOLD = 8;
 
     /**
@@ -264,6 +265,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * resize operation. Should be less than TREEIFY_THRESHOLD, and at
      * most 6 to mesh with shrinkage detection under removal.
      */
+    // 树转链表 阈值
     static final int UNTREEIFY_THRESHOLD = 6;
 
     /**
@@ -272,6 +274,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts
      * between resizing and treeification thresholds.
      */
+    // 树最小容量
     static final int MIN_TREEIFY_CAPACITY = 64;
 
     /**
@@ -654,28 +657,37 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * @param hash         hash for key
      * @param key          the key
      * @param value        the value to put
-     * @param onlyIfAbsent if true, don't change existing value
-     * @param evict        if false, the table is in creation mode.
+     * @param onlyIfAbsent if true, don't change existing value  如果为 true，不更新当前值
+     * @param evict        if false, the table is in creation mode.  如果为false，则表处于创建模式
      * @return previous value, or null if none
      */
     final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) {
+        // 局部变量
         Node<K, V>[] tab;
         Node<K, V> p;
         int n, i;
+        // size 校验
         if ((tab = table) == null || (n = tab.length) == 0)
             n = (tab = resize()).length;
+        // 确保 hash 桶存在, 如果不存在，则直接进行新建
         if ((p = tab[i = (n - 1) & hash]) == null)
             tab[i] = newNode(hash, key, value, null);
         else {
+            // 用于存放 待操作的节点
             Node<K, V> e;
             K k;
             if (p.hash == hash &&
                     ((k = p.key) == key || (key != null && key.equals(k))))
+                // hash, key 均相同
                 e = p;
             else if (p instanceof TreeNode)
+                // 如果 p 是 树节点?
+                // 当元素小于 TREEIFY_THRESHOLD 时，桶内结构为链表，否则为 树
                 e = ((TreeNode<K, V>) p).putTreeVal(this, tab, hash, key, value);
             else {
+                // 链表结构，直接遍历
                 for (int binCount = 0; ; ++binCount) {
+                    // 如果为空，说明 HashMap 中不存在该数据，直接 put ， return
                     if ((e = p.next) == null) {
                         p.next = newNode(hash, key, value, null);
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
@@ -697,6 +709,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
             }
         }
         ++modCount;
+        // check 是否需要扩容
         if (++size > threshold)
             resize();
         afterNodeInsertion(evict);
@@ -2056,6 +2069,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
         /**
          * Tree version of putVal.
          */
+        // 向树中 put
         final TreeNode<K, V> putTreeVal(HashMap<K, V> map, Node<K, V>[] tab,
                                         int h, K k, V v) {
             Class<?> kc = null;
