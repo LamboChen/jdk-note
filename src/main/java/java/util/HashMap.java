@@ -133,7 +133,8 @@ import java.util.function.Function;
  * @see Hashtable
  * @since 1.2
  */
-// hash map
+// hash map 蕾丝 HashTable
+// 由 Node[] 作为 Hash 桶，桶内存储多个 Node，链表结构存储， 当桶内数量大于 阈值 时，转为 树 结构存储
 public class HashMap<K, V> extends AbstractMap<K, V>
         implements Map<K, V>, Cloneable, Serializable {
 
@@ -725,21 +726,30 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      *
      * @return the table
      */
+    // 重置 HashMap size
     final Node<K, V>[] resize() {
+        // 原 hash 表，暂存
         Node<K, V>[] oldTab = table;
         int oldCap = (oldTab == null) ? 0 : oldTab.length;
         int oldThr = threshold;
         int newCap, newThr = 0;
         if (oldCap > 0) {
             if (oldCap >= MAXIMUM_CAPACITY) {
+                // 如果原容量大于最大值，则 设置阈值为 Integer.MAX_VALUE
                 threshold = Integer.MAX_VALUE;
+                // 直接返回原始容量
                 return oldTab;
             } else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
                     oldCap >= DEFAULT_INITIAL_CAPACITY)
+                // 扩容，原容量的两倍. 并且 check 上下限
+                // 阈值相应扩容为两倍
                 newThr = oldThr << 1; // double threshold
         } else if (oldThr > 0) // initial capacity was placed in threshold
+            // 原容量 < 0, 原阈值 > 0
+            // 容量设置为原阈值
             newCap = oldThr;
         else {               // zero initial threshold signifies using defaults
+            // 原容量、阈值均 < 0 ， 则设置为默认值
             newCap = DEFAULT_INITIAL_CAPACITY;
             newThr = (int) (DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
         }
@@ -843,6 +853,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * (A <tt>null</tt> return can also indicate that the map
      * previously associated <tt>null</tt> with <tt>key</tt>.)
      */
+    // 删除 key，并返回 value
     public V remove(Object key) {
         Node<K, V> e;
         return (e = removeNode(hash(key), key, null, false, true)) == null ?
