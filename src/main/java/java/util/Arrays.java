@@ -68,7 +68,7 @@ import java.util.stream.StreamSupport;
  * @author John Rose
  * @since  1.2
  */
-
+// 数组工具类
 public class Arrays {
 
     /**

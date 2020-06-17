@@ -531,16 +531,22 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      */
     // 添加进新的 map
     final void putMapEntries(Map<? extends K, ? extends V> m, boolean evict) {
+        // 获取 m 的数量，用于遍历
         int s = m.size();
+        // 如果无数据，则不需要进行 put
         if (s > 0) {
             if (table == null) { // pre-size
+                // hash 桶为空
+                // 进行负载因子、阈值等初始化
                 float ft = ((float) s / loadFactor) + 1.0F;
                 int t = ((ft < (float) MAXIMUM_CAPACITY) ?
                         (int) ft : MAXIMUM_CAPACITY);
                 if (t > threshold)
                     threshold = tableSizeFor(t);
             } else if (s > threshold)
+                // 容量大于阈值，进行扩容
                 resize();
+            // 遍历插入数据
             for (Map.Entry<? extends K, ? extends V> e : m.entrySet()) {
                 K key = e.getKey();
                 V value = e.getValue();
@@ -596,7 +602,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
      * @param key  the key
      * @return the node, or null if none
      */
-    // 获取 节点，为啥需要 hash ？？？
+    // 获取 节点，为啥需要 hash ？？？  // 因为需要解决 hash 冲突
     // 此处是给内部调用
     final Node<K, V> getNode(int hash, Object key) {
         Node<K, V>[] tab;
