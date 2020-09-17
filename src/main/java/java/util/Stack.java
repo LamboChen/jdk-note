@@ -45,6 +45,7 @@ package java.util;
  * @author  Jonathan Payne
  * @since   JDK1.0
  */
+// 栈，基于 Vector 实现，线程安全
 public
 class Stack<E> extends Vector<E> {
     /**
@@ -63,7 +64,9 @@ class Stack<E> extends Vector<E> {
      * @return  the <code>item</code> argument.
      * @see     java.util.Vector#addElement
      */
+    // 入栈，数组末尾新增元素
     public E push(E item) {
+        // 线程安全，添加数据
         addElement(item);
 
         return item;
@@ -77,11 +80,14 @@ class Stack<E> extends Vector<E> {
      *          of the <tt>Vector</tt> object).
      * @throws  EmptyStackException  if this stack is empty.
      */
+    // 弹栈，线程安全
     public synchronized E pop() {
         E       obj;
         int     len = size();
 
+        // 先获取元素
         obj = peek();
+        // 再删除
         removeElementAt(len - 1);
 
         return obj;
@@ -95,11 +101,14 @@ class Stack<E> extends Vector<E> {
      *          of the <tt>Vector</tt> object).
      * @throws  EmptyStackException  if this stack is empty.
      */
+    // 获取栈顶，不删除元素
     public synchronized E peek() {
+        // 获取数组长度
         int     len = size();
 
         if (len == 0)
             throw new EmptyStackException();
+        // 获取对应 index 元素
         return elementAt(len - 1);
     }
 
@@ -109,7 +118,9 @@ class Stack<E> extends Vector<E> {
      * @return  <code>true</code> if and only if this stack contains
      *          no items; <code>false</code> otherwise.
      */
+    // 判空
     public boolean empty() {
+        // size 线程安全
         return size() == 0;
     }
 
@@ -127,7 +138,9 @@ class Stack<E> extends Vector<E> {
      *          the object is located; the return value <code>-1</code>
      *          indicates that the object is not on the stack.
      */
+    // 在栈中获取元素 index
     public synchronized int search(Object o) {
+        // 获取第一个元素，因为是栈，所以调用 lastIndexOf
         int i = lastIndexOf(o);
 
         if (i >= 0) {
