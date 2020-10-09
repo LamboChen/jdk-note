@@ -32,22 +32,20 @@ package java.io;
  * subclasses, however, will override some of the methods defined here in order
  * to provide higher efficiency, additional functionality, or both.
  *
- *
+ * @author Mark Reinhold
  * @see BufferedReader
- * @see   LineNumberReader
+ * @see LineNumberReader
  * @see CharArrayReader
  * @see InputStreamReader
- * @see   FileReader
+ * @see FileReader
  * @see FilterReader
- * @see   PushbackReader
+ * @see PushbackReader
  * @see PipedReader
  * @see StringReader
  * @see Writer
- *
- * @author      Mark Reinhold
- * @since       JDK1.1
+ * @since JDK1.1
  */
-
+// char stream reader
 public abstract class Reader implements Readable, Closeable {
 
     /**
@@ -57,6 +55,7 @@ public abstract class Reader implements Readable, Closeable {
      * the object in this field rather than <tt>this</tt> or a synchronized
      * method.
      */
+    // 同步锁，用于同步此流上的操作的对象
     protected Object lock;
 
     /**
@@ -64,6 +63,7 @@ public abstract class Reader implements Readable, Closeable {
      * synchronize on the reader itself.
      */
     protected Reader() {
+        // 默认为对象锁，并且锁 this
         this.lock = this;
     }
 
@@ -71,8 +71,9 @@ public abstract class Reader implements Readable, Closeable {
      * Creates a new character-stream reader whose critical sections will
      * synchronize on the given object.
      *
-     * @param lock  The Object to synchronize on.
+     * @param lock The Object to synchronize on.
      */
+    // 传入锁
     protected Reader(Object lock) {
         if (lock == null) {
             throw new NullPointerException();
@@ -88,18 +89,23 @@ public abstract class Reader implements Readable, Closeable {
      *
      * @param target the buffer to read characters into
      * @return The number of characters added to the buffer, or
-     *         -1 if this source of characters is at its end
-     * @throws IOException if an I/O error occurs
-     * @throws NullPointerException if target is null
+     * -1 if this source of characters is at its end
+     * @throws IOException                      if an I/O error occurs
+     * @throws NullPointerException             if target is null
      * @throws java.nio.ReadOnlyBufferException if target is a read only buffer
      * @since 1.5
      */
+    // 试图将字符读入指定的字符缓冲区,返回写入字符个数
     public int read(java.nio.CharBuffer target) throws IOException {
+        // 获取缓冲区字符长度
         int len = target.remaining();
         char[] cbuf = new char[len];
+        // 读取数据到 cbuf
         int n = read(cbuf, 0, len);
         if (n > 0)
+            // 写入缓冲区
             target.put(cbuf, 0, n);
+        // 返回写入字符个数
         return n;
     }
 
@@ -110,12 +116,12 @@ public abstract class Reader implements Readable, Closeable {
      * <p> Subclasses that intend to support efficient single-character input
      * should override this method.
      *
-     * @return     The character read, as an integer in the range 0 to 65535
-     *             (<tt>0x00-0xffff</tt>), or -1 if the end of the stream has
-     *             been reached
-     *
-     * @exception  IOException  If an I/O error occurs
+     * @return The character read, as an integer in the range 0 to 65535
+     * (<tt>0x00-0xffff</tt>), or -1 if the end of the stream has
+     * been reached
+     * @throws IOException If an I/O error occurs
      */
+    // 读取一个字符
     public int read() throws IOException {
         char cb[] = new char[1];
         if (read(cb, 0, 1) == -1)
@@ -128,14 +134,13 @@ public abstract class Reader implements Readable, Closeable {
      * Reads characters into an array.  This method will block until some input
      * is available, an I/O error occurs, or the end of the stream is reached.
      *
-     * @param       cbuf  Destination buffer
-     *
-     * @return      The number of characters read, or -1
-     *              if the end of the stream
-     *              has been reached
-     *
-     * @exception   IOException  If an I/O error occurs
+     * @param cbuf Destination buffer
+     * @return The number of characters read, or -1
+     * if the end of the stream
+     * has been reached
+     * @throws IOException If an I/O error occurs
      */
+    // 读取 cbuf.length 个字符到 cbuf 中
     public int read(char cbuf[]) throws IOException {
         return read(cbuf, 0, cbuf.length);
     }
@@ -145,48 +150,60 @@ public abstract class Reader implements Readable, Closeable {
      * until some input is available, an I/O error occurs, or the end of the
      * stream is reached.
      *
-     * @param      cbuf  Destination buffer
-     * @param      off   Offset at which to start storing characters
-     * @param      len   Maximum number of characters to read
-     *
-     * @return     The number of characters read, or -1 if the end of the
-     *             stream has been reached
-     *
-     * @exception  IOException  If an I/O error occurs
+     * @param cbuf Destination buffer
+     * @param off  Offset at which to start storing characters
+     * @param len  Maximum number of characters to read
+     * @return The number of characters read, or -1 if the end of the
+     * stream has been reached
+     * @throws IOException If an I/O error occurs
      */
+    // 从 off 位置开始读取 len 个字符写入 cbuf
     abstract public int read(char cbuf[], int off, int len) throws IOException;
 
-    /** Maximum skip-buffer size */
+    /**
+     * Maximum skip-buffer size
+     */
+    // 最大跳过缓冲区大小 8k
     private static final int maxSkipBufferSize = 8192;
 
-    /** Skip buffer, null until allocated */
+    /**
+     * Skip buffer, null until allocated
+     */
+    // 跳过缓冲区，在分配之前为空
     private char skipBuffer[] = null;
 
     /**
      * Skips characters.  This method will block until some characters are
      * available, an I/O error occurs, or the end of the stream is reached.
      *
-     * @param  n  The number of characters to skip
-     *
-     * @return    The number of characters actually skipped
-     *
-     * @exception  IllegalArgumentException  If <code>n</code> is negative.
-     * @exception  IOException  If an I/O error occurs
+     * @param n The number of characters to skip
+     * @return The number of characters actually skipped
+     * @throws IllegalArgumentException If <code>n</code> is negative.
+     * @throws IOException              If an I/O error occurs
      */
+    // 跳过字符，忽略 n 个字符
     public long skip(long n) throws IOException {
         if (n < 0L)
+            // n 必须为非负
             throw new IllegalArgumentException("skip value is negative");
+        // 跳过字符个数不能大于 maxSkipBufferSize
         int nn = (int) Math.min(n, maxSkipBufferSize);
+        // 加锁
         synchronized (lock) {
             if ((skipBuffer == null) || (skipBuffer.length < nn))
+                // 确保跳过缓冲区的 char 数组长度
                 skipBuffer = new char[nn];
+            // 中间变量 r，确保 n 不变
             long r = n;
             while (r > 0) {
-                int nc = read(skipBuffer, 0, (int)Math.min(r, nn));
+                // 获取数据写入 skipBuffer
+                int nc = read(skipBuffer, 0, (int) Math.min(r, nn));
                 if (nc == -1)
                     break;
+                // 可能存在多次读取
                 r -= nc;
             }
+            // 返回忽略字符个数
             return n - r;
         }
     }
@@ -197,9 +214,10 @@ public abstract class Reader implements Readable, Closeable {
      * @return True if the next read() is guaranteed not to block for input,
      * false otherwise.  Note that returning false does not guarantee that the
      * next read will block.
-     *
-     * @exception  IOException  If an I/O error occurs
+     * @throws IOException If an I/O error occurs
      */
+    // 指示此流是否已准备好读取
+    // 如果子类需要支持，则需要重写此方法
     public boolean ready() throws IOException {
         return false;
     }
@@ -211,6 +229,8 @@ public abstract class Reader implements Readable, Closeable {
      *
      * @return true if and only if this stream supports the mark operation.
      */
+    // 标识此 stream 是否支持 mark() 操作
+    // 默认不支持。子类需重写
     public boolean markSupported() {
         return false;
     }
@@ -220,15 +240,16 @@ public abstract class Reader implements Readable, Closeable {
      * will attempt to reposition the stream to this point.  Not all
      * character-input streams support the mark() operation.
      *
-     * @param  readAheadLimit  Limit on the number of characters that may be
-     *                         read while still preserving the mark.  After
-     *                         reading this many characters, attempting to
-     *                         reset the stream may fail.
-     *
-     * @exception  IOException  If the stream does not support mark(),
-     *                          or if some other I/O error occurs
+     * @param readAheadLimit Limit on the number of characters that may be
+     *                       read while still preserving the mark.  After
+     *                       reading this many characters, attempting to
+     *                       reset the stream may fail.
+     * @throws IOException If the stream does not support mark(),
+     *                     or if some other I/O error occurs
      */
+    // 标识当前 stream 的当前位置
     public void mark(int readAheadLimit) throws IOException {
+        // 默认不支持
         throw new IOException("mark() not supported");
     }
 
@@ -240,11 +261,12 @@ public abstract class Reader implements Readable, Closeable {
      * character-input streams support the reset() operation, and some support
      * reset() without supporting mark().
      *
-     * @exception  IOException  If the stream has not been marked,
-     *                          or if the mark has been invalidated,
-     *                          or if the stream does not support reset(),
-     *                          or if some other I/O error occurs
+     * @throws IOException If the stream has not been marked,
+     *                     or if the mark has been invalidated,
+     *                     or if the stream does not support reset(),
+     *                     or if some other I/O error occurs
      */
+    // 重置 stream
     public void reset() throws IOException {
         throw new IOException("reset() not supported");
     }
@@ -255,8 +277,9 @@ public abstract class Reader implements Readable, Closeable {
      * mark(), reset(), or skip() invocations will throw an IOException.
      * Closing a previously closed stream has no effect.
      *
-     * @exception  IOException  If an I/O error occurs
+     * @throws IOException If an I/O error occurs
      */
-     abstract public void close() throws IOException;
+    // close stream
+    abstract public void close() throws IOException;
 
 }

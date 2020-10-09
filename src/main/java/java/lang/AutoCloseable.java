@@ -48,6 +48,7 @@ package java.lang;
  * @author Josh Bloch
  * @since 1.7
  */
+// 标注一个 object 能够持有资源直到被关闭
 public interface AutoCloseable {
     /**
      * Closes this resource, relinquishing any underlying resources.

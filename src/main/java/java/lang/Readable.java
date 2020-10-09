@@ -34,6 +34,7 @@ import java.io.IOException;
  *
  * @since 1.5
  */
+// 可读的
 public interface Readable {
 
     /**

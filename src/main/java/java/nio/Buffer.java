@@ -382,8 +382,7 @@ public abstract class Buffer {
     }
 
     /**
-     * Returns the number of elements between the current position and the
-     * limit.
+     * Returns the number of elements between the current position and the limit.
      *
      * @return  The number of elements remaining in this buffer
      */

@@ -66,9 +66,10 @@ import java.util.stream.StreamSupport;
  * @author      Mark Reinhold
  * @since       JDK1.1
  */
-
+// 带 Buffer 的 Reader
 public class BufferedReader extends Reader {
 
+    //
     private Reader in;
 
     private char cb[];
