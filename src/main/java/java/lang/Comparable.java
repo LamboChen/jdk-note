@@ -93,6 +93,7 @@ import java.util.*;
  * @see java.util.Comparator
  * @since 1.2
  */
+// 可比较的
 public interface Comparable<T> {
     /**
      * Compares this object with the specified object for order.  Returns a
@@ -133,5 +134,9 @@ public interface Comparable<T> {
      * @throws ClassCastException if the specified object's type prevents it
      *         from being compared to this object.
      */
+    // 进行比较
+    // if a > b : res > 0
+    // if a == b : res == 0
+    // if a < b : res < 0
     public int compareTo(T o);
 }

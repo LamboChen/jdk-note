@@ -34,6 +34,7 @@ class DefaultFileSystem {
     /**
      * Return the FileSystem object for Windows platform.
      */
+    // 获取文件系统
     public static FileSystem getFileSystem() {
         return new WinNTFileSystem();
     }
