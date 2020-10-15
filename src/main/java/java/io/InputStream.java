@@ -42,10 +42,12 @@ package java.io;
  * @see     java.io.PushbackInputStream
  * @since   JDK1.0
  */
+// 字节输入流
 public abstract class InputStream implements Closeable {
 
     // MAX_SKIP_BUFFER_SIZE is used to determine the maximum buffer size to
     // use when skipping.
+    // 最大忽略缓存数量
     private static final int MAX_SKIP_BUFFER_SIZE = 2048;
 
     /**
@@ -62,6 +64,7 @@ public abstract class InputStream implements Closeable {
      *             stream is reached.
      * @exception  IOException  if an I/O error occurs.
      */
+    // 从 input stream 中获取下一个字节
     public abstract int read() throws IOException;
 
     /**
@@ -97,6 +100,7 @@ public abstract class InputStream implements Closeable {
      * @exception  NullPointerException  if <code>b</code> is <code>null</code>.
      * @see        java.io.InputStream#read(byte[], int, int)
      */
+    // 获取 b.len 个字节写入 b
     public int read(byte b[]) throws IOException {
         return read(b, 0, b.length);
     }
@@ -158,6 +162,7 @@ public abstract class InputStream implements Closeable {
      * <code>b.length - off</code>
      * @see        java.io.InputStream#read()
      */
+    // 获取 input stream 的 off 位置开始获取 len 个字节写入 b. 并返回获取字节个数
     public int read(byte b[], int off, int len) throws IOException {
         if (b == null) {
             throw new NullPointerException();
@@ -167,7 +172,9 @@ public abstract class InputStream implements Closeable {
             return 0;
         }
 
+        // 获取一个字节
         int c = read();
+        // 是否为 -1 ，即 input stream 末尾
         if (c == -1) {
             return -1;
         }
@@ -176,6 +183,7 @@ public abstract class InputStream implements Closeable {
         int i = 1;
         try {
             for (; i < len ; i++) {
+                // 逐一获取字节
                 c = read();
                 if (c == -1) {
                     break;
@@ -183,7 +191,10 @@ public abstract class InputStream implements Closeable {
                 b[off + i] = (byte)c;
             }
         } catch (IOException ee) {
+            // 捕获 IO 异常，但是不做任何处理
         }
+
+        // 返回获取字节数
         return i;
     }
 
@@ -209,6 +220,7 @@ public abstract class InputStream implements Closeable {
      * @exception  IOException  if the stream does not support seek,
      *                          or if some other I/O error occurs.
      */
+    // 跳过 n 个字节
     public long skip(long n) throws IOException {
 
         long remaining = n;
@@ -221,6 +233,7 @@ public abstract class InputStream implements Closeable {
         int size = (int)Math.min(MAX_SKIP_BUFFER_SIZE, remaining);
         byte[] skipBuffer = new byte[size];
         while (remaining > 0) {
+            // 分多次进行 skip
             nr = read(skipBuffer, 0, (int)Math.min(size, remaining));
             if (nr < 0) {
                 break;
@@ -228,6 +241,7 @@ public abstract class InputStream implements Closeable {
             remaining -= nr;
         }
 
+        // 返回 skip 个数
         return n - remaining;
     }
 
@@ -257,6 +271,7 @@ public abstract class InputStream implements Closeable {
      *             it reaches the end of the input stream.
      * @exception  IOException if an I/O error occurs.
      */
+    // 可获取的，check 当前 input stream 是否可获取数据
     public int available() throws IOException {
         return 0;
     }
@@ -270,6 +285,7 @@ public abstract class InputStream implements Closeable {
      *
      * @exception  IOException  if an I/O error occurs.
      */
+    // 关闭 stream
     public void close() throws IOException {}
 
     /**
@@ -298,6 +314,7 @@ public abstract class InputStream implements Closeable {
      *                      the mark position becomes invalid.
      * @see     java.io.InputStream#reset()
      */
+    // 标记当前位置
     public synchronized void mark(int readlimit) {}
 
     /**
@@ -344,6 +361,7 @@ public abstract class InputStream implements Closeable {
      * @see     java.io.InputStream#mark(int)
      * @see     java.io.IOException
      */
+    // 重置当前流的位置为上一次 mark 位置
     public synchronized void reset() throws IOException {
         throw new IOException("mark/reset not supported");
     }
@@ -360,6 +378,7 @@ public abstract class InputStream implements Closeable {
      * @see     java.io.InputStream#mark(int)
      * @see     java.io.InputStream#reset()
      */
+    // 是否支持 mark
     public boolean markSupported() {
         return false;
     }
