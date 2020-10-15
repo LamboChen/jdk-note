@@ -42,11 +42,13 @@ package java.io;
  * @author  Jonathan Payne
  * @since   JDK1.0
  */
+// 封装其他的输入流，并为它们提供额外的功能，（filter）
 public
 class FilterInputStream extends InputStream {
     /**
      * The input stream to be filtered.
      */
+    // 输入流
     protected volatile InputStream in;
 
     /**
@@ -79,6 +81,7 @@ class FilterInputStream extends InputStream {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.FilterInputStream#in
      */
+    // 获取一个字节
     public int read() throws IOException {
         return in.read();
     }
@@ -103,6 +106,7 @@ class FilterInputStream extends InputStream {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.FilterInputStream#read(byte[], int, int)
      */
+    // 获取 b.len 个字节到 b
     public int read(byte b[]) throws IOException {
         return read(b, 0, b.length);
     }
@@ -129,6 +133,7 @@ class FilterInputStream extends InputStream {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.FilterInputStream#in
      */
+    // 从 off 获取 len 字节写入 b
     public int read(byte b[], int off, int len) throws IOException {
         return in.read(b, off, len);
     }
@@ -147,6 +152,7 @@ class FilterInputStream extends InputStream {
      * @exception  IOException  if the stream does not support seek,
      *                          or if some other I/O error occurs.
      */
+    // 跳过 n 个字节
     public long skip(long n) throws IOException {
         return in.skip(n);
     }
@@ -164,6 +170,7 @@ class FilterInputStream extends InputStream {
      *             over) from this input stream without blocking.
      * @exception  IOException  if an I/O error occurs.
      */
+    // 可获得的
     public int available() throws IOException {
         return in.available();
     }
@@ -177,6 +184,7 @@ class FilterInputStream extends InputStream {
      * @exception  IOException  if an I/O error occurs.
      * @see        java.io.FilterInputStream#in
      */
+    // 关闭 input stream
     public void close() throws IOException {
         in.close();
     }
@@ -197,6 +205,7 @@ class FilterInputStream extends InputStream {
      * @see     java.io.FilterInputStream#in
      * @see     java.io.FilterInputStream#reset()
      */
+    // mark 当前位置
     public synchronized void mark(int readlimit) {
         in.mark(readlimit);
     }
@@ -222,6 +231,7 @@ class FilterInputStream extends InputStream {
      * @see        java.io.FilterInputStream#in
      * @see        java.io.FilterInputStream#mark(int)
      */
+    // 重置当前位置
     public synchronized void reset() throws IOException {
         in.reset();
     }
@@ -239,6 +249,7 @@ class FilterInputStream extends InputStream {
      * @see     java.io.InputStream#mark(int)
      * @see     java.io.InputStream#reset()
      */
+    // 是否支持 mark
     public boolean markSupported() {
         return in.markSupported();
     }
