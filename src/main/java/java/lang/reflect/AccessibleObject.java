@@ -54,6 +54,7 @@ import java.lang.annotation.Annotation;
  *
  * @since 1.2
  */
+// 可访问的对象
 public class AccessibleObject implements AnnotatedElement {
 
     /**
@@ -61,6 +62,7 @@ public class AccessibleObject implements AnnotatedElement {
      * has sufficient privilege to defeat Java language access
      * control checks.
      */
+    // 访问权限
     static final private java.security.Permission ACCESS_PERMISSION =
         new ReflectPermission("suppressAccessChecks");
 
