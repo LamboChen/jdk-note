@@ -3364,6 +3364,7 @@ public final class Class<T> implements java.io.Serializable,
      * @since 1.5
      */
     @SuppressWarnings("unchecked")
+    // 强制类型转换
     public T cast(Object obj) {
         if (obj != null && !isInstance(obj))
             throw new ClassCastException(cannotCastMsg(obj));
