@@ -148,6 +148,7 @@ public final class Boolean implements java.io.Serializable,
      * @return a {@code Boolean} instance representing {@code b}.
      * @since  1.4
      */
+    // 此处直接返回公用实例，意味着 Boolean 实例可以直接采用 ==
     public static Boolean valueOf(boolean b) {
         return (b ? TRUE : FALSE);
     }
