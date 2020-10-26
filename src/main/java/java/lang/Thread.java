@@ -1836,6 +1836,8 @@ class Thread implements Runnable {
      * @see ThreadGroup#uncaughtException
      * @since 1.5
      */
+    // 未捕获异常处理器
+    // 当一个线程抛出异常，如果没有显式处理（即try catch），JVM会将该异常事件报告给该线程对象的Java.lang.Thread.UncaughtExceptionHandler，如果没有设置UncaughtExceptionHandler，那么默认将会把异常栈信息输出到System.err
     @FunctionalInterface
     public interface UncaughtExceptionHandler {
         /**
@@ -1847,6 +1849,7 @@ class Thread implements Runnable {
          * @param t the thread
          * @param e the exception
          */
+        // 未捕获异常
         void uncaughtException(Thread t, Throwable e);
     }
 
