@@ -71,11 +71,11 @@ package java.util.concurrent;
  *     } catch (ExecutionException ex) { cleanup(); return; }
  *   }
  * }}</pre>
- *
+ * <p>
  * The {@link FutureTask} class is an implementation of {@code Future} that
  * implements {@code Runnable}, and so may be executed by an {@code Executor}.
  * For example, the above construction with {@code submit} could be replaced by:
- *  <pre> {@code
+ * <pre> {@code
  * FutureTask<String> future =
  *   new FutureTask<String>(new Callable<String>() {
  *     public String call() {
@@ -87,12 +87,13 @@ package java.util.concurrent;
  * <a href="package-summary.html#MemoryVisibility"> <i>happen-before</i></a>
  * actions following the corresponding {@code Future.get()} in another thread.
  *
+ * @param <V> The result type returned by this Future's {@code get} method
+ * @author Doug Lea
  * @see FutureTask
  * @see Executor
  * @since 1.5
- * @author Doug Lea
- * @param <V> The result type returned by this Future's {@code get} method
  */
+// 用于获取异步计算结果
 public interface Future<V> {
 
     /**
@@ -110,12 +111,14 @@ public interface Future<V> {
      * will always return {@code true} if this method returned {@code true}.
      *
      * @param mayInterruptIfRunning {@code true} if the thread executing this
-     * task should be interrupted; otherwise, in-progress tasks are allowed
-     * to complete
+     *                              task should be interrupted; otherwise, in-progress tasks are allowed
+     *                              to complete
      * @return {@code false} if the task could not be cancelled,
      * typically because it has already completed normally;
      * {@code true} otherwise
      */
+    // 尝试取消执行任务
+    // mayInterruptIfRunning 如果当前线程正在执行，则可能被中断
     boolean cancel(boolean mayInterruptIfRunning);
 
     /**
@@ -124,17 +127,19 @@ public interface Future<V> {
      *
      * @return {@code true} if this task was cancelled before it completed
      */
+    // 获取任务是否被取消，是否取消状态
     boolean isCancelled();
 
     /**
      * Returns {@code true} if this task completed.
-     *
+     * <p>
      * Completion may be due to normal termination, an exception, or
      * cancellation -- in all of these cases, this method will return
      * {@code true}.
      *
      * @return {@code true} if this task completed
      */
+    // 任务是否执行完成
     boolean isDone();
 
     /**
@@ -143,11 +148,12 @@ public interface Future<V> {
      *
      * @return the computed result
      * @throws CancellationException if the computation was cancelled
-     * @throws ExecutionException if the computation threw an
-     * exception
-     * @throws InterruptedException if the current thread was interrupted
-     * while waiting
+     * @throws ExecutionException    if the computation threw an
+     *                               exception
+     * @throws InterruptedException  if the current thread was interrupted
+     *                               while waiting
      */
+    // 阻塞获取结果
     V get() throws InterruptedException, ExecutionException;
 
     /**
@@ -155,15 +161,16 @@ public interface Future<V> {
      * to complete, and then retrieves its result, if available.
      *
      * @param timeout the maximum time to wait
-     * @param unit the time unit of the timeout argument
+     * @param unit    the time unit of the timeout argument
      * @return the computed result
      * @throws CancellationException if the computation was cancelled
-     * @throws ExecutionException if the computation threw an
-     * exception
-     * @throws InterruptedException if the current thread was interrupted
-     * while waiting
-     * @throws TimeoutException if the wait timed out
+     * @throws ExecutionException    if the computation threw an
+     *                               exception
+     * @throws InterruptedException  if the current thread was interrupted
+     *                               while waiting
+     * @throws TimeoutException      if the wait timed out
      */
+    // 阻塞获取结果，并给定超时时间
     V get(long timeout, TimeUnit unit)
-        throws InterruptedException, ExecutionException, TimeoutException;
+            throws InterruptedException, ExecutionException, TimeoutException;
 }

@@ -49,12 +49,12 @@ package java.util.concurrent;
  * <p>The {@link Executors} class contains utility methods to
  * convert from other common forms to {@code Callable} classes.
  *
+ * @param <V> the result type of method {@code call}
+ * @author Doug Lea
  * @see Executor
  * @since 1.5
- * @author Doug Lea
- * @param <V> the result type of method {@code call}
  */
-// 执行 task
+// 执行 task，并返回结果 V
 @FunctionalInterface
 public interface Callable<V> {
     /**
@@ -63,5 +63,6 @@ public interface Callable<V> {
      * @return computed result
      * @throws Exception if unable to compute a result
      */
+    // 计算，并返回结果
     V call() throws Exception;
 }

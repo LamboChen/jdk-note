@@ -197,31 +197,29 @@ import sun.security.util.SecurityConstants;
  * the JDK and advice regarding porting of 1.1-style security managers,
  * see the <a href="../../../technotes/guides/security/index.html">security documentation</a>.
  *
- * @author  Arthur van Hoff
- * @author  Roland Schemers
- *
- * @see     java.lang.ClassLoader
- * @see     java.lang.SecurityException
- * @see     java.lang.SecurityManager#checkTopLevelWindow(java.lang.Object)
- *  checkTopLevelWindow
- * @see     java.lang.System#getSecurityManager() getSecurityManager
- * @see     java.lang.System#setSecurityManager(java.lang.SecurityManager)
- *  setSecurityManager
- * @see     java.security.AccessController AccessController
- * @see     java.security.AccessControlContext AccessControlContext
- * @see     java.security.AccessControlException AccessControlException
- * @see     java.security.Permission
- * @see     java.security.BasicPermission
- * @see     java.io.FilePermission
- * @see     java.net.SocketPermission
- * @see     java.util.PropertyPermission
- * @see     java.lang.RuntimePermission
- * @see     java.awt.AWTPermission
- * @see     java.security.Policy Policy
- * @see     java.security.SecurityPermission SecurityPermission
- * @see     java.security.ProtectionDomain
- *
- * @since   JDK1.0
+ * @author Arthur van Hoff
+ * @author Roland Schemers
+ * @see java.lang.ClassLoader
+ * @see java.lang.SecurityException
+ * @see java.lang.SecurityManager#checkTopLevelWindow(java.lang.Object)
+ * checkTopLevelWindow
+ * @see java.lang.System#getSecurityManager() getSecurityManager
+ * @see java.lang.System#setSecurityManager(java.lang.SecurityManager)
+ * setSecurityManager
+ * @see java.security.AccessController AccessController
+ * @see java.security.AccessControlContext AccessControlContext
+ * @see java.security.AccessControlException AccessControlException
+ * @see java.security.Permission
+ * @see java.security.BasicPermission
+ * @see java.io.FilePermission
+ * @see java.net.SocketPermission
+ * @see java.util.PropertyPermission
+ * @see java.lang.RuntimePermission
+ * @see java.awt.AWTPermission
+ * @see java.security.Policy Policy
+ * @see java.security.SecurityPermission SecurityPermission
+ * @see java.security.ProtectionDomain
+ * @since JDK1.0
  */
 public
 class SecurityManager {
@@ -231,8 +229,8 @@ class SecurityManager {
      * progress; <code>false</code> otherwise.
      *
      * @deprecated This type of security checking is not recommended.
-     *  It is recommended that the <code>checkPermission</code>
-     *  call be used instead.
+     * It is recommended that the <code>checkPermission</code>
+     * call be used instead.
      */
     @Deprecated
     protected boolean inCheck;
@@ -246,8 +244,7 @@ class SecurityManager {
     /**
      * returns true if the current context has been granted AllPermission
      */
-    private boolean hasAllPermission()
-    {
+    private boolean hasAllPermission() {
         try {
             checkPermission(SecurityConstants.ALL_PERMISSION);
             return true;
@@ -260,13 +257,13 @@ class SecurityManager {
      * Tests if there is a security check in progress.
      *
      * @return the value of the <code>inCheck</code> field. This field
-     *          should contain <code>true</code> if a security check is
-     *          in progress,
-     *          <code>false</code> otherwise.
-     * @see     java.lang.SecurityManager#inCheck
+     * should contain <code>true</code> if a security check is
+     * in progress,
+     * <code>false</code> otherwise.
+     * @see java.lang.SecurityManager#inCheck
      * @deprecated This type of security checking is not recommended.
-     *  It is recommended that the <code>checkPermission</code>
-     *  call be used instead.
+     * It is recommended that the <code>checkPermission</code>
+     * call be used instead.
      */
     @Deprecated
     public boolean getInCheck() {
@@ -283,21 +280,21 @@ class SecurityManager {
      * security manager.
      * This may result in throwing a <code>SecurityException</code>.
      *
-     * @exception  java.lang.SecurityException if a security manager already
-     *             exists and its <code>checkPermission</code> method
-     *             doesn't allow creation of a new security manager.
-     * @see        java.lang.System#getSecurityManager()
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @throws java.lang.SecurityException if a security manager already
+     *                                     exists and its <code>checkPermission</code> method
+     *                                     doesn't allow creation of a new security manager.
+     * @see java.lang.System#getSecurityManager()
+     * @see #checkPermission(java.security.Permission) checkPermission
      * @see java.lang.RuntimePermission
      */
     public SecurityManager() {
-        synchronized(SecurityManager.class) {
+        synchronized (SecurityManager.class) {
             SecurityManager sm = System.getSecurityManager();
             if (sm != null) {
                 // ask the currently installed security manager if we
                 // can create a new one.
                 sm.checkPermission(new RuntimePermission
-                                   ("createSecurityManager"));
+                        ("createSecurityManager"));
             }
             initialized = true;
         }
@@ -311,7 +308,7 @@ class SecurityManager {
      * currently executing method, the element at index <code>1</code> is
      * the class of that method's caller, and so on.
      *
-     * @return  the execution stack.
+     * @return the execution stack.
      */
     protected native Class[] getClassContext();
 
@@ -340,20 +337,17 @@ class SecurityManager {
      *
      * </ol>
      *
-     * @return  the class loader of the most recent occurrence on the stack
-     *          of a method from a class defined using a non-system class
-     *          loader.
-     *
+     * @return the class loader of the most recent occurrence on the stack
+     * of a method from a class defined using a non-system class
+     * loader.
+     * @see java.lang.ClassLoader#getSystemClassLoader() getSystemClassLoader
+     * @see #checkPermission(java.security.Permission) checkPermission
      * @deprecated This type of security checking is not recommended.
-     *  It is recommended that the <code>checkPermission</code>
-     *  call be used instead.
-     *
-     * @see  java.lang.ClassLoader#getSystemClassLoader() getSystemClassLoader
-     * @see  #checkPermission(java.security.Permission) checkPermission
+     * It is recommended that the <code>checkPermission</code>
+     * call be used instead.
      */
     @Deprecated
-    protected ClassLoader currentClassLoader()
-    {
+    protected ClassLoader currentClassLoader() {
         ClassLoader cl = currentClassLoader0();
         if ((cl != null) && hasAllPermission())
             cl = null;
@@ -387,16 +381,14 @@ class SecurityManager {
      *
      * </ol>
      *
-     * @return  the class  of the most recent occurrence on the stack
-     *          of a method from a class defined using a non-system class
-     *          loader.
-     *
+     * @return the class  of the most recent occurrence on the stack
+     * of a method from a class defined using a non-system class
+     * loader.
+     * @see java.lang.ClassLoader#getSystemClassLoader() getSystemClassLoader
+     * @see #checkPermission(java.security.Permission) checkPermission
      * @deprecated This type of security checking is not recommended.
-     *  It is recommended that the <code>checkPermission</code>
-     *  call be used instead.
-     *
-     * @see  java.lang.ClassLoader#getSystemClassLoader() getSystemClassLoader
-     * @see  #checkPermission(java.security.Permission) checkPermission
+     * It is recommended that the <code>checkPermission</code>
+     * call be used instead.
      */
     @Deprecated
     protected Class<?> currentLoadedClass() {
@@ -409,14 +401,13 @@ class SecurityManager {
     /**
      * Returns the stack depth of the specified class.
      *
-     * @param   name   the fully qualified name of the class to search for.
-     * @return  the depth on the stack frame of the first occurrence of a
-     *          method from a class with the specified name;
-     *          <code>-1</code> if such a frame cannot be found.
+     * @param name the fully qualified name of the class to search for.
+     * @return the depth on the stack frame of the first occurrence of a
+     * method from a class with the specified name;
+     * <code>-1</code> if such a frame cannot be found.
      * @deprecated This type of security checking is not recommended.
-     *  It is recommended that the <code>checkPermission</code>
-     *  call be used instead.
-     *
+     * It is recommended that the <code>checkPermission</code>
+     * call be used instead.
      */
     @Deprecated
     protected native int classDepth(String name);
@@ -447,18 +438,15 @@ class SecurityManager {
      * </ol>
      *
      * @return the depth on the stack frame of the most recent occurrence of
-     *          a method from a class defined using a non-system class loader.
-     *
+     * a method from a class defined using a non-system class loader.
+     * @see java.lang.ClassLoader#getSystemClassLoader() getSystemClassLoader
+     * @see #checkPermission(java.security.Permission) checkPermission
      * @deprecated This type of security checking is not recommended.
-     *  It is recommended that the <code>checkPermission</code>
-     *  call be used instead.
-     *
-     * @see   java.lang.ClassLoader#getSystemClassLoader() getSystemClassLoader
-     * @see   #checkPermission(java.security.Permission) checkPermission
+     * It is recommended that the <code>checkPermission</code>
+     * call be used instead.
      */
     @Deprecated
-    protected int classLoaderDepth()
-    {
+    protected int classLoaderDepth() {
         int depth = classLoaderDepth0();
         if (depth != -1) {
             if (hasAllPermission())
@@ -473,14 +461,14 @@ class SecurityManager {
 
     /**
      * Tests if a method from a class with the specified
-     *         name is on the execution stack.
+     * name is on the execution stack.
      *
-     * @param  name   the fully qualified name of the class.
+     * @param name the fully qualified name of the class.
      * @return <code>true</code> if a method from a class with the specified
-     *         name is on the execution stack; <code>false</code> otherwise.
+     * name is on the execution stack; <code>false</code> otherwise.
      * @deprecated This type of security checking is not recommended.
-     *  It is recommended that the <code>checkPermission</code>
-     *  call be used instead.
+     * It is recommended that the <code>checkPermission</code>
+     * call be used instead.
      */
     @Deprecated
     protected boolean inClass(String name) {
@@ -489,15 +477,14 @@ class SecurityManager {
 
     /**
      * Basically, tests if a method from a class defined using a
-     *          class loader is on the execution stack.
+     * class loader is on the execution stack.
      *
-     * @return  <code>true</code> if a call to <code>currentClassLoader</code>
-     *          has a non-null return value.
-     *
+     * @return <code>true</code> if a call to <code>currentClassLoader</code>
+     * has a non-null return value.
+     * @see #currentClassLoader() currentClassLoader
      * @deprecated This type of security checking is not recommended.
-     *  It is recommended that the <code>checkPermission</code>
-     *  call be used instead.
-     * @see        #currentClassLoader() currentClassLoader
+     * It is recommended that the <code>checkPermission</code>
+     * call be used instead.
      */
     @Deprecated
     protected boolean inClassLoader() {
@@ -517,14 +504,14 @@ class SecurityManager {
      * <p> The default implementation of this method is to return
      * an <code>AccessControlContext</code> object.
      *
-     * @return  an implementation-dependent object that encapsulates
-     *          sufficient information about the current execution environment
-     *          to perform some security checks later.
-     * @see     java.lang.SecurityManager#checkConnect(java.lang.String, int,
-     *   java.lang.Object) checkConnect
-     * @see     java.lang.SecurityManager#checkRead(java.lang.String,
-     *   java.lang.Object) checkRead
-     * @see     java.security.AccessControlContext AccessControlContext
+     * @return an implementation-dependent object that encapsulates
+     * sufficient information about the current execution environment
+     * to perform some security checks later.
+     * @see java.lang.SecurityManager#checkConnect(java.lang.String, int,
+     * java.lang.Object) checkConnect
+     * @see java.lang.SecurityManager#checkRead(java.lang.String,
+     * java.lang.Object) checkRead
+     * @see java.security.AccessControlContext AccessControlContext
      */
     public Object getSecurityContext() {
         return AccessController.getContext();
@@ -538,12 +525,12 @@ class SecurityManager {
      * This method calls <code>AccessController.checkPermission</code>
      * with the given permission.
      *
-     * @param     perm   the requested permission.
-     * @exception SecurityException if access is not permitted based on
-     *            the current security policy.
-     * @exception NullPointerException if the permission argument is
-     *            <code>null</code>.
-     * @since     1.2
+     * @param perm the requested permission.
+     * @throws SecurityException    if access is not permitted based on
+     *                              the current security policy.
+     * @throws NullPointerException if the permission argument is
+     *                              <code>null</code>.
+     * @since 1.2
      */
     public void checkPermission(Permission perm) {
         java.security.AccessController.checkPermission(perm);
@@ -568,21 +555,21 @@ class SecurityManager {
      * <code>AccessControlContext</code> then a
      * <code>SecurityException</code> is thrown.
      *
-     * @param      perm      the specified permission
-     * @param      context   a system-dependent security context.
-     * @exception  SecurityException  if the specified security context
-     *             is not an instance of <code>AccessControlContext</code>
-     *             (e.g., is <code>null</code>), or is denied access to the
-     *             resource specified by the given permission.
-     * @exception  NullPointerException if the permission argument is
-     *             <code>null</code>.
-     * @see        java.lang.SecurityManager#getSecurityContext()
+     * @param perm    the specified permission
+     * @param context a system-dependent security context.
+     * @throws SecurityException    if the specified security context
+     *                              is not an instance of <code>AccessControlContext</code>
+     *                              (e.g., is <code>null</code>), or is denied access to the
+     *                              resource specified by the given permission.
+     * @throws NullPointerException if the permission argument is
+     *                              <code>null</code>.
+     * @see java.lang.SecurityManager#getSecurityContext()
      * @see java.security.AccessControlContext#checkPermission(java.security.Permission)
-     * @since      1.2
+     * @since 1.2
      */
     public void checkPermission(Permission perm, Object context) {
         if (context instanceof AccessControlContext) {
-            ((AccessControlContext)context).checkPermission(perm);
+            ((AccessControlContext) context).checkPermission(perm);
         } else {
             throw new SecurityException();
         }
@@ -601,11 +588,11 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @exception SecurityException if the calling thread does not
-     *             have permission
-     *             to create a new class loader.
-     * @see        java.lang.ClassLoader#ClassLoader()
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @throws SecurityException if the calling thread does not
+     *                           have permission
+     *                           to create a new class loader.
+     * @see java.lang.ClassLoader#ClassLoader()
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkCreateClassLoader() {
         checkPermission(SecurityConstants.CREATE_CLASSLOADER_PERMISSION);
@@ -619,7 +606,7 @@ class SecurityManager {
     private static ThreadGroup rootGroup = getRootGroup();
 
     private static ThreadGroup getRootGroup() {
-        ThreadGroup root =  Thread.currentThread().getThreadGroup();
+        ThreadGroup root = Thread.currentThread().getThreadGroup();
         while (root.getParent() != null) {
             root = root.getParent();
         }
@@ -655,18 +642,18 @@ class SecurityManager {
      * be called by the first statement in the overridden method, or the
      * equivalent security check should be placed in the overridden method.
      *
-     * @param      t   the thread to be checked.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to modify the thread.
-     * @exception  NullPointerException if the thread argument is
-     *             <code>null</code>.
-     * @see        java.lang.Thread#resume() resume
-     * @see        java.lang.Thread#setDaemon(boolean) setDaemon
-     * @see        java.lang.Thread#setName(java.lang.String) setName
-     * @see        java.lang.Thread#setPriority(int) setPriority
-     * @see        java.lang.Thread#stop() stop
-     * @see        java.lang.Thread#suspend() suspend
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param t the thread to be checked.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to modify the thread.
+     * @throws NullPointerException if the thread argument is
+     *                              <code>null</code>.
+     * @see java.lang.Thread#resume() resume
+     * @see java.lang.Thread#setDaemon(boolean) setDaemon
+     * @see java.lang.Thread#setName(java.lang.String) setName
+     * @see java.lang.Thread#setPriority(int) setPriority
+     * @see java.lang.Thread#stop() stop
+     * @see java.lang.Thread#suspend() suspend
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkAccess(Thread t) {
         if (t == null) {
@@ -678,6 +665,7 @@ class SecurityManager {
             // just return
         }
     }
+
     /**
      * Throws a <code>SecurityException</code> if the
      * calling thread is not allowed to modify the thread group argument.
@@ -708,18 +696,18 @@ class SecurityManager {
      * be called by the first statement in the overridden method, or the
      * equivalent security check should be placed in the overridden method.
      *
-     * @param      g   the thread group to be checked.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to modify the thread group.
-     * @exception  NullPointerException if the thread group argument is
-     *             <code>null</code>.
-     * @see        java.lang.ThreadGroup#destroy() destroy
-     * @see        java.lang.ThreadGroup#resume() resume
-     * @see        java.lang.ThreadGroup#setDaemon(boolean) setDaemon
-     * @see        java.lang.ThreadGroup#setMaxPriority(int) setMaxPriority
-     * @see        java.lang.ThreadGroup#stop() stop
-     * @see        java.lang.ThreadGroup#suspend() suspend
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param g the thread group to be checked.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to modify the thread group.
+     * @throws NullPointerException if the thread group argument is
+     *                              <code>null</code>.
+     * @see java.lang.ThreadGroup#destroy() destroy
+     * @see java.lang.ThreadGroup#resume() resume
+     * @see java.lang.ThreadGroup#setDaemon(boolean) setDaemon
+     * @see java.lang.ThreadGroup#setMaxPriority(int) setMaxPriority
+     * @see java.lang.ThreadGroup#stop() stop
+     * @see java.lang.ThreadGroup#suspend() suspend
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkAccess(ThreadGroup g) {
         if (g == null) {
@@ -750,15 +738,15 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      status   the exit status.
-     * @exception SecurityException if the calling thread does not have
-     *              permission to halt the Java Virtual Machine with
-     *              the specified status.
-     * @see        java.lang.Runtime#exit(int) exit
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param status the exit status.
+     * @throws SecurityException if the calling thread does not have
+     *                           permission to halt the Java Virtual Machine with
+     *                           the specified status.
+     * @see java.lang.Runtime#exit(int) exit
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkExit(int status) {
-        checkPermission(new RuntimePermission("exitVM."+status));
+        checkPermission(new RuntimePermission("exitVM." + status));
     }
 
     /**
@@ -779,25 +767,25 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      cmd   the specified system command.
-     * @exception  SecurityException if the calling thread does not have
-     *             permission to create a subprocess.
-     * @exception  NullPointerException if the <code>cmd</code> argument is
-     *             <code>null</code>.
-     * @see     java.lang.Runtime#exec(java.lang.String)
-     * @see     java.lang.Runtime#exec(java.lang.String, java.lang.String[])
-     * @see     java.lang.Runtime#exec(java.lang.String[])
-     * @see     java.lang.Runtime#exec(java.lang.String[], java.lang.String[])
-     * @see     #checkPermission(java.security.Permission) checkPermission
+     * @param cmd the specified system command.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to create a subprocess.
+     * @throws NullPointerException if the <code>cmd</code> argument is
+     *                              <code>null</code>.
+     * @see java.lang.Runtime#exec(java.lang.String)
+     * @see java.lang.Runtime#exec(java.lang.String, java.lang.String[])
+     * @see java.lang.Runtime#exec(java.lang.String[])
+     * @see java.lang.Runtime#exec(java.lang.String[], java.lang.String[])
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkExec(String cmd) {
         File f = new File(cmd);
         if (f.isAbsolute()) {
             checkPermission(new FilePermission(cmd,
-                SecurityConstants.FILE_EXECUTE_ACTION));
+                    SecurityConstants.FILE_EXECUTE_ACTION));
         } else {
             checkPermission(new FilePermission("<<ALL FILES>>",
-                SecurityConstants.FILE_EXECUTE_ACTION));
+                    SecurityConstants.FILE_EXECUTE_ACTION));
         }
     }
 
@@ -819,20 +807,20 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      lib   the name of the library.
-     * @exception  SecurityException if the calling thread does not have
-     *             permission to dynamically link the library.
-     * @exception  NullPointerException if the <code>lib</code> argument is
-     *             <code>null</code>.
-     * @see        java.lang.Runtime#load(java.lang.String)
-     * @see        java.lang.Runtime#loadLibrary(java.lang.String)
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param lib the name of the library.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to dynamically link the library.
+     * @throws NullPointerException if the <code>lib</code> argument is
+     *                              <code>null</code>.
+     * @see java.lang.Runtime#load(java.lang.String)
+     * @see java.lang.Runtime#loadLibrary(java.lang.String)
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkLink(String lib) {
         if (lib == null) {
             throw new NullPointerException("library can't be null");
         }
-        checkPermission(new RuntimePermission("loadLibrary."+lib));
+        checkPermission(new RuntimePermission("loadLibrary." + lib));
     }
 
     /**
@@ -849,13 +837,13 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      fd   the system-dependent file descriptor.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to access the specified file descriptor.
-     * @exception  NullPointerException if the file descriptor argument is
-     *             <code>null</code>.
-     * @see        java.io.FileDescriptor
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param fd the system-dependent file descriptor.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to access the specified file descriptor.
+     * @throws NullPointerException if the file descriptor argument is
+     *                              <code>null</code>.
+     * @see java.io.FileDescriptor
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkRead(FileDescriptor fd) {
         if (fd == null) {
@@ -877,16 +865,16 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      file   the system-dependent file name.
-     * @exception  SecurityException if the calling thread does not have
-     *             permission to access the specified file.
-     * @exception  NullPointerException if the <code>file</code> argument is
-     *             <code>null</code>.
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param file the system-dependent file name.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to access the specified file.
+     * @throws NullPointerException if the <code>file</code> argument is
+     *                              <code>null</code>.
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkRead(String file) {
         checkPermission(new FilePermission(file,
-            SecurityConstants.FILE_READ_ACTION));
+                SecurityConstants.FILE_READ_ACTION));
     }
 
     /**
@@ -908,21 +896,21 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      file      the system-dependent filename.
-     * @param      context   a system-dependent security context.
-     * @exception  SecurityException  if the specified security context
-     *             is not an instance of <code>AccessControlContext</code>
-     *             (e.g., is <code>null</code>), or does not have permission
-     *             to read the specified file.
-     * @exception  NullPointerException if the <code>file</code> argument is
-     *             <code>null</code>.
-     * @see        java.lang.SecurityManager#getSecurityContext()
-     * @see        java.security.AccessControlContext#checkPermission(java.security.Permission)
+     * @param file    the system-dependent filename.
+     * @param context a system-dependent security context.
+     * @throws SecurityException    if the specified security context
+     *                              is not an instance of <code>AccessControlContext</code>
+     *                              (e.g., is <code>null</code>), or does not have permission
+     *                              to read the specified file.
+     * @throws NullPointerException if the <code>file</code> argument is
+     *                              <code>null</code>.
+     * @see java.lang.SecurityManager#getSecurityContext()
+     * @see java.security.AccessControlContext#checkPermission(java.security.Permission)
      */
     public void checkRead(String file, Object context) {
         checkPermission(
-            new FilePermission(file, SecurityConstants.FILE_READ_ACTION),
-            context);
+                new FilePermission(file, SecurityConstants.FILE_READ_ACTION),
+                context);
     }
 
     /**
@@ -939,13 +927,13 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      fd   the system-dependent file descriptor.
-     * @exception SecurityException  if the calling thread does not have
-     *             permission to access the specified file descriptor.
-     * @exception  NullPointerException if the file descriptor argument is
-     *             <code>null</code>.
-     * @see        java.io.FileDescriptor
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param fd the system-dependent file descriptor.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to access the specified file descriptor.
+     * @throws NullPointerException if the file descriptor argument is
+     *                              <code>null</code>.
+     * @see java.io.FileDescriptor
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkWrite(FileDescriptor fd) {
         if (fd == null) {
@@ -968,16 +956,16 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      file   the system-dependent filename.
-     * @exception  SecurityException  if the calling thread does not
-     *             have permission to access the specified file.
-     * @exception  NullPointerException if the <code>file</code> argument is
-     *             <code>null</code>.
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param file the system-dependent filename.
+     * @throws SecurityException    if the calling thread does not
+     *                              have permission to access the specified file.
+     * @throws NullPointerException if the <code>file</code> argument is
+     *                              <code>null</code>.
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkWrite(String file) {
         checkPermission(new FilePermission(file,
-            SecurityConstants.FILE_WRITE_ACTION));
+                SecurityConstants.FILE_WRITE_ACTION));
     }
 
     /**
@@ -995,17 +983,17 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      file   the system-dependent filename.
-     * @exception  SecurityException if the calling thread does not
-     *             have permission to delete the file.
-     * @exception  NullPointerException if the <code>file</code> argument is
-     *             <code>null</code>.
-     * @see        java.io.File#delete()
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param file the system-dependent filename.
+     * @throws SecurityException    if the calling thread does not
+     *                              have permission to delete the file.
+     * @throws NullPointerException if the <code>file</code> argument is
+     *                              <code>null</code>.
+     * @see java.io.File#delete()
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkDelete(String file) {
         checkPermission(new FilePermission(file,
-            SecurityConstants.FILE_DELETE_ACTION));
+                SecurityConstants.FILE_DELETE_ACTION));
     }
 
     /**
@@ -1028,14 +1016,14 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      host   the host name port to connect to.
-     * @param      port   the protocol port to connect to.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to open a socket connection to the specified
-     *               <code>host</code> and <code>port</code>.
-     * @exception  NullPointerException if the <code>host</code> argument is
-     *             <code>null</code>.
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param host the host name port to connect to.
+     * @param port the protocol port to connect to.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to open a socket connection to the specified
+     *                              <code>host</code> and <code>port</code>.
+     * @throws NullPointerException if the <code>host</code> argument is
+     *                              <code>null</code>.
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkConnect(String host, int port) {
         if (host == null) {
@@ -1046,10 +1034,10 @@ class SecurityManager {
         }
         if (port == -1) {
             checkPermission(new SocketPermission(host,
-                SecurityConstants.SOCKET_RESOLVE_ACTION));
+                    SecurityConstants.SOCKET_RESOLVE_ACTION));
         } else {
-            checkPermission(new SocketPermission(host+":"+port,
-                SecurityConstants.SOCKET_CONNECT_ACTION));
+            checkPermission(new SocketPermission(host + ":" + port,
+                    SecurityConstants.SOCKET_CONNECT_ACTION));
         }
     }
 
@@ -1079,18 +1067,18 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      host      the host name port to connect to.
-     * @param      port      the protocol port to connect to.
-     * @param      context   a system-dependent security context.
-     * @exception  SecurityException if the specified security context
-     *             is not an instance of <code>AccessControlContext</code>
-     *             (e.g., is <code>null</code>), or does not have permission
-     *             to open a socket connection to the specified
-     *             <code>host</code> and <code>port</code>.
-     * @exception  NullPointerException if the <code>host</code> argument is
-     *             <code>null</code>.
-     * @see        java.lang.SecurityManager#getSecurityContext()
-     * @see        java.security.AccessControlContext#checkPermission(java.security.Permission)
+     * @param host    the host name port to connect to.
+     * @param port    the protocol port to connect to.
+     * @param context a system-dependent security context.
+     * @throws SecurityException    if the specified security context
+     *                              is not an instance of <code>AccessControlContext</code>
+     *                              (e.g., is <code>null</code>), or does not have permission
+     *                              to open a socket connection to the specified
+     *                              <code>host</code> and <code>port</code>.
+     * @throws NullPointerException if the <code>host</code> argument is
+     *                              <code>null</code>.
+     * @see java.lang.SecurityManager#getSecurityContext()
+     * @see java.security.AccessControlContext#checkPermission(java.security.Permission)
      */
     public void checkConnect(String host, int port, Object context) {
         if (host == null) {
@@ -1101,12 +1089,12 @@ class SecurityManager {
         }
         if (port == -1)
             checkPermission(new SocketPermission(host,
-                SecurityConstants.SOCKET_RESOLVE_ACTION),
-                context);
+                            SecurityConstants.SOCKET_RESOLVE_ACTION),
+                    context);
         else
-            checkPermission(new SocketPermission(host+":"+port,
-                SecurityConstants.SOCKET_CONNECT_ACTION),
-                context);
+            checkPermission(new SocketPermission(host + ":" + port,
+                            SecurityConstants.SOCKET_CONNECT_ACTION),
+                    context);
     }
 
     /**
@@ -1122,14 +1110,14 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      port   the local port.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to listen on the specified port.
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param port the local port.
+     * @throws SecurityException if the calling thread does not have
+     *                           permission to listen on the specified port.
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkListen(int port) {
-        checkPermission(new SocketPermission("localhost:"+port,
-            SecurityConstants.SOCKET_LISTEN_ACTION));
+        checkPermission(new SocketPermission("localhost:" + port,
+                SecurityConstants.SOCKET_LISTEN_ACTION));
     }
 
     /**
@@ -1148,14 +1136,14 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      host   the host name of the socket connection.
-     * @param      port   the port number of the socket connection.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to accept the connection.
-     * @exception  NullPointerException if the <code>host</code> argument is
-     *             <code>null</code>.
-     * @see        java.net.ServerSocket#accept()
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param host the host name of the socket connection.
+     * @param port the port number of the socket connection.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to accept the connection.
+     * @throws NullPointerException if the <code>host</code> argument is
+     *                              <code>null</code>.
+     * @see java.net.ServerSocket#accept()
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkAccept(String host, int port) {
         if (host == null) {
@@ -1164,8 +1152,8 @@ class SecurityManager {
         if (!host.startsWith("[") && host.indexOf(':') != -1) {
             host = "[" + host + "]";
         }
-        checkPermission(new SocketPermission(host+":"+port,
-            SecurityConstants.SOCKET_ACCEPT_ACTION));
+        checkPermission(new SocketPermission(host + ":" + port,
+                SecurityConstants.SOCKET_ACCEPT_ACTION));
     }
 
     /**
@@ -1182,13 +1170,13 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      maddr  Internet group address to be used.
-     * @exception  SecurityException  if the calling thread is not allowed to
-     *  use (join/leave/send/receive) IP multicast.
-     * @exception  NullPointerException if the address argument is
-     *             <code>null</code>.
-     * @since      JDK1.1
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param maddr Internet group address to be used.
+     * @throws SecurityException    if the calling thread is not allowed to
+     *                              use (join/leave/send/receive) IP multicast.
+     * @throws NullPointerException if the address argument is
+     *                              <code>null</code>.
+     * @see #checkPermission(java.security.Permission) checkPermission
+     * @since JDK1.1
      */
     public void checkMulticast(InetAddress maddr) {
         String host = maddr.getHostAddress();
@@ -1196,7 +1184,7 @@ class SecurityManager {
             host = "[" + host + "]";
         }
         checkPermission(new SocketPermission(host,
-            SecurityConstants.SOCKET_CONNECT_ACCEPT_ACTION));
+                SecurityConstants.SOCKET_CONNECT_ACCEPT_ACTION));
     }
 
     /**
@@ -1213,17 +1201,17 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      maddr  Internet group address to be used.
-     * @param      ttl        value in use, if it is multicast send.
-     * Note: this particular implementation does not use the ttl
-     * parameter.
-     * @exception  SecurityException  if the calling thread is not allowed to
-     *  use (join/leave/send/receive) IP multicast.
-     * @exception  NullPointerException if the address argument is
-     *             <code>null</code>.
-     * @since      JDK1.1
+     * @param maddr Internet group address to be used.
+     * @param ttl   value in use, if it is multicast send.
+     *              Note: this particular implementation does not use the ttl
+     *              parameter.
+     * @throws SecurityException    if the calling thread is not allowed to
+     *                              use (join/leave/send/receive) IP multicast.
+     * @throws NullPointerException if the address argument is
+     *                              <code>null</code>.
+     * @see #checkPermission(java.security.Permission) checkPermission
+     * @since JDK1.1
      * @deprecated Use #checkPermission(java.security.Permission) instead
-     * @see        #checkPermission(java.security.Permission) checkPermission
      */
     @Deprecated
     public void checkMulticast(InetAddress maddr, byte ttl) {
@@ -1232,7 +1220,7 @@ class SecurityManager {
             host = "[" + host + "]";
         }
         checkPermission(new SocketPermission(host,
-            SecurityConstants.SOCKET_CONNECT_ACCEPT_ACTION));
+                SecurityConstants.SOCKET_CONNECT_ACCEPT_ACTION));
     }
 
     /**
@@ -1252,15 +1240,15 @@ class SecurityManager {
      * exception.
      * <p>
      *
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to access or modify the system properties.
-     * @see        java.lang.System#getProperties()
-     * @see        java.lang.System#setProperties(java.util.Properties)
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @throws SecurityException if the calling thread does not have
+     *                           permission to access or modify the system properties.
+     * @see java.lang.System#getProperties()
+     * @see java.lang.System#setProperties(java.util.Properties)
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkPropertiesAccess() {
         checkPermission(new PropertyPermission("*",
-            SecurityConstants.PROPERTY_RW_ACTION));
+                SecurityConstants.PROPERTY_RW_ACTION));
     }
 
     /**
@@ -1279,20 +1267,18 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @param      key   a system property key.
-     *
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to access the specified system property.
-     * @exception  NullPointerException if the <code>key</code> argument is
-     *             <code>null</code>.
-     * @exception  IllegalArgumentException if <code>key</code> is empty.
-     *
-     * @see        java.lang.System#getProperty(java.lang.String)
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param key a system property key.
+     * @throws SecurityException        if the calling thread does not have
+     *                                  permission to access the specified system property.
+     * @throws NullPointerException     if the <code>key</code> argument is
+     *                                  <code>null</code>.
+     * @throws IllegalArgumentException if <code>key</code> is empty.
+     * @see java.lang.System#getProperty(java.lang.String)
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkPropertyAccess(String key) {
         checkPermission(new PropertyPermission(key,
-            SecurityConstants.PROPERTY_READ_ACTION));
+                SecurityConstants.PROPERTY_READ_ACTION));
     }
 
     /**
@@ -1323,19 +1309,19 @@ class SecurityManager {
      * <code>super.checkTopLevelWindow</code> should
      * be returned.
      *
-     * @param      window   the new window that is being created.
-     * @return     <code>true</code> if the calling thread is trusted to put up
-     *             top-level windows; <code>false</code> otherwise.
-     * @exception  NullPointerException if the <code>window</code> argument is
-     *             <code>null</code>.
+     * @param window the new window that is being created.
+     * @return <code>true</code> if the calling thread is trusted to put up
+     * top-level windows; <code>false</code> otherwise.
+     * @throws NullPointerException if the <code>window</code> argument is
+     *                              <code>null</code>.
+     * @see java.awt.Window
+     * @see #checkPermission(java.security.Permission) checkPermission
      * @deprecated The dependency on {@code AWTPermission} creates an
-     *             impediment to future modularization of the Java platform.
-     *             Users of this method should instead invoke
-     *             {@link #checkPermission} directly.
-     *             This method will be changed in a future release to check
-     *             the permission {@code java.security.AllPermission}.
-     * @see        java.awt.Window
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * impediment to future modularization of the Java platform.
+     * Users of this method should instead invoke
+     * {@link #checkPermission} directly.
+     * This method will be changed in a future release to check
+     * the permission {@code java.security.AllPermission}.
      */
     @Deprecated
     public boolean checkTopLevelWindow(Object window) {
@@ -1369,10 +1355,10 @@ class SecurityManager {
      * exception.
      * <p>
      *
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to initiate a print job request.
-     * @since   JDK1.1
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @throws SecurityException if the calling thread does not have
+     *                           permission to initiate a print job request.
+     * @see #checkPermission(java.security.Permission) checkPermission
+     * @since JDK1.1
      */
     public void checkPrintJobAccess() {
         checkPermission(new RuntimePermission("queuePrintJob"));
@@ -1394,16 +1380,16 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @since   JDK1.1
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to access the system clipboard.
+     * @throws SecurityException if the calling thread does not have
+     *                           permission to access the system clipboard.
+     * @see #checkPermission(java.security.Permission) checkPermission
+     * @since JDK1.1
      * @deprecated The dependency on {@code AWTPermission} creates an
-     *             impediment to future modularization of the Java platform.
-     *             Users of this method should instead invoke
-     *             {@link #checkPermission} directly.
-     *             This method will be changed in a future release to check
-     *             the permission {@code java.security.AllPermission}.
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * impediment to future modularization of the Java platform.
+     * Users of this method should instead invoke
+     * {@link #checkPermission} directly.
+     * This method will be changed in a future release to check
+     * the permission {@code java.security.AllPermission}.
      */
     @Deprecated
     public void checkSystemClipboardAccess() {
@@ -1430,16 +1416,16 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @since   JDK1.1
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to access the AWT event queue.
+     * @throws SecurityException if the calling thread does not have
+     *                           permission to access the AWT event queue.
+     * @see #checkPermission(java.security.Permission) checkPermission
+     * @since JDK1.1
      * @deprecated The dependency on {@code AWTPermission} creates an
-     *             impediment to future modularization of the Java platform.
-     *             Users of this method should instead invoke
-     *             {@link #checkPermission} directly.
-     *             This method will be changed in a future release to check
-     *             the permission {@code java.security.AllPermission}.
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * impediment to future modularization of the Java platform.
+     * Users of this method should instead invoke
+     * {@link #checkPermission} directly.
+     * This method will be changed in a future release to check
+     * the permission {@code java.security.AllPermission}.
      */
     @Deprecated
     public void checkAwtEventQueueAccess() {
@@ -1478,7 +1464,7 @@ class SecurityManager {
         String packages[] = null;
         if (p != null && !p.equals("")) {
             java.util.StringTokenizer tok =
-                new java.util.StringTokenizer(p, ",");
+                    new java.util.StringTokenizer(p, ",");
             int n = tok.countTokens();
             if (n > 0) {
                 packages = new String[n];
@@ -1517,15 +1503,15 @@ class SecurityManager {
      * <code>super.checkPackageAccess</code> should be called
      * as the first line in the overridden method.
      *
-     * @param      pkg   the package name.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to access the specified package.
-     * @exception  NullPointerException if the package name argument is
-     *             <code>null</code>.
-     * @see        java.lang.ClassLoader#loadClass(java.lang.String, boolean)
-     *  loadClass
-     * @see        java.security.Security#getProperty getProperty
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param pkg the package name.
+     * @throws SecurityException    if the calling thread does not have
+     *                              permission to access the specified package.
+     * @throws NullPointerException if the package name argument is
+     *                              <code>null</code>.
+     * @see java.lang.ClassLoader#loadClass(java.lang.String, boolean)
+     * loadClass
+     * @see java.security.Security#getProperty getProperty
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkPackageAccess(String pkg) {
         if (pkg == null) {
@@ -1539,14 +1525,14 @@ class SecurityManager {
              */
             if (!packageAccessValid) {
                 String tmpPropertyStr =
-                    AccessController.doPrivileged(
-                        new PrivilegedAction<String>() {
-                            public String run() {
-                                return java.security.Security.getProperty(
-                                    "package.access");
-                            }
-                        }
-                    );
+                        AccessController.doPrivileged(
+                                new PrivilegedAction<String>() {
+                                    public String run() {
+                                        return java.security.Security.getProperty(
+                                                "package.access");
+                                    }
+                                }
+                        );
                 packageAccess = getPackages(tmpPropertyStr);
                 packageAccessValid = true;
             }
@@ -1562,7 +1548,7 @@ class SecurityManager {
         for (int i = 0; i < pkgs.length; i++) {
             if (pkg.startsWith(pkgs[i]) || pkgs[i].equals(pkg + ".")) {
                 checkPermission(
-                    new RuntimePermission("accessClassInPackage."+pkg));
+                        new RuntimePermission("accessClassInPackage." + pkg));
                 break;  // No need to continue; only need to check this once
             }
         }
@@ -1589,12 +1575,12 @@ class SecurityManager {
      * <code>super.checkPackageDefinition</code> should be called
      * as the first line in the overridden method.
      *
-     * @param      pkg   the package name.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to define classes in the specified package.
-     * @see        java.lang.ClassLoader#loadClass(java.lang.String, boolean)
-     * @see        java.security.Security#getProperty getProperty
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @param pkg the package name.
+     * @throws SecurityException if the calling thread does not have
+     *                           permission to define classes in the specified package.
+     * @see java.lang.ClassLoader#loadClass(java.lang.String, boolean)
+     * @see java.security.Security#getProperty getProperty
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkPackageDefinition(String pkg) {
         if (pkg == null) {
@@ -1608,14 +1594,14 @@ class SecurityManager {
              */
             if (!packageDefinitionValid) {
                 String tmpPropertyStr =
-                    AccessController.doPrivileged(
-                        new PrivilegedAction<String>() {
-                            public String run() {
-                                return java.security.Security.getProperty(
-                                    "package.definition");
-                            }
-                        }
-                    );
+                        AccessController.doPrivileged(
+                                new PrivilegedAction<String>() {
+                                    public String run() {
+                                        return java.security.Security.getProperty(
+                                                "package.definition");
+                                    }
+                                }
+                        );
                 packageDefinition = getPackages(tmpPropertyStr);
                 packageDefinitionValid = true;
             }
@@ -1630,7 +1616,7 @@ class SecurityManager {
         for (int i = 0; i < pkgs.length; i++) {
             if (pkg.startsWith(pkgs[i]) || pkgs[i].equals(pkg + ".")) {
                 checkPermission(
-                    new RuntimePermission("defineClassInPackage."+pkg));
+                        new RuntimePermission("defineClassInPackage." + pkg));
                 break; // No need to continue; only need to check this once
             }
         }
@@ -1651,14 +1637,13 @@ class SecurityManager {
      * exception.
      * <p>
      *
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to specify a socket factory or a stream
-     *             handler factory.
-     *
-     * @see        java.net.ServerSocket#setSocketFactory(java.net.SocketImplFactory) setSocketFactory
-     * @see        java.net.Socket#setSocketImplFactory(java.net.SocketImplFactory) setSocketImplFactory
-     * @see        java.net.URL#setURLStreamHandlerFactory(java.net.URLStreamHandlerFactory) setURLStreamHandlerFactory
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @throws SecurityException if the calling thread does not have
+     *                           permission to specify a socket factory or a stream
+     *                           handler factory.
+     * @see java.net.ServerSocket#setSocketFactory(java.net.SocketImplFactory) setSocketFactory
+     * @see java.net.Socket#setSocketImplFactory(java.net.SocketImplFactory) setSocketImplFactory
+     * @see java.net.URL#setURLStreamHandlerFactory(java.net.URLStreamHandlerFactory) setURLStreamHandlerFactory
+     * @see #checkPermission(java.security.Permission) checkPermission
      */
     public void checkSetFactory() {
         checkPermission(new RuntimePermission("setFactory"));
@@ -1681,23 +1666,19 @@ class SecurityManager {
      * 4.
      *
      * @param clazz the class that reflection is to be performed on.
-     *
      * @param which type of access, PUBLIC or DECLARED.
-     *
-     * @exception  SecurityException if the caller does not have
-     *             permission to access members.
-     * @exception  NullPointerException if the <code>clazz</code> argument is
-     *             <code>null</code>.
-     *
-     * @deprecated This method relies on the caller being at a stack depth
-     *             of 4 which is error-prone and cannot be enforced by the runtime.
-     *             Users of this method should instead invoke {@link #checkPermission}
-     *             directly.  This method will be changed in a future release
-     *             to check the permission {@code java.security.AllPermission}.
-     *
+     * @throws SecurityException    if the caller does not have
+     *                              permission to access members.
+     * @throws NullPointerException if the <code>clazz</code> argument is
+     *                              <code>null</code>.
      * @see java.lang.reflect.Member
+     * @see #checkPermission(java.security.Permission) checkPermission
      * @since JDK1.1
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @deprecated This method relies on the caller being at a stack depth
+     * of 4 which is error-prone and cannot be enforced by the runtime.
+     * Users of this method should instead invoke {@link #checkPermission}
+     * directly.  This method will be changed in a future release
+     * to check the permission {@code java.security.AllPermission}.
      */
     @Deprecated
     @CallerSensitive
@@ -1718,8 +1699,8 @@ class SecurityManager {
              * SecurityManager.checkMemberAccess [0]
              *
              */
-            if ((stack.length<4) ||
-                (stack[3].getClassLoader() != clazz.getClassLoader())) {
+            if ((stack.length < 4) ||
+                    (stack[3].getClassLoader() != clazz.getClassLoader())) {
                 checkPermission(SecurityConstants.CHECK_MEMBER_ACCESS_PERMISSION);
             }
         }
@@ -1746,14 +1727,12 @@ class SecurityManager {
      * exception.
      *
      * @param target the target name of the <code>SecurityPermission</code>.
-     *
-     * @exception SecurityException if the calling thread does not have
-     * permission for the requested access.
-     * @exception NullPointerException if <code>target</code> is null.
-     * @exception IllegalArgumentException if <code>target</code> is empty.
-     *
-     * @since   JDK1.1
-     * @see        #checkPermission(java.security.Permission) checkPermission
+     * @throws SecurityException        if the calling thread does not have
+     *                                  permission for the requested access.
+     * @throws NullPointerException     if <code>target</code> is null.
+     * @throws IllegalArgumentException if <code>target</code> is empty.
+     * @see #checkPermission(java.security.Permission) checkPermission
+     * @since JDK1.1
      */
     public void checkSecurityAccess(String target) {
         checkPermission(new SecurityPermission(target));
@@ -1768,9 +1747,9 @@ class SecurityManager {
      * thread. This should be overridden by a specific security
      * manager to return the appropriate thread group.
      *
-     * @return  ThreadGroup that new threads are instantiated into
-     * @since   JDK1.1
-     * @see     java.lang.ThreadGroup
+     * @return ThreadGroup that new threads are instantiated into
+     * @see java.lang.ThreadGroup
+     * @since JDK1.1
      */
     public ThreadGroup getThreadGroup() {
         return Thread.currentThread().getThreadGroup();
