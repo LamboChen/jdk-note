@@ -465,6 +465,7 @@ public interface Condition {
      * not held. Typically, an exception such as {@link
      * IllegalMonitorStateException} will be thrown.
      */
+    // 唤醒一个等待线程。
     void signal();
 
     /**
