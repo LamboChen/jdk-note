@@ -281,6 +281,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * @return the previous value
      * @since 1.8
      */
+    // 将给定函数应用于当前值，给定值的结果以原子方式更新当前值, 并返回旧值
     public final int getAndAccumulate(int x,
                                       IntBinaryOperator accumulatorFunction) {
         int prev, next;
@@ -305,6 +306,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * @return the updated value
      * @since 1.8
      */
+    // 将给定函数应用于当前值，给定值的结果以原子方式更新当前值, 并返回新值
     public final int accumulateAndGet(int x,
                                       IntBinaryOperator accumulatorFunction) {
         int prev, next;
