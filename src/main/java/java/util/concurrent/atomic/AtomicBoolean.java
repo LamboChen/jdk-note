@@ -34,6 +34,7 @@
  */
 
 package java.util.concurrent.atomic;
+
 import sun.misc.Unsafe;
 
 /**
@@ -44,8 +45,8 @@ import sun.misc.Unsafe;
  * updated flags, and cannot be used as a replacement for a
  * {@link java.lang.Boolean}.
  *
- * @since 1.5
  * @author Doug Lea
+ * @since 1.5
  */
 public class AtomicBoolean implements java.io.Serializable {
     private static final long serialVersionUID = 4654671469794556979L;
@@ -56,10 +57,14 @@ public class AtomicBoolean implements java.io.Serializable {
     static {
         try {
             valueOffset = unsafe.objectFieldOffset
-                (AtomicBoolean.class.getDeclaredField("value"));
-        } catch (Exception ex) { throw new Error(ex); }
+                    (AtomicBoolean.class.getDeclaredField("value"));
+        } catch (Exception ex) {
+            throw new Error(ex);
+        }
     }
 
+    // 存放具体值 1：true, 0:false
+    // volatile 刷新内存可见行
     private volatile int value;
 
     /**
@@ -95,6 +100,8 @@ public class AtomicBoolean implements java.io.Serializable {
      * @return {@code true} if successful. False return indicates that
      * the actual value was not equal to the expected value.
      */
+    // 比较并设置， expect 预期的值，update 欲更新的值
+    // 当与 expect 相等的时候则进行设置为 update 值
     public final boolean compareAndSet(boolean expect, boolean update) {
         int e = expect ? 1 : 0;
         int u = update ? 1 : 0;
@@ -134,6 +141,7 @@ public class AtomicBoolean implements java.io.Serializable {
      * @param newValue the new value
      * @since 1.6
      */
+    // 最终设置为给定值。
     public final void lazySet(boolean newValue) {
         int v = newValue ? 1 : 0;
         unsafe.putOrderedInt(this, valueOffset, v);
@@ -145,6 +153,7 @@ public class AtomicBoolean implements java.io.Serializable {
      * @param newValue the new value
      * @return the previous value
      */
+    // 获取旧值并设置新值
     public final boolean getAndSet(boolean newValue) {
         boolean prev;
         do {
@@ -155,6 +164,7 @@ public class AtomicBoolean implements java.io.Serializable {
 
     /**
      * Returns the String representation of the current value.
+     *
      * @return the String representation of the current value
      */
     public String toString() {
