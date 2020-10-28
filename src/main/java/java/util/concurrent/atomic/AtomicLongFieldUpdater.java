@@ -67,6 +67,7 @@ import sun.reflect.Reflection;
  * @author Doug Lea
  * @since 1.5
  */
+// 提供原子操作的 long field updater
 public abstract class AtomicLongFieldUpdater<T> {
     /**
      * Creates and returns an updater for objects with the given field.
