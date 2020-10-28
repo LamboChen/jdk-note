@@ -74,6 +74,8 @@ import java.util.function.Consumer;
  * @author Doug Lea
  * @since 1.6
  */
+// 链表实现的阻塞双端队列
+// 阻塞主要是进行元素操作过程中都会添加锁
 public class LinkedBlockingDeque<E>
         extends AbstractQueue<E>
         implements BlockingDeque<E>, java.io.Serializable {

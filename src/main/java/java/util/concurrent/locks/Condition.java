@@ -176,6 +176,7 @@ import java.util.Date;
  * @since 1.5
  * @author Doug Lea
  */
+// 条件接口
 public interface Condition {
 
     /**
@@ -265,6 +266,7 @@ public interface Condition {
      * thrown (such as {@link IllegalMonitorStateException}) and the
      * implementation must document that fact.
      */
+    // 使当前线程等待，直到发出信号
     void awaitUninterruptibly();
 
     /**
@@ -356,6 +358,7 @@ public interface Condition {
      * @throws InterruptedException if the current thread is interrupted
      *         (and interruption of thread suspension is supported)
      */
+    // 等待，timeout 指定超时时间
     long awaitNanos(long nanosTimeout) throws InterruptedException;
 
     /**
@@ -371,6 +374,7 @@ public interface Condition {
      * @throws InterruptedException if the current thread is interrupted
      *         (and interruption of thread suspension is supported)
      */
+    // 线程等待，time 指定超时时间，unit 指定时间单位
     boolean await(long time, TimeUnit unit) throws InterruptedException;
 
     /**
@@ -448,6 +452,7 @@ public interface Condition {
      * @throws InterruptedException if the current thread is interrupted
      *         (and interruption of thread suspension is supported)
      */
+    // 等待，deadline
     boolean awaitUntil(Date deadline) throws InterruptedException;
 
     /**
@@ -485,5 +490,6 @@ public interface Condition {
      * not held. Typically, an exception such as {@link
      * IllegalMonitorStateException} will be thrown.
      */
+    // 唤醒所有等待的线程。
     void signalAll();
 }
