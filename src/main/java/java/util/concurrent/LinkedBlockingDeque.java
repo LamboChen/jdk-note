@@ -328,15 +328,18 @@ public class LinkedBlockingDeque<E>
     /**
      * Removes and returns last element, or null if empty.
      */
+    // 移除 last node
     private E unlinkLast() {
         // assert lock.isHeldByCurrentThread();
         Node<E> l = last;
         if (l == null)
             return null;
+        // 获取 last 上一个节点
         Node<E> p = l.prev;
         E item = l.item;
         l.item = null;
         l.prev = l; // help GC
+        // 赋值新 last
         last = p;
         if (p == null)
             first = null;
@@ -350,6 +353,7 @@ public class LinkedBlockingDeque<E>
     /**
      * Unlinks x.
      */
+    // 移除 x 节点
     void unlink(Node<E> x) {
         // assert lock.isHeldByCurrentThread();
         Node<E> p = x.prev;
@@ -375,6 +379,7 @@ public class LinkedBlockingDeque<E>
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException  {@inheritDoc}
      */
+    // 添加元素到 first 位置
     public void addFirst(E e) {
         if (!offerFirst(e))
             throw new IllegalStateException("Deque full");
@@ -384,6 +389,7 @@ public class LinkedBlockingDeque<E>
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException  {@inheritDoc}
      */
+    // 添加元素到 last
     public void addLast(E e) {
         if (!offerLast(e))
             throw new IllegalStateException("Deque full");
@@ -392,14 +398,20 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    // 在 first 节点前添加新节点，返回操作结果
     public boolean offerFirst(E e) {
+        // 参数不能为 null
         if (e == null) throw new NullPointerException();
+        // 封装节点
         Node<E> node = new Node<E>(e);
         final ReentrantLock lock = this.lock;
+        // 加锁
         lock.lock();
         try {
+            // 在 first 前添加 node
             return linkFirst(node);
         } finally {
+            // 释放锁
             lock.unlock();
         }
     }
@@ -407,6 +419,7 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    // 在 last 后添加新节点
     public boolean offerLast(E e) {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
@@ -423,6 +436,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException {@inheritDoc}
      * @throws InterruptedException {@inheritDoc}
      */
+    // 在 first 位置添加元素，不返回任何信息
     public void putFirst(E e) throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
@@ -440,6 +454,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException {@inheritDoc}
      * @throws InterruptedException {@inheritDoc}
      */
+    // last 后添加
     public void putLast(E e) throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
@@ -457,14 +472,19 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException {@inheritDoc}
      * @throws InterruptedException {@inheritDoc}
      */
+    // first 前添加节点，timeout：超时时间 unit:时间单位
     public boolean offerFirst(E e, long timeout, TimeUnit unit)
             throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
+        // 获取纳秒时间
         long nanos = unit.toNanos(timeout);
         final ReentrantLock lock = this.lock;
+        // 加锁
         lock.lockInterruptibly();
         try {
+            // 添加 node
+            // 循环的原因的可能会有锁等待，每一次循环都需要进行检查 timeout
             while (!linkFirst(node)) {
                 if (nanos <= 0)
                     return false;
@@ -472,6 +492,7 @@ public class LinkedBlockingDeque<E>
             }
             return true;
         } finally {
+            // 释放锁
             lock.unlock();
         }
     }
@@ -480,6 +501,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException {@inheritDoc}
      * @throws InterruptedException {@inheritDoc}
      */
+    // last 后添加节点
     public boolean offerLast(E e, long timeout, TimeUnit unit)
             throws InterruptedException {
         if (e == null) throw new NullPointerException();
@@ -502,7 +524,9 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // 移除 first，如果节点不存在，则抛出异常
     public E removeFirst() {
+        //
         E x = pollFirst();
         if (x == null) throw new NoSuchElementException();
         return x;
@@ -511,14 +535,17 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // 移除 last，null 则抛出异常
     public E removeLast() {
         E x = pollLast();
         if (x == null) throw new NoSuchElementException();
         return x;
     }
 
+    // 移除 first，并返回 node 元素值。 不抛出异常
     public E pollFirst() {
         final ReentrantLock lock = this.lock;
+        // 加锁
         lock.lock();
         try {
             return unlinkFirst();
@@ -527,6 +554,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
+    // 移除 last，并返回 node 元素值。不抛出异常
     public E pollLast() {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -537,6 +565,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
+    // 移除 first 节点。此方法会一直循环等待，直到成功移除
     public E takeFirst() throws InterruptedException {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -550,6 +579,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
+    // 移除 last 节点。此方法会一直循环等待，直到成功移除
     public E takeLast() throws InterruptedException {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -563,6 +593,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
+    // 移除 first，并返回元素节点。 timeout 指定超时时间
     public E pollFirst(long timeout, TimeUnit unit)
             throws InterruptedException {
         long nanos = unit.toNanos(timeout);
@@ -581,6 +612,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
+    // 移除 last，并返回元素节点。timeout 指定超时时间
     public E pollLast(long timeout, TimeUnit unit)
             throws InterruptedException {
         long nanos = unit.toNanos(timeout);
@@ -602,7 +634,9 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // 获取 first 元素值，不移除节点，如果没有元素则抛出异常
     public E getFirst() {
+        // 获取 first 节点
         E x = peekFirst();
         if (x == null) throw new NoSuchElementException();
         return x;
@@ -611,12 +645,14 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // 获取 last 元素值，不移除节点，如果没有元素则抛出异常
     public E getLast() {
         E x = peekLast();
         if (x == null) throw new NoSuchElementException();
         return x;
     }
 
+    // 获取 first 元素值
     public E peekFirst() {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -627,6 +663,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
+    // 获取 last 元素值
     public E peekLast() {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -637,11 +674,15 @@ public class LinkedBlockingDeque<E>
         }
     }
 
+    // 移除与 o 元素值相等的第一个节点
     public boolean removeFirstOccurrence(Object o) {
+        // 参数 o 不能为空，因为 deque 不允许空值
         if (o == null) return false;
         final ReentrantLock lock = this.lock;
+        // 加锁
         lock.lock();
         try {
+            // 遍历 deque，查找与 o 元素值相等的 node，然后进行 unlink
             for (Node<E> p = first; p != null; p = p.next) {
                 if (o.equals(p.item)) {
                     unlink(p);
@@ -654,6 +695,7 @@ public class LinkedBlockingDeque<E>
         }
     }
 
+    // 移除与 o 元素值相等的最后一个节点
     public boolean removeLastOccurrence(Object o) {
         if (o == null) return false;
         final ReentrantLock lock = this.lock;
@@ -683,7 +725,9 @@ public class LinkedBlockingDeque<E>
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException  if the specified element is null
      */
+    // 往 deque 中添加元素
     public boolean add(E e) {
+        // 往尾部添加元素
         addLast(e);
         return true;
     }
@@ -691,6 +735,7 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NullPointerException if the specified element is null
      */
+    // 享 deque 添加元素
     public boolean offer(E e) {
         return offerLast(e);
     }
@@ -699,6 +744,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException {@inheritDoc}
      * @throws InterruptedException {@inheritDoc}
      */
+    // 向 last 添加元素
     public void put(E e) throws InterruptedException {
         putLast(e);
     }
@@ -707,6 +753,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException {@inheritDoc}
      * @throws InterruptedException {@inheritDoc}
      */
+    // last 后添加节点，timeout 指定超时时间
     public boolean offer(E e, long timeout, TimeUnit unit)
             throws InterruptedException {
         return offerLast(e, timeout, unit);
@@ -722,18 +769,22 @@ public class LinkedBlockingDeque<E>
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
+    // 移除 first
     public E remove() {
         return removeFirst();
     }
 
+    // 获取 first 节点元素值，并移除节点
     public E poll() {
         return pollFirst();
     }
 
+    // 获取 first 节点元素之，并移除节点
     public E take() throws InterruptedException {
         return takeFirst();
     }
 
+    // 带超时时间的移除
     public E poll(long timeout, TimeUnit unit) throws InterruptedException {
         return pollFirst(timeout, unit);
     }
@@ -748,6 +799,7 @@ public class LinkedBlockingDeque<E>
      * @return the head of the queue represented by this deque
      * @throws NoSuchElementException if this deque is empty
      */
+    // 获取元素值，不移除节点
     public E element() {
         return getFirst();
     }
@@ -767,6 +819,7 @@ public class LinkedBlockingDeque<E>
      * because it may be the case that another thread is about to
      * insert or remove an element.
      */
+    // 获取剩余空间
     public int remainingCapacity() {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -783,6 +836,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
+    // 将 deque 所有元素 push 到 c 中
     public int drainTo(Collection<? super E> c) {
         return drainTo(c, Integer.MAX_VALUE);
     }
@@ -793,6 +847,7 @@ public class LinkedBlockingDeque<E>
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
+    // 将 deque 的 maxElements 个元素 push 到 c 中
     public int drainTo(Collection<? super E> c, int maxElements) {
         if (c == null)
             throw new NullPointerException();
@@ -804,6 +859,7 @@ public class LinkedBlockingDeque<E>
         lock.lock();
         try {
             int n = Math.min(maxElements, count);
+            // 遍历 deque，获取所有节点元素值添加进 c，然后移除节点
             for (int i = 0; i < n; i++) {
                 c.add(first.item);   // In this order, in case add() throws.
                 unlinkFirst();
@@ -815,11 +871,13 @@ public class LinkedBlockingDeque<E>
     }
 
     // Stack methods
+    // 实现 stack 方法
 
     /**
      * @throws IllegalStateException if this deque is full
      * @throws NullPointerException  {@inheritDoc}
      */
+    // push, 往 first 添加元素
     public void push(E e) {
         addFirst(e);
     }
@@ -827,6 +885,7 @@ public class LinkedBlockingDeque<E>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    // pop，移除 first 元素
     public E pop() {
         return removeFirst();
     }
@@ -856,6 +915,7 @@ public class LinkedBlockingDeque<E>
      *
      * @return the number of elements in this deque
      */
+    // 获取 deque 元素个数
     public int size() {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -874,11 +934,13 @@ public class LinkedBlockingDeque<E>
      * @param o object to be checked for containment in this deque
      * @return {@code true} if this deque contains the specified element
      */
+    // check 是否包含元素值与 o 相等元素
     public boolean contains(Object o) {
         if (o == null) return false;
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
+            // 遍历，进行逐一比较
             for (Node<E> p = first; p != null; p = p.next)
                 if (o.equals(p.item))
                     return true;
@@ -997,11 +1059,13 @@ public class LinkedBlockingDeque<E>
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
+            // 容量检查，不足则进行扩容
             if (a.length < count)
                 a = (T[]) java.lang.reflect.Array.newInstance
                         (a.getClass().getComponentType(), count);
 
             int k = 0;
+            // 遍历 deque，获取元素值到 a 中。此处仅仅获取值，不进行节点移除
             for (Node<E> p = first; p != null; p = p.next)
                 a[k++] = (T) p.item;
             if (a.length > k)
