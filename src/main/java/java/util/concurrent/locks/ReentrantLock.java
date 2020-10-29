@@ -117,6 +117,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * into fair and nonfair versions below. Uses AQS state to
      * represent the number of holds on the lock.
      */
+    // 此锁的同步控制基础
     abstract static class Sync extends AbstractQueuedSynchronizer {
         private static final long serialVersionUID = -5179523762034025860L;
 
@@ -198,6 +199,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
     /**
      * Sync object for non-fair locks
      */
+    // 非公平锁
     static final class NonfairSync extends Sync {
         private static final long serialVersionUID = 7316153563782823691L;
 
@@ -220,6 +222,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
     /**
      * Sync object for fair locks
      */
+    // 公平锁
     static final class FairSync extends Sync {
         private static final long serialVersionUID = -3000897897090466540L;
 
@@ -255,6 +258,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * Creates an instance of {@code ReentrantLock}.
      * This is equivalent to using {@code ReentrantLock(false)}.
      */
+    // 默认为非公平锁
     public ReentrantLock() {
         sync = new NonfairSync();
     }
@@ -283,6 +287,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * purposes and lies dormant until the lock has been acquired,
      * at which time the lock hold count is set to one.
      */
+    // 获取锁
     public void lock() {
         sync.lock();
     }
@@ -333,6 +338,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @throws InterruptedException if the current thread is interrupted
      */
+    // 获取锁，除非当前线程被中断
     public void lockInterruptibly() throws InterruptedException {
         sync.acquireInterruptibly(1);
     }
@@ -363,6 +369,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * current thread, or the lock was already held by the current
      * thread; and {@code false} otherwise
      */
+    // 尝试获取锁
     public boolean tryLock() {
         return sync.nonfairTryAcquire(1);
     }
@@ -439,6 +446,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * @throws InterruptedException if the current thread is interrupted
      * @throws NullPointerException if the time unit is null
      */
+    // 尝试获取锁，指定超时时间
     public boolean tryLock(long timeout, TimeUnit unit)
             throws InterruptedException {
         return sync.tryAcquireNanos(1, unit.toNanos(timeout));
@@ -455,6 +463,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * @throws IllegalMonitorStateException if the current thread does not
      *                                      hold this lock
      */
+    // 释放锁
     public void unlock() {
         sync.release(1);
     }
@@ -498,6 +507,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @return the Condition object
      */
+    // 获取条件对象
     public Condition newCondition() {
         return sync.newCondition();
     }
@@ -588,6 +598,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * @return {@code true} if any thread holds this lock and
      * {@code false} otherwise
      */
+    // 是否 lock
     public boolean isLocked() {
         return sync.isLocked();
     }
