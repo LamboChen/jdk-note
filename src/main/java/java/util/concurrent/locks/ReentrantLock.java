@@ -702,6 +702,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *                                      not associated with this lock
      * @throws NullPointerException         if the condition is null
      */
+    // 是否有等待的线程
     public boolean hasWaiters(Condition condition) {
         if (condition == null)
             throw new NullPointerException();
