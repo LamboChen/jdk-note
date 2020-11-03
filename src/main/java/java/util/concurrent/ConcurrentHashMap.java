@@ -829,6 +829,7 @@ public class ConcurrentHashMap<K, V> extends AbstractMap<K, V>
      * creation, or 0 for default. After initialization, holds the
      * next element count value upon which to resize the table.
      */
+    // 表初始化和调整大小控件
     private transient volatile int sizeCtl;
 
     /**
@@ -1062,8 +1063,8 @@ public class ConcurrentHashMap<K, V> extends AbstractMap<K, V>
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
             else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
-                if (casTabAt(tab, i, null,
-                        new Node<K, V>(hash, key, value, null)))
+                // put 操作
+                if (casTabAt(tab, i, null, new Node<K, V>(hash, key, value, null)))
                     break;                   // no lock when adding to empty bin
             } else if ((fh = f.hash) == MOVED)
                 tab = helpTransfer(tab, f);
@@ -2265,6 +2266,7 @@ public class ConcurrentHashMap<K, V> extends AbstractMap<K, V>
     /**
      * Initializes table, using the size recorded in sizeCtl.
      */
+    // 初始化 hash 表
     private final Node<K, V>[] initTable() {
         Node<K, V>[] tab;
         int sc;
@@ -2343,6 +2345,7 @@ public class ConcurrentHashMap<K, V> extends AbstractMap<K, V>
     /**
      * Helps transfer if a resize is in progress.
      */
+    // 如果正在调整大小，则有助于传输。
     final Node<K, V>[] helpTransfer(Node<K, V>[] tab, Node<K, V> f) {
         Node<K, V>[] nextTab;
         int sc;
