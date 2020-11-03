@@ -44,8 +44,7 @@ package java.lang.reflect;
  * of instances of classes implementing this interface.
  *
  * @param <D> the type of generic declaration that declared the
- * underlying type variable.
- *
+ *            underlying type variable.
  * @since 1.5
  */
 public interface TypeVariable<D extends GenericDeclaration> extends Type, AnnotatedElement {
@@ -60,14 +59,14 @@ public interface TypeVariable<D extends GenericDeclaration> extends Type, Annota
      * details of the creation process for parameterized types).
      * <li>Otherwise, B is resolved.  </ul>
      *
-     * @throws TypeNotPresentException  if any of the
-     *     bounds refers to a non-existent type declaration
-     * @throws MalformedParameterizedTypeException if any of the
-     *     bounds refer to a parameterized type that cannot be instantiated
-     *     for any reason
      * @return an array of {@code Type}s representing the upper
-     *     bound(s) of this type variable
-    */
+     * bound(s) of this type variable
+     * @throws TypeNotPresentException             if any of the
+     *                                             bounds refers to a non-existent type declaration
+     * @throws MalformedParameterizedTypeException if any of the
+     *                                             bounds refer to a parameterized type that cannot be instantiated
+     *                                             for any reason
+     */
     Type[] getBounds();
 
     /**
@@ -75,7 +74,6 @@ public interface TypeVariable<D extends GenericDeclaration> extends Type, Annota
      * generic declaration declared this type variable.
      *
      * @return the generic declaration declared for this type variable.
-     *
      * @since 1.5
      */
     D getGenericDeclaration();
@@ -92,11 +90,11 @@ public interface TypeVariable<D extends GenericDeclaration> extends Type, Annota
      * types to denote the upper bounds of the type parameter represented by
      * this TypeVariable. The order of the objects in the array corresponds to
      * the order of the bounds in the declaration of the type parameter.
-     *
+     * <p>
      * Returns an array of length 0 if the type parameter declares no bounds.
      *
      * @return an array of objects representing the upper bounds of the type variable
      * @since 1.8
      */
-     AnnotatedType[] getAnnotatedBounds();
+    AnnotatedType[] getAnnotatedBounds();
 }

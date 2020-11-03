@@ -29,12 +29,11 @@ package java.lang.reflect;
  * Member is an interface that reflects identifying information about
  * a single member (a field or a method) or a constructor.
  *
+ * @author Nakul Saraiya
  * @see java.lang.Class
  * @see Field
  * @see Method
  * @see Constructor
- *
- * @author Nakul Saraiya
  */
 public
 interface Member {
@@ -58,6 +57,7 @@ interface Member {
      * @return an object representing the declaring class of the
      * underlying member
      */
+    // 获取 Class
     public Class<?> getDeclaringClass();
 
     /**
@@ -66,6 +66,7 @@ interface Member {
      *
      * @return the simple name of the underlying member
      */
+    // 获取名称
     public String getName();
 
     /**
@@ -77,6 +78,7 @@ interface Member {
      * @return the Java language modifiers for the underlying member
      * @see Modifier
      */
+    // 获取修饰语
     public int getModifiers();
 
     /**
@@ -88,5 +90,6 @@ interface Member {
      * @jls 13.1 The Form of a Binary
      * @since 1.5
      */
+    // 是否是合成的？？
     public boolean isSynthetic();
 }

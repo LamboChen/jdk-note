@@ -30,6 +30,7 @@ package java.lang.reflect;
  *
  * @since 1.5
  */
+// 通用定义
 public interface GenericDeclaration extends AnnotatedElement {
     /**
      * Returns an array of {@code TypeVariable} objects that
@@ -39,11 +40,12 @@ public interface GenericDeclaration extends AnnotatedElement {
      * the underlying generic declaration declares no type variables.
      *
      * @return an array of {@code TypeVariable} objects that represent
-     *     the type variables declared by this generic declaration
+     * the type variables declared by this generic declaration
      * @throws GenericSignatureFormatError if the generic
-     *     signature of this generic declaration does not conform to
-     *     the format specified in
-     *     <cite>The Java&trade; Virtual Machine Specification</cite>
+     *                                     signature of this generic declaration does not conform to
+     *                                     the format specified in
+     *                                     <cite>The Java&trade; Virtual Machine Specification</cite>
      */
+    // 获取类型参数
     public TypeVariable<?>[] getTypeParameters();
 }

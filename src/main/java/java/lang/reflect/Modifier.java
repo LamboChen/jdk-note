@@ -339,7 +339,9 @@ public class Modifier {
     static final int BRIDGE    = 0x00000040;
     static final int VARARGS   = 0x00000080;
     static final int SYNTHETIC = 0x00001000;
+    // 注解
     static final int ANNOTATION  = 0x00002000;
+    // 枚举
     static final int ENUM      = 0x00004000;
     static final int MANDATED  = 0x00008000;
     static boolean isSynthetic(int mod) {

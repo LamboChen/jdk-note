@@ -34,6 +34,7 @@ package java.lang.reflect;
  *
  * @since 1.5
  */
+// 畸形、不正确的参数类型 异常
 public class MalformedParameterizedTypeException extends RuntimeException {
     private static final long serialVersionUID = -5696557788586220964L;
 }

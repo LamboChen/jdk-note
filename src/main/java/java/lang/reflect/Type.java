@@ -32,6 +32,7 @@ package java.lang.reflect;
  *
  * @since 1.5
  */
+// Type是Java中所有类型的通用超接口
 public interface Type {
     /**
      * Returns a string describing this type, including information
@@ -42,6 +43,7 @@ public interface Type {
      * @return a string describing this type
      * @since 1.8
      */
+    // 获取类型名称
     default String getTypeName() {
         return toString();
     }
