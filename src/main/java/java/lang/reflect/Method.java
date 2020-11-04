@@ -58,23 +58,36 @@ import java.nio.ByteBuffer;
  * @see java.lang.Class#getDeclaredMethods()
  * @see java.lang.Class#getDeclaredMethod(String, Class[])
  */
+// 方法
 public final class Method extends Executable {
+    // 所属类
     private Class<?> clazz;
+    // 槽位
     private int slot;
     // This is guaranteed to be interned by the VM in the 1.4
     // reflection implementation
+    // 方法名
     private String name;
+    // 返回值类型
     private Class<?> returnType;
+    // 参数类型数组
     private Class<?>[] parameterTypes;
+    // 异常类型
     private Class<?>[] exceptionTypes;
+    // 修饰语
     private int modifiers;
     // Generics and annotations support
+    // 签名
     private transient String signature;
     // generic info repository; lazily initialized
     private transient MethodRepository genericInfo;
+    // 注解
     private byte[] annotations;
+    // 参数注解
     private byte[] parameterAnnotations;
+    // 默认注解
     private byte[] annotationDefault;
+    // 方法访问器
     private volatile MethodAccessor methodAccessor;
     // For sharing of MethodAccessors. This branching structure is
     // currently only two levels deep (i.e., one root Method and
@@ -85,11 +98,13 @@ public final class Method extends Executable {
     private Method root;
 
     // Generics infrastructure
+    // 获取通用签名
     private String getGenericSignature() {
         return signature;
     }
 
     // Accessor for factory
+    // 获取工厂访问器
     private GenericsFactory getFactory() {
         // create scope and factory
         return CoreReflectionFactory.make(this, MethodScope.make(this));
@@ -254,8 +269,10 @@ public final class Method extends Executable {
      */
     public Type getGenericReturnType() {
         if (getGenericSignature() != null) {
+            // 通用签名不为空，则返回通用签名的放回值类型
             return getGenericInfo().getReturnType();
         } else {
+            // 直接返回放回值类型
             return getReturnType();
         }
     }
