@@ -35,6 +35,7 @@ package java.lang.reflect;
  * @see Method
  * @see Constructor
  */
+// 成员。反射的通用接口
 public
 interface Member {
 
