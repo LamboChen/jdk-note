@@ -80,8 +80,10 @@ class Field extends AccessibleObject implements Member {
     private transient FieldRepository genericInfo;
     private byte[] annotations;
     // Cached field accessor created without override
+    // 非重写字段
     private FieldAccessor fieldAccessor;
     // Cached field accessor created with override
+    // 重写字段
     private FieldAccessor overrideFieldAccessor;
     // For sharing of FieldAccessors. This branching structure is
     // currently only two levels deep (i.e., one root Field and
@@ -393,6 +395,7 @@ class Field extends AccessibleObject implements Member {
      * @throws ExceptionInInitializerError if the initialization provoked
      *                                     by this method fails.
      */
+    // 返回此字段表示的字段的值
     @CallerSensitive
     public Object get(Object obj)
             throws IllegalArgumentException, IllegalAccessException {
@@ -1039,6 +1042,7 @@ class Field extends AccessibleObject implements Member {
     }
 
     // security check is done before calling this method
+    // 安全检查在调用此方法之前完成
     private FieldAccessor getFieldAccessor(Object obj)
             throws IllegalAccessException {
         boolean ov = override;

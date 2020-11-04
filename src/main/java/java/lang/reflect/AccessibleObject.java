@@ -166,6 +166,7 @@ public class AccessibleObject implements AnnotatedElement {
     //
     // NOTE: for security purposes, this field must not be visible
     // outside this package.
+    // 是否重写
     boolean override;
 
     // Reflection factory used by subclasses for creating field,
