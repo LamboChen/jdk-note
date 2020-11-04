@@ -40,6 +40,7 @@ import sun.reflect.generics.repository.ConstructorRepository;
  *
  * @since 1.8
  */
+// 可执行的
 public abstract class Executable extends AccessibleObject
     implements Member, GenericDeclaration {
     /*
@@ -200,17 +201,20 @@ public abstract class Executable extends AccessibleObject
      * Returns the {@code Class} object representing the class or interface
      * that declares the executable represented by this object.
      */
+    // 获取类对象
     public abstract Class<?> getDeclaringClass();
 
     /**
      * Returns the name of the executable represented by this object.
      */
+    // 获取方法名
     public abstract String getName();
 
     /**
      * Returns the Java language {@linkplain Modifier modifiers} for
      * the executable represented by this object.
      */
+    // 获取修饰
     public abstract int getModifiers();
 
     /**

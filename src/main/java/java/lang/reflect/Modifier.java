@@ -339,6 +339,7 @@ public class Modifier {
     // they are not Java programming language keywords
     static final int BRIDGE = 0x00000040;
 
+    // 变量
     static final int VARARGS = 0x00000080;
     // 合成
     static final int SYNTHETIC = 0x00001000;
