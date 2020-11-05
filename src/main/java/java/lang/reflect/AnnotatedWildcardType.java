@@ -39,6 +39,7 @@ public interface AnnotatedWildcardType extends AnnotatedType {
      *
      * @return the potentially annotated lower bounds of this wildcard type
      */
+    // 下边界
     AnnotatedType[] getAnnotatedLowerBounds();
 
     /**
@@ -46,5 +47,6 @@ public interface AnnotatedWildcardType extends AnnotatedType {
      *
      * @return the potentially annotated upper bounds of this wildcard type
      */
+    // 上边界
     AnnotatedType[] getAnnotatedUpperBounds();
 }

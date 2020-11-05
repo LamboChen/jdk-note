@@ -33,6 +33,7 @@ package java.lang.reflect;
  *
  * @since 1.8
  */
+// 带注解的类型
 public interface AnnotatedType extends AnnotatedElement {
 
     /**

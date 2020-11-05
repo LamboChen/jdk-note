@@ -39,5 +39,6 @@ public interface AnnotatedTypeVariable extends AnnotatedType {
      *
      * @return the potentially annotated bounds of this type variable
      */
+    // 获取被注解的界限
     AnnotatedType[] getAnnotatedBounds();
 }

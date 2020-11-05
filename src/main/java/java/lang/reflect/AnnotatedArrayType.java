@@ -33,6 +33,7 @@ package java.lang.reflect;
  *
  * @since 1.8
  */
+// 带注解的数组类型
 public interface AnnotatedArrayType extends AnnotatedType {
 
     /**
@@ -40,5 +41,5 @@ public interface AnnotatedArrayType extends AnnotatedType {
      *
      * @return the potentially annotated generic component type of this array type
      */
-    AnnotatedType  getAnnotatedGenericComponentType();
+    AnnotatedType getAnnotatedGenericComponentType();
 }
