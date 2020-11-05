@@ -34,6 +34,7 @@ import sun.reflect.generics.repository.ConstructorRepository;
 import sun.reflect.generics.factory.CoreReflectionFactory;
 import sun.reflect.generics.factory.GenericsFactory;
 import sun.reflect.generics.scope.ConstructorScope;
+
 import java.lang.annotation.Annotation;
 import java.lang.annotation.AnnotationFormatError;
 
@@ -47,28 +48,28 @@ import java.lang.annotation.AnnotationFormatError;
  * {@code IllegalArgumentException} if a narrowing conversion would occur.
  *
  * @param <T> the class in which the constructor is declared
- *
+ * @author Kenneth Russell
+ * @author Nakul Saraiya
  * @see Member
  * @see java.lang.Class
  * @see java.lang.Class#getConstructors()
  * @see java.lang.Class#getConstructor(Class[])
  * @see java.lang.Class#getDeclaredConstructors()
- *
- * @author      Kenneth Russell
- * @author      Nakul Saraiya
  */
+// 构造器
 public final class Constructor<T> extends Executable {
-    private Class<T>            clazz;
-    private int                 slot;
-    private Class<?>[]          parameterTypes;
-    private Class<?>[]          exceptionTypes;
-    private int                 modifiers;
+    // 所属类
+    private Class<T> clazz;
+    private int slot;
+    private Class<?>[] parameterTypes;
+    private Class<?>[] exceptionTypes;
+    private int modifiers;
     // Generics and annotations support
-    private transient String    signature;
+    private transient String signature;
     // generic info repository; lazily initialized
     private transient ConstructorRepository genericInfo;
-    private byte[]              annotations;
-    private byte[]              parameterAnnotations;
+    private byte[] annotations;
+    private byte[] parameterAnnotations;
 
     // Generics infrastructure
     // Accessor for factory
@@ -84,8 +85,8 @@ public final class Constructor<T> extends Executable {
         if (genericInfo == null) {
             // create and cache generic info repository
             genericInfo =
-                ConstructorRepository.make(getSignature(),
-                                           getFactory());
+                    ConstructorRepository.make(getSignature(),
+                            getFactory());
         }
         return genericInfo; //return cached repository
     }
@@ -97,7 +98,7 @@ public final class Constructor<T> extends Executable {
     //
     // If this branching structure would ever contain cycles, deadlocks can
     // occur in annotation code.
-    private Constructor<T>      root;
+    private Constructor<T> root;
 
     /**
      * Used by Excecutable for annotation sharing.
@@ -147,17 +148,18 @@ public final class Constructor<T> extends Executable {
             throw new IllegalArgumentException("Can not copy a non-root Constructor");
 
         Constructor<T> res = new Constructor<>(clazz,
-                                               parameterTypes,
-                                               exceptionTypes, modifiers, slot,
-                                               signature,
-                                               annotations,
-                                               parameterAnnotations);
+                parameterTypes,
+                exceptionTypes, modifiers, slot,
+                signature,
+                annotations,
+                parameterAnnotations);
         res.root = this;
         // Might as well eagerly propagate this if already present
         res.constructorAccessor = constructorAccessor;
         return res;
     }
 
+    // 获取通用信息
     @Override
     boolean hasGenericInformation() {
         return (getSignature() != null);
@@ -195,16 +197,17 @@ public final class Constructor<T> extends Executable {
 
     /**
      * {@inheritDoc}
+     *
      * @throws GenericSignatureFormatError {@inheritDoc}
      * @since 1.5
      */
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
     public TypeVariable<Constructor<T>>[] getTypeParameters() {
-      if (getSignature() != null) {
-        return (TypeVariable<Constructor<T>>[])getGenericInfo().getTypeParameters();
-      } else
-          return (TypeVariable<Constructor<T>>[])new TypeVariable[0];
+        if (getSignature() != null) {
+            return (TypeVariable<Constructor<T>>[]) getGenericInfo().getTypeParameters();
+        } else
+            return (TypeVariable<Constructor<T>>[]) new TypeVariable[0];
     }
 
 
@@ -219,12 +222,16 @@ public final class Constructor<T> extends Executable {
     /**
      * {@inheritDoc}
      */
-    public int getParameterCount() { return parameterTypes.length; }
+    // 获取参数个数
+    public int getParameterCount() {
+        return parameterTypes.length;
+    }
 
     /**
      * {@inheritDoc}
-     * @throws GenericSignatureFormatError {@inheritDoc}
-     * @throws TypeNotPresentException {@inheritDoc}
+     *
+     * @throws GenericSignatureFormatError         {@inheritDoc}
+     * @throws TypeNotPresentException             {@inheritDoc}
      * @throws MalformedParameterizedTypeException {@inheritDoc}
      * @since 1.5
      */
@@ -244,8 +251,9 @@ public final class Constructor<T> extends Executable {
 
     /**
      * {@inheritDoc}
-     * @throws GenericSignatureFormatError {@inheritDoc}
-     * @throws TypeNotPresentException {@inheritDoc}
+     *
+     * @throws GenericSignatureFormatError         {@inheritDoc}
+     * @throws TypeNotPresentException             {@inheritDoc}
      * @throws MalformedParameterizedTypeException {@inheritDoc}
      * @since 1.5
      */
@@ -262,7 +270,7 @@ public final class Constructor<T> extends Executable {
      */
     public boolean equals(Object obj) {
         if (obj != null && obj instanceof Constructor) {
-            Constructor<?> other = (Constructor<?>)obj;
+            Constructor<?> other = (Constructor<?>) obj;
             if (getDeclaringClass() == other.getDeclaringClass()) {
                 return equalParamTypes(parameterTypes, other.parameterTypes);
             }
@@ -299,9 +307,9 @@ public final class Constructor<T> extends Executable {
      */
     public String toString() {
         return sharedToString(Modifier.constructorModifiers(),
-                              false,
-                              parameterTypes,
-                              exceptionTypes);
+                false,
+                parameterTypes,
+                exceptionTypes);
     }
 
     @Override
@@ -317,12 +325,12 @@ public final class Constructor<T> extends Executable {
      * parameters, if any, followed by the fully-qualified name of the
      * declaring class, followed by a parenthesized, comma-separated
      * list of the constructor's generic formal parameter types.
-     *
+     * <p>
      * If this constructor was declared to take a variable number of
      * arguments, instead of denoting the last parameter as
      * "<tt><i>Type</i>[]</tt>", it is denoted as
      * "<tt><i>Type</i>...</tt>".
-     *
+     * <p>
      * A space is used to separate access modifiers from one another
      * and from the type parameters or return type.  If there are no
      * type parameters, the type parameter list is elided; if the type
@@ -339,9 +347,8 @@ public final class Constructor<T> extends Executable {
      *
      * @return a string describing this {@code Constructor},
      * include type parameters
-     *
-     * @since 1.5
      * @jls 8.8.3. Constructor Modifiers
+     * @since 1.5
      */
     @Override
     public String toGenericString() {
@@ -377,35 +384,32 @@ public final class Constructor<T> extends Executable {
      * created and initialized instance.
      *
      * @param initargs array of objects to be passed as arguments to
-     * the constructor call; values of primitive types are wrapped in
-     * a wrapper object of the appropriate type (e.g. a {@code float}
-     * in a {@link java.lang.Float Float})
-     *
+     *                 the constructor call; values of primitive types are wrapped in
+     *                 a wrapper object of the appropriate type (e.g. a {@code float}
+     *                 in a {@link java.lang.Float Float})
      * @return a new object created by calling the constructor
      * this object represents
-     *
-     * @exception IllegalAccessException    if this {@code Constructor} object
-     *              is enforcing Java language access control and the underlying
-     *              constructor is inaccessible.
-     * @exception IllegalArgumentException  if the number of actual
-     *              and formal parameters differ; if an unwrapping
-     *              conversion for primitive arguments fails; or if,
-     *              after possible unwrapping, a parameter value
-     *              cannot be converted to the corresponding formal
-     *              parameter type by a method invocation conversion; if
-     *              this constructor pertains to an enum type.
-     * @exception InstantiationException    if the class that declares the
-     *              underlying constructor represents an abstract class.
-     * @exception InvocationTargetException if the underlying constructor
-     *              throws an exception.
-     * @exception ExceptionInInitializerError if the initialization provoked
-     *              by this method fails.
+     * @throws IllegalAccessException      if this {@code Constructor} object
+     *                                     is enforcing Java language access control and the underlying
+     *                                     constructor is inaccessible.
+     * @throws IllegalArgumentException    if the number of actual
+     *                                     and formal parameters differ; if an unwrapping
+     *                                     conversion for primitive arguments fails; or if,
+     *                                     after possible unwrapping, a parameter value
+     *                                     cannot be converted to the corresponding formal
+     *                                     parameter type by a method invocation conversion; if
+     *                                     this constructor pertains to an enum type.
+     * @throws InstantiationException      if the class that declares the
+     *                                     underlying constructor represents an abstract class.
+     * @throws InvocationTargetException   if the underlying constructor
+     *                                     throws an exception.
+     * @throws ExceptionInInitializerError if the initialization provoked
+     *                                     by this method fails.
      */
     @CallerSensitive
-    public T newInstance(Object ... initargs)
-        throws InstantiationException, IllegalAccessException,
-               IllegalArgumentException, InvocationTargetException
-    {
+    public T newInstance(Object... initargs)
+            throws InstantiationException, IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException {
         if (!override) {
             if (!Reflection.quickCheckMemberAccess(clazz, modifiers)) {
                 Class<?> caller = Reflection.getCallerClass();
@@ -425,6 +429,7 @@ public final class Constructor<T> extends Executable {
 
     /**
      * {@inheritDoc}
+     *
      * @since 1.5
      */
     @Override
@@ -434,6 +439,7 @@ public final class Constructor<T> extends Executable {
 
     /**
      * {@inheritDoc}
+     *
      * @jls 13.1 The Form of a Binary
      * @since 1.5
      */
@@ -498,7 +504,8 @@ public final class Constructor<T> extends Executable {
 
     /**
      * {@inheritDoc}
-     * @throws NullPointerException  {@inheritDoc}
+     *
+     * @throws NullPointerException {@inheritDoc}
      * @since 1.5
      */
     public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
@@ -507,14 +514,16 @@ public final class Constructor<T> extends Executable {
 
     /**
      * {@inheritDoc}
+     *
      * @since 1.5
      */
-    public Annotation[] getDeclaredAnnotations()  {
+    public Annotation[] getDeclaredAnnotations() {
         return super.getDeclaredAnnotations();
     }
 
     /**
      * {@inheritDoc}
+     *
      * @since 1.5
      */
     @Override
@@ -526,24 +535,25 @@ public final class Constructor<T> extends Executable {
     void handleParameterNumberMismatch(int resultLength, int numParameters) {
         Class<?> declaringClass = getDeclaringClass();
         if (declaringClass.isEnum() ||
-            declaringClass.isAnonymousClass() ||
-            declaringClass.isLocalClass() )
-            return ; // Can't do reliable parameter counting
+                declaringClass.isAnonymousClass() ||
+                declaringClass.isLocalClass())
+            return; // Can't do reliable parameter counting
         else {
             if (!declaringClass.isMemberClass() || // top-level
-                // Check for the enclosing instance parameter for
-                // non-static member classes
-                (declaringClass.isMemberClass() &&
-                 ((declaringClass.getModifiers() & Modifier.STATIC) == 0)  &&
-                 resultLength + 1 != numParameters) ) {
+                    // Check for the enclosing instance parameter for
+                    // non-static member classes
+                    (declaringClass.isMemberClass() &&
+                            ((declaringClass.getModifiers() & Modifier.STATIC) == 0) &&
+                            resultLength + 1 != numParameters)) {
                 throw new AnnotationFormatError(
-                          "Parameter annotations don't match number of parameters");
+                        "Parameter annotations don't match number of parameters");
             }
         }
     }
 
     /**
      * {@inheritDoc}
+     *
      * @since 1.8
      */
     @Override
@@ -553,6 +563,7 @@ public final class Constructor<T> extends Executable {
 
     /**
      * {@inheritDoc}
+     *
      * @since 1.8
      */
     @Override
