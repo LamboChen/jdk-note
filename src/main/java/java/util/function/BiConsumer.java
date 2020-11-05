@@ -52,6 +52,7 @@ public interface BiConsumer<T, U> {
      * @param u the second input argument
      */
     // 消费逻辑
+    // 两个参数，并且无返回值
     void accept(T t, U u);
 
     /**
