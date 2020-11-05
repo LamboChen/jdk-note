@@ -28,36 +28,42 @@ import java.lang.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import sun.reflect.annotation.AnnotationSupport;
 
 /**
  * Information about method parameters.
- *
+ * <p>
  * A {@code Parameter} provides information about method parameters,
  * including its name and modifiers.  It also provides an alternate
  * means of obtaining attributes for the parameter.
  *
  * @since 1.8
  */
+// 参数
 public final class Parameter implements AnnotatedElement {
 
+    // 参数名称
     private final String name;
+    // 修饰语
     private final int modifiers;
+    // 执行器
     private final Executable executable;
+    // 下标，第几个参数
     private final int index;
 
     /**
      * Package-private constructor for {@code Parameter}.
-     *
+     * <p>
      * If method parameter data is present in the classfile, then the
      * JVM creates {@code Parameter} objects directly.  If it is
      * absent, however, then {@code Executable} uses this constructor
      * to synthesize them.
      *
-     * @param name The name of the parameter.
-     * @param modifiers The modifier flags for the parameter.
+     * @param name       The name of the parameter.
+     * @param modifiers  The modifier flags for the parameter.
      * @param executable The executable which defines this parameter.
-     * @param index The index of the parameter.
+     * @param index      The index of the parameter.
      */
     Parameter(String name,
               int modifiers,
@@ -76,8 +82,8 @@ public final class Parameter implements AnnotatedElement {
      * @return Whether or not this is equal to the argument.
      */
     public boolean equals(Object obj) {
-        if(obj instanceof Parameter) {
-            Parameter other = (Parameter)obj;
+        if (obj instanceof Parameter) {
+            Parameter other = (Parameter) obj;
             return (other.executable.equals(executable) &&
                     other.index == index);
         }
@@ -103,6 +109,7 @@ public final class Parameter implements AnnotatedElement {
      * @return true if and only if the parameter has a name according
      * to the class file.
      */
+    // 参数是否为空
     public boolean isNamePresent() {
         return executable.hasRealParameterData() && name != null;
     }
@@ -127,10 +134,10 @@ public final class Parameter implements AnnotatedElement {
 
         sb.append(Modifier.toString(getModifiers()));
 
-        if(0 != modifiers)
+        if (0 != modifiers)
             sb.append(' ');
 
-        if(isVarArgs())
+        if (isVarArgs())
             sb.append(typename.replaceFirst("\\[\\]$", "..."));
         else
             sb.append(typename);
@@ -146,6 +153,7 @@ public final class Parameter implements AnnotatedElement {
      *
      * @return The {@code Executable} declaring this parameter.
      */
+    // 获取执行器
     public Executable getDeclaringExecutable() {
         return executable;
     }
@@ -169,14 +177,15 @@ public final class Parameter implements AnnotatedElement {
      * the parameter.
      *
      * @return The name of the parameter, either provided by the class
-     *         file or synthesized if the class file does not provide
-     *         a name.
+     * file or synthesized if the class file does not provide
+     * a name.
      */
     public String getName() {
         // Note: empty strings as paramete names are now outlawed.
         // The .equals("") is for compatibility with current JVM
         // behavior.  It may be removed at some point.
-        if(name == null || name.equals(""))
+        if (name == null || name.equals(""))
+            // 名称不存在则返回 通用代号
             return "arg" + index;
         else
             return name;
@@ -229,8 +238,8 @@ public final class Parameter implements AnnotatedElement {
      * specify the type of the formal parameter represented by this Parameter.
      *
      * @return an {@code AnnotatedType} object representing the use of a type
-     *         to specify the type of the formal parameter represented by this
-     *         Parameter
+     * to specify the type of the formal parameter represented by this
+     * Parameter
      */
     public AnnotatedType getAnnotatedType() {
         // no caching for now
@@ -247,6 +256,7 @@ public final class Parameter implements AnnotatedElement {
      * declared as defined by <cite>The Java&trade; Language
      * Specification</cite>.
      */
+    // 是否是隐形的，即不可见的
     public boolean isImplicit() {
         return Modifier.isMandated(getModifiers());
     }
@@ -256,10 +266,10 @@ public final class Parameter implements AnnotatedElement {
      * nor explicitly declared in source code; returns {@code false}
      * otherwise.
      *
-     * @jls 13.1 The Form of a Binary
      * @return true if and only if this parameter is a synthetic
      * construct as defined by
      * <cite>The Java&trade; Language Specification</cite>.
+     * @jls 13.1 The Form of a Binary
      */
     public boolean isSynthetic() {
         return Modifier.isSynthetic(getModifiers());
@@ -274,14 +284,16 @@ public final class Parameter implements AnnotatedElement {
      */
     public boolean isVarArgs() {
         return executable.isVarArgs() &&
-            index == executable.getParameterCount() - 1;
+                index == executable.getParameterCount() - 1;
     }
 
 
     /**
      * {@inheritDoc}
+     *
      * @throws NullPointerException {@inheritDoc}
      */
+    // 获取参数的注解
     public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
         Objects.requireNonNull(annotationClass);
         return annotationClass.cast(declaredAnnotations().get(annotationClass));
@@ -289,8 +301,10 @@ public final class Parameter implements AnnotatedElement {
 
     /**
      * {@inheritDoc}
+     *
      * @throws NullPointerException {@inheritDoc}
      */
+    // 根据类型获取参数注解
     @Override
     public <T extends Annotation> T[] getAnnotationsByType(Class<T> annotationClass) {
         Objects.requireNonNull(annotationClass);
@@ -336,14 +350,14 @@ public final class Parameter implements AnnotatedElement {
     private transient Map<Class<? extends Annotation>, Annotation> declaredAnnotations;
 
     private synchronized Map<Class<? extends Annotation>, Annotation> declaredAnnotations() {
-        if(null == declaredAnnotations) {
+        if (null == declaredAnnotations) {
             declaredAnnotations =
-                new HashMap<Class<? extends Annotation>, Annotation>();
+                    new HashMap<Class<? extends Annotation>, Annotation>();
             Annotation[] ann = getDeclaredAnnotations();
-            for(int i = 0; i < ann.length; i++)
+            for (int i = 0; i < ann.length; i++)
                 declaredAnnotations.put(ann[i].annotationType(), ann[i]);
         }
         return declaredAnnotations;
-   }
+    }
 
 }

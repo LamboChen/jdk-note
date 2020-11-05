@@ -428,6 +428,7 @@ public abstract class Executable extends AccessibleObject
         return tmp;
     }
 
+    // 是否有真实参数数据
     boolean hasRealParameterData() {
         // If this somehow gets called before parameters gets
         // initialized, force it into existence.
