@@ -47,6 +47,7 @@ package java.lang.reflect;
  *            underlying type variable.
  * @since 1.5
  */
+// 类型变量
 public interface TypeVariable<D extends GenericDeclaration> extends Type, AnnotatedElement {
     /**
      * Returns an array of {@code Type} objects representing the
@@ -67,6 +68,7 @@ public interface TypeVariable<D extends GenericDeclaration> extends Type, Annota
      *                                             bounds refer to a parameterized type that cannot be instantiated
      *                                             for any reason
      */
+    // 获取边界
     Type[] getBounds();
 
     /**
@@ -76,6 +78,7 @@ public interface TypeVariable<D extends GenericDeclaration> extends Type, Annota
      * @return the generic declaration declared for this type variable.
      * @since 1.5
      */
+    //
     D getGenericDeclaration();
 
     /**
